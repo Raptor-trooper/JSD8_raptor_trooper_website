@@ -1,15 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
     <footer className="bg-[#4a4947] text-white py-10">
       <div className="container mx-auto text-center">
-        <a
-          href="/about"
-          className="text-[24px] underline"
-        >
-          About us
-        </a>
+        <Link to='/aboutus' className="text-[24px] underline">About us</Link>
         <p className="mt-2 text-[24px]  ">
           "Handy haven with love, bringing unique creations to your home."
         </p>

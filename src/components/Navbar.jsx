@@ -2,6 +2,7 @@ import logo from "../assets/logo.svg";
 import search from "../assets/search.svg";
 import login from "../assets/login.svg";
 import cart from "../assets/cart.svg";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -20,7 +21,7 @@ function Navbar() {
 
         <nav>
           <ul className="flex gap-4">
-            <li>All Product</li>
+            <Link to='/homeallproducts'>All Product</Link>
             <li>Hone Decor</li>
             <li>Bath & Body</li>
             <li>Apparel</li>
