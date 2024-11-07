@@ -10,14 +10,14 @@ const Footer = () => {
         >
           About us
         </a>
-        <p className="mt-2 text-[24px] font-mono ">
+        <p className="mt-2 text-[24px]  ">
           "Handy haven with love, bringing unique creations to your home."
         </p>
         <p className="mt-4 text-[24px]">
           JSD 8
         </p>
       </div>
-      <div className="container mx-auto text-right mt-6">
+      <div className="container mx-auto text-right ">
         <p className="text-[16px]">
           © 2024 Handy Haven. All rights reserved.
         </p>
