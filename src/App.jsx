@@ -6,7 +6,12 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div>Hello World</div>
+    <div className='text-red-500' >Hello World
+      <h2>
+        aaaaa
+      </h2>
+    </div>
+    
   )
 }
 
