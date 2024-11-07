@@ -1,12 +1,25 @@
-import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Footer from "./components/Footer"
 
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <div>Hello World</div>
-  )
+    <div className="p-6">
+      <BrowserRouter>
+        <Routes>
+          <Route>
+        
+          </Route>
+        </Routes>
+        <br></br>
+        <br></br>
+        <Footer />
+      </BrowserRouter>
+    </div>
+  );
 }
 
-export default App
+
+
+
