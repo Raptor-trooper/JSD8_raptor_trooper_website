@@ -4,7 +4,7 @@ import Home from './pages/Home'
 import HomeAllProducts from './pages/HomeAllProducts'
 import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
-import CheckOutPage from './components/CheckOutPage'
+import CheckOutPage from './pages/CheckOutPage'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import ChangePassword from './pages/ChangePassword'
@@ -80,6 +80,4 @@ function App() {
   )
 }
 
-
-
-
+export default App
