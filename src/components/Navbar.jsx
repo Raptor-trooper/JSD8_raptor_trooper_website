@@ -11,16 +11,16 @@ function Navbar() {
   return (
     <div className="w-full h-full bg-[#4A4947] text-white ">
       <div className="flex items-center h-fit justify-between px-[32px] py-[16px] relative max-lg:px-[12px]">
-        <div className="flex items-center justify-center max-lg:hidden">
+        <Link className="flex items-center justify-center max-lg:hidden" to="/" >
           <img className="h-[48px]" src={logo} alt="logo" />
-        </div>
-        <div className="flex space-x-2 lg:hidden">
+        </Link>
+        <Link className="flex space-x-2 lg:hidden" to="/">
           <img className="h-[48px]" src={logoIcon} alt="logo-icon" />
           <img className="sm-hidden" src={logoName} alt="handy-heaven" />
-        </div>
+        </Link>
         <nav className="absolute transform -translate-x-1/2 left-1/2 max-md:hidden">
           <ul className="flex items-center space-x-6 text-center">
-            <Link className="hover:underline hover:decoration-solid" to='/homeallproducts'>All Product</Link>
+            <Link className="hover:underline hover:decoration-solid" to="/homeallproducts">All Product</Link>
             <li className="hover:underline hover:decoration-solid">Home Decor</li>
             <li className="hover:underline hover:decoration-solid">Bath & Body</li>
             <li className="hover:underline hover:decoration-solid">Apparel</li>
