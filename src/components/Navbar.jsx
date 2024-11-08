@@ -34,6 +34,7 @@ function Navbar() {
         </div>
         <div className="md:hidden">
           <img src={burger} alt="burger-icon" />
+          <img src={burger} alt="burger-icon" />
         </div>
       </div>
     </div>
