@@ -6,7 +6,7 @@ import Loading from '../components/Loading'
 const HomeAllProducts = () => {
 
     // Get Data Product from DataCategory fetch from folder Context
-    const dataCategory = useContext(DataCategory)
+    const { category } = useContext(DataCategory)
 
     // State for loading...
     const [loading, setLoading] = useState(true);
@@ -42,7 +42,7 @@ const HomeAllProducts = () => {
                 {/* Grid For Products and map DataCategory */}
                 <div className='grid grid-cols-2 gap-8 m-4 md:grid-cols-3 md:mx-[88px]'>
 
-                    {dataCategory.map((product) => (
+                    {category.map((product) => (
                         <Link to={`/productpage/${product.name}`} key={product.id}>
 
                             <div className=" w-full h-auto rounded-b-md shadow-lg hover:scale-105 duration-300">

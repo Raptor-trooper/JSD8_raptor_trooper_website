@@ -3,10 +3,10 @@ import { DataCategory } from '../Context/CategoryProvider'
 import { Link } from 'react-router-dom'
 import Loading from './Loading'
 
-const Products = ({ category }) => {
+const Products = ({ categoryName }) => {
 
     // Get Data Product from DataCategory fetch from floder Context
-    const dataCategory = useContext(DataCategory);
+    const { category } = useContext(DataCategory);
 
     // State for loading...
     const [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ const Products = ({ category }) => {
         }, 1000);
     }, [loading]);
 
-    const products = dataCategory.filter(item => item.category === category);
+    const products = category.filter(item => item.category === categoryName);
 
     return (
         <div>
@@ -27,7 +27,7 @@ const Products = ({ category }) => {
 
                 {/* Header */}
                 <div className='px-[88px] mx-auto'>
-                    <h1 className='mt-16 text-5xl font-bold'> {category} </h1>
+                    <h1 className='mt-16 text-5xl font-bold'> {categoryName} </h1>
                     <p className='my-8'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, unde.</p>
                     <hr />
 

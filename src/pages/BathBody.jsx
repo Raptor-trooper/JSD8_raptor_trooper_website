@@ -3,7 +3,7 @@ import CategoryPage from '../components/CategoryPage'
 
 const BathBody = () => {
     return (
-        <CategoryPage category={"Bath & Body"} />
+        <CategoryPage categoryName={"Bath & Body"} />
     )
 }
 

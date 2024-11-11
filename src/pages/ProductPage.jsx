@@ -4,7 +4,7 @@ import { DataCategory } from '../Context/CategoryProvider';
 
 const ProductPage = () => {
     const { name } = useParams(); // รับ productId จาก URL parameter
-    const dataCategory = useContext(DataCategory);
+    const { category } = useContext(DataCategory);
 
     // สร้าง state สำหรับเก็บข้อมูลสินค้า
     const [product, setProduct] = useState(null);
@@ -12,12 +12,12 @@ const ProductPage = () => {
 
     useEffect(() => {
         // ตรวจสอบว่ามีข้อมูลใน dataCategory หรือไม่
-        if (dataCategory && dataCategory.length > 0) {
+        if (category && category.length > 0) {
             // ค้นหาสินค้าจาก dataCategory ที่มี id ตรงกับ name
-            const foundProduct = dataCategory.find(item => item.name === name);
+            const foundProduct = category.find(item => item.name === name);
             setProduct(foundProduct);
         }
-    }, [name, dataCategory]);
+    }, [name, category]);
 
     if (!product) {
         return <div>Loading...</div>;
@@ -31,6 +31,12 @@ const ProductPage = () => {
             setQuantity(quantity - 1);
         }
     };
+
+    const total = product.price * quantity
+
+    const addToCart = () => {
+        console.log(product);
+    }
 
     return (
         <div className="max-w-screen-xl mx-auto p-8">
@@ -47,7 +53,7 @@ const ProductPage = () => {
                 {/* รายละเอียดสินค้า */}
                 <div className="w-full md:w-1/2">
                     <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
-                    <p className="text-xl mb-4">${product.price}</p>
+                    <p className="text-xl mb-4">${total}</p>
                     <p className="text-lg text-gray-700 mb-8">{product.description}</p>
 
                     {/* ปุ่มเพิ่ม/ลดจำนวนสินค้า */}
@@ -70,7 +76,8 @@ const ProductPage = () => {
                         </div>
                     </div>
 
-                    <button className="w-full py-4 bg-black text-white font-bold rounded-md hover:bg-gray-800 transition">
+                    <button className="w-full py-4 bg-black text-white font-bold rounded-md hover:bg-gray-800 transition"
+                        onClick={() => addToCart()}>
                         Add to Cart
                     </button>
                 </div>
@@ -85,35 +92,44 @@ const ProductPage = () => {
             </div>
 
             {/* สเปคและรายละเอียดเพิ่มเติม */}
-            <div className="mt-8 border-t border-gray-300">
+            <div>
+
                 {/* Specs */}
-                <div className="py-6 border-b border-gray-300">
-                    <h3 className="text-lg font-bold flex items-center justify-between">
-                        Specs
-                        <button className="text-gray-500 text-2xl">+</button>
-                    </h3>
+                <div className="collapse collapse-plus border border-gray-300 rounded-3xl my-1">
+                    <input type="checkbox" />
+                    <div className="collapse-title text-xl font-medium flex justify-between">Specs</div>
+                    <div className="collapse-content">
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem, in.</p>
+                    </div>
                 </div>
+
                 {/* Size & Fit */}
-                <div className="py-6 border-b border-gray-300">
-                    <h3 className="text-lg font-bold flex items-center justify-between">
-                        Size & Fit
-                        <button className="text-gray-500 text-2xl">+</button>
-                    </h3>
+                <div className="collapse collapse-plus border border-gray-300 rounded-3xl my-1">
+                    <input type="checkbox" />
+                    <div className="collapse-title text-xl font-medium flex justify-between">Size & Fit</div>
+                    <div className="collapse-content">
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem, in.</p>
+                    </div>
                 </div>
+
                 {/* Sustainability */}
-                <div className="py-6 border-b border-gray-300">
-                    <h3 className="text-lg font-bold flex items-center justify-between">
-                        Sustainability
-                        <button className="text-gray-500 text-2xl">+</button>
-                    </h3>
+                <div className="collapse collapse-plus border border-gray-300 rounded-3xl my-1">
+                    <input type="checkbox" />
+                    <div className="collapse-title text-xl font-medium flex justify-between">Sustainability</div>
+                    <div className="collapse-content">
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem, in.</p>
+                    </div>
                 </div>
+
                 {/* Shipping */}
-                <div className="py-6">
-                    <h3 className="text-lg font-bold flex items-center justify-between">
-                        Shipping
-                        <button className="text-gray-500 text-2xl">+</button>
-                    </h3>
+                <div className="collapse collapse-plus border border-gray-300 rounded-3xl my-1">
+                    <input type="checkbox" />
+                    <div className="collapse-title text-xl font-medium flex justify-between">Shipping</div>
+                    <div className="collapse-content">
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem, in.</p>
+                    </div>
                 </div>
+
             </div>
         </div>
     );

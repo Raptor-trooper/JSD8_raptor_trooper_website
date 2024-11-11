@@ -3,7 +3,7 @@ import CategoryPage from '../components/CategoryPage'
 
 const HomeDecor = () => {
     return (
-        <CategoryPage category={"Home Decor"} />
+        <CategoryPage categoryName={"Home Decor"} />
     )
 }
 
