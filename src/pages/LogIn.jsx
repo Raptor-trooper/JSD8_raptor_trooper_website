@@ -1,10 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+
 
 const LogIn = () => {
+    const navigate = useNavigate();
+
+    const handleSignUpClick = () => {
+        navigate ("/signup");
+    };
+
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
           <div className="w-full max-w-md p-8 bg-gray-100 rounded-md shadow-lg">
-            <h2 className="text-3xl font-medium text-center mb-6 ">Handy Haven</h2>
+            <h2 className="text-3xl font-medium text-center mb-6">Handy Haven</h2>
             
             <form className="space-y-4">
               <div>
@@ -42,7 +50,8 @@ const LogIn = () => {
                 </button>
                 <button 
                   type="button" 
-                  className="w-full py-2 bg-gray-200 text-gray-700 rounded-md shadow hover:bg-gray-300 focus:outline-none">
+                  className="w-full py-2 bg-gray-200 text-gray-700 rounded-md shadow hover:bg-gray-300 focus:outline-none"
+                  onClick={handleSignUpClick}>
                   sign up
                 </button>
               </div>
@@ -62,3 +71,5 @@ const LogIn = () => {
     }
 
 export default LogIn
+
+
