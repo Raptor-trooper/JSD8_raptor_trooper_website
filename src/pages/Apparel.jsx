@@ -3,7 +3,7 @@ import CategoryPage from '../components/CategoryPage'
 
 const Apparel = () => {
     return (
-        <CategoryPage category={"Apparel"} />
+        <CategoryPage categoryName={"Apparel"} />
     )
 }
 

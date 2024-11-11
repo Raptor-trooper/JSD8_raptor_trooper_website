@@ -22,10 +22,10 @@ function Navbar() {
         <nav className="absolute transform -translate-x-1/2 left-1/2 max-md:hidden">
           <ul className="flex items-center space-x-6 text-center">
             <Link className="hover:underline hover:decoration-solid" to="/homeallproducts">All Product</Link>
-            <li className="hover:underline hover:decoration-solid">Home Decor</li>
-            <li className="hover:underline hover:decoration-solid">Bath & Body</li>
-            <li className="hover:underline hover:decoration-solid">Apparel</li>
-            <li className="hover:underline hover:decoration-solid">Accessories</li>
+            <Link className="hover:underline hover:decoration-solid" to="/homedecor">Home Decor</Link>
+            <Link className="hover:underline hover:decoration-solid" to="/bathbody">Bath & Body</Link>
+            <Link className="hover:underline hover:decoration-solid" to="/apparel">Apparel</Link>
+            <Link className="hover:underline hover:decoration-solid" to="/accessories">Accessories</Link>
           </ul>
         </nav>
         <div className="flex space-x-4 max-md:absolute max-md:transform max-md:-translate-x-1/2 max-md:left-1/2">
