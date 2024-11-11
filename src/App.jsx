@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         element: <HomeAllProducts />
       },
       {
-        path: '/productpage',
+        path: '/productpage/:name',
         element: <ProductPage />
       },
       {
