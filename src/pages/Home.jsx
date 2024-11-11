@@ -36,7 +36,7 @@ const Home = () => {
   }
 
   return (
-    <div className='w-full'>
+    <div className='flex flex-col items-center'>
       {/* ส่วนลดสูงสุด 50% */}
       <div className='flex justify-center'>
         <div className='flex flex-col md:flex-row items-center p-[84px] max-w-[1440px]'>
@@ -56,46 +56,22 @@ const Home = () => {
       </div>
 
       {/* ส่วนหัวข้อและรูปภาพ */}
-      <div className="max-w-screen-xl p-4 mx-auto">
+      <div className="max-w-[1440px] p-[84px]">
         {/* ส่วนหัวข้อ */}
         <h1 className="text-[96px] font-bold mb-8">Category</h1>
 
-        {/* กล่องรูปใหญ่และรูปเล็ก ๆ ในบรรทัดเดียวกัน */}
-        <div className="flex gap-8">
-          {/* รูปภาพใหญ่ */}
-          <div className="w-[624px] h-[620px] bg-gray-300 rounded-lg shadow-md">
-            <img
-              src="https://via.placeholder.com/624x620"
-              alt="Large"
-              className="object-cover w-full h-full rounded-lg"
-            />
+        <div className='flex gap-4 overflow-hidden justify-stretch'>
+          <div className='w-[600px] h-[600px]'>
+            <img src="https://via.placeholder.com/624x620" alt="img-container" />
           </div>
-
-
-          {/* รูปภาพเล็กเลื่อนซ้ายขวา */}
-          <div className="sticky flex-1 overflow-x-auto">
-          <div className="mb-8">
-          <h2 className="mb-4 text-2xl font-semibold">Title</h2>
-          <p className="text-gray-600">
-            Body text for whatever you'd like to say. Add main takeaway points, quotes,
-            anecdotes, or even a very very short story.
-          </p>
-          </div>
-
-
-            <div className="flex space-x-4">
-              {[...Array(5)].map((_, index) => (
-                <div
-                  key={index}
-                  className="w-[408px] h-[408px] bg-gray-300 rounded-lg shadow-md flex-shrink-0"
-                >
-                  <img
-                    src="https://via.placeholder.com/408x408"
-                    alt={`Small ${index + 1}`}
-                    className="object-cover w-full h-full rounded-lg"
-                  />
-                </div>
-              ))}
+          <div className='relative flex flex-col'>
+            <div>
+              <h2>Title</h2>
+              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+            </div>
+            <div className='absolute flex gap-4 transform -translate-y-1/2 top-1/2'>
+              <img className='w-[400px] h-[400px]' src="https://via.placeholder.com/624x620" alt="img-container" />
+              <img className='w-[400px] h-[400px]' src="https://via.placeholder.com/624x620" alt="img-container" />
             </div>
           </div>
         </div>
@@ -114,7 +90,7 @@ const Home = () => {
       </div>
 
       {/* ส่วนเลือกสินค้า/รูป ตามปุ่ม */}
-      <div className='px-[16px] py-[48px] flex flex-col items-center gap-4 max-w-[1280px] mx-auto md:px-0'>
+      <div className='px-[16px] py-[48px] flex flex-col items-center gap-4 max-w-[1280px] md:px-0'>
         <h1 className='text-[96px] text-center w-full font-bold md:text-left md:text-7xl'>Shop by room</h1>
         {/* mobile */}
         <div className='flex w-full py-4 space-x-4 md:hidden carousel'>
