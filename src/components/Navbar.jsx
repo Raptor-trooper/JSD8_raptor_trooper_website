@@ -8,6 +8,7 @@ import burger from "../assets/burger.svg";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+
   return (
     <div className="w-full h-full bg-[#4A4947] text-white ">
       <div className="flex items-center h-fit justify-between px-[32px] py-[16px] relative max-lg:px-[12px]">
@@ -32,9 +33,9 @@ function Navbar() {
           <img className="w-[24px] h-[24px]" src={login} alt="login-icon" />
           <img className="w-[24px] h-[24px]" src={cart} alt="cart-icon" />
         </div>
-        <div className="md:hidden">
+        <button className="md:hidden">
           <img src={burger} alt="burger-icon" />
-        </div>
+        </button>
       </div>
     </div>
   )
