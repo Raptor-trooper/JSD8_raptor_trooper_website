@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const items = [
   {
@@ -43,7 +44,7 @@ const Home = () => {
             <h1 className='text-5xl font-bold md:text-7xl'>Up to 50% Off</h1>
             <h1 className='text-5xl font-bold md:text-7xl'>Sitewide</h1>
             <p className='py-8 text-lg md:text-xl'>Start Your Holiday Decor & Gifting Now</p>
-            <button className='px-12 py-3 text-white bg-black'>Shop now</button>
+            <Link to='/homeallproducts' className='px-12 py-3 text-white bg-black'>Shop now</Link>
           </div>
           <div>
             <img
@@ -114,7 +115,7 @@ const Home = () => {
 
       {/* ส่วนเลือกสินค้า/รูป ตามปุ่ม */}
       <div className='px-[16px] py-[48px] flex flex-col items-center gap-4 max-w-[1280px] mx-auto md:px-0'>
-        <h1 className='text-[96px] text-center w-full font-bold md:text-left'>Shop by room</h1>
+        <h1 className='text-[96px] text-center w-full font-bold md:text-left md:text-7xl'>Shop by room</h1>
         {/* mobile */}
         <div className='flex w-full py-4 space-x-4 md:hidden carousel'>
           {/* card */}
