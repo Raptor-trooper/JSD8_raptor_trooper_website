@@ -5,7 +5,7 @@ import Loading from '../components/Loading'
 
 const HomeAllProducts = () => {
 
-    // Get Data Product from DataCategory fetch from floder Context
+    // Get Data Product from DataCategory fetch from folder Context
     const dataCategory = useContext(DataCategory)
 
     // State for loading...
@@ -20,11 +20,11 @@ const HomeAllProducts = () => {
 
     return (
         <div>
-            {/* Loading... Page if state True*/}
+            {/* Loading... Page if state True */}
             {loading ? <Loading /> : <div>
-
                 {/* Header */}
                 <div className='px-[88px] mx-auto'>
+
                     <h1 className='text-5xl mt-16 font-bold'> All Products </h1>
                     <p className='my-8'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, unde.</p>
                     <hr />
@@ -50,7 +50,6 @@ const HomeAllProducts = () => {
                                 <p className='p-2 pt-4 font-bold'>{product.name}</p>
                                 <p className='p-2'>Starting at <b>{product.price}$</b></p>
                             </div>
-
                         </Link>
                     ))}
 
@@ -61,9 +60,6 @@ const HomeAllProducts = () => {
 }
 
 export default HomeAllProducts
-
-
-
 
 // ===========================  Filter Function ===========================
 
