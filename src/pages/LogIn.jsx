@@ -50,6 +50,7 @@ const Login = () => {
                 </button>
                 <button 
                   type="button" 
+                  className="w-full py-2 text-gray-700 bg-gray-200 rounded-md shadow hover:bg-gray-300 focus:outline-none">
                   className="w-full py-2 text-gray-700 bg-gray-200 rounded-md shadow hover:bg-gray-300 focus:outline-none"
                   onClick={handleSignUpClick}>
                   sign up
