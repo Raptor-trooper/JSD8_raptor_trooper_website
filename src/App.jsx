@@ -1,6 +1,6 @@
-import AboutUs from './pages/AboutUs'
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Layout from './Layouts/Layout'
 import Home from './pages/Home'
 import HomeAllProducts from './pages/HomeAllProducts'
 import ProductPage from './pages/ProductPage'
@@ -13,7 +13,12 @@ import ResetPassword from './pages/ResetPassword'
 import UserProfile from './pages/UserProfile'
 import UserEditProfile from './pages/UserEditProfile'
 import Admin from './pages/Admin'
-import Layout from './Layouts/Layout'
+import CategoryProvider from './Context/CategoryProvider'
+import HomeDecor from './pages/HomeDecor'
+import BathBody from './pages/BathBody'
+import Apparel from './pages/Apparel'
+import Accessories from './pages/Accessories'
+import AboutUs from './pages/AboutUs'
 
 const router = createBrowserRouter([
   {
@@ -29,7 +34,7 @@ const router = createBrowserRouter([
         element: <HomeAllProducts />
       },
       {
-        path: '/productpage',
+        path: '/productpage/:name',
         element: <ProductPage />
       },
       {
@@ -69,6 +74,22 @@ const router = createBrowserRouter([
         element: <Admin />
       },
       {
+        path: '/homedecor',
+        element: <HomeDecor />
+      },
+      {
+        path: '/bathbody',
+        element: <BathBody />
+      },
+      {
+        path: '/apparel',
+        element: <Apparel />
+      },
+      {
+        path: '/accessories',
+        element: <Accessories />
+      },
+      {
         path: '/aboutus',
         element: <AboutUs />
       },
@@ -79,9 +100,9 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-    <div>
+    <CategoryProvider>
       <RouterProvider router={router} />
-    </div>
+    </CategoryProvider>
   )
 }
 
