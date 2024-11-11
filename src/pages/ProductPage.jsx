@@ -32,24 +32,6 @@ const ProductPage = () => {
         }
     };
 
-    const dataCategory = useContext(DataCategory)
-
-    const { name } = useParams()
-    const [product, setProduct] = useState(null)
-
-    useEffect(() => {
-        const foundProduct = dataCategory.find(item => item.name === name);
-        if (foundProduct) {
-            setProduct(foundProduct);
-        } else {
-            console.log("Product not found with id:", name);
-        }
-    }, [name, dataCategory]);
-
-    console.log(name);
-    console.log(typeof (name));
-
-
     return (
         <div className="max-w-screen-xl mx-auto p-8">
             <div className="flex flex-col md:flex-row gap-8">
