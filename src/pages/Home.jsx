@@ -1,6 +1,40 @@
-import React from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+const items = [
+  {
+    id: 1,
+    name: "room1",
+    description: "From shower curtains to bath towels to bath mats, we've got you covered",
+    img: "https://via.placeholder.com/300x300"
+  },
+  {
+    id: 2,
+    name: "room2",
+    description: "From shower curtains to bath towels to bath mats, we've got you covered",
+    img: "https://via.placeholder.com/300x300"
+  },
+  {
+    id: 3,
+    name: "room3",
+    description: "From shower curtains to bath towels to bath mats, we've got you covered",
+    img: "https://via.placeholder.com/300x300"
+  },
+  {
+    id: 4,
+    name: "room4",
+    description: "From shower curtains to bath towels to bath mats, we've got you covered",
+    img: "https://via.placeholder.com/300x300"
+  }
+]
 
 const Home = () => {
+  const [selectedItem, setSelectedItem] = useState(items[0]);
+
+  const handleSelected = (id) => {
+    setSelectedItem(items.find((item) => item.id === id));
+  }
+
   return (
     <div className='w-full'>
       {/* ส่วนลดสูงสุด 50% */}
@@ -10,7 +44,7 @@ const Home = () => {
             <h1 className='text-5xl font-bold md:text-7xl'>Up to 50% Off</h1>
             <h1 className='text-5xl font-bold md:text-7xl'>Sitewide</h1>
             <p className='py-8 text-lg md:text-xl'>Start Your Holiday Decor & Gifting Now</p>
-            <button className='px-12 py-3 text-white bg-black'>Shop now</button>
+            <Link to='/homeallproducts' className='px-12 py-3 text-white bg-black'>Shop now</Link>
           </div>
           <div>
             <img
@@ -36,7 +70,7 @@ const Home = () => {
               className="object-cover w-full h-full rounded-lg"
             />
           </div>
-          
+
 
           {/* รูปภาพเล็กเลื่อนซ้ายขวา */}
           <div className="sticky flex-1 overflow-x-auto">
@@ -80,8 +114,48 @@ const Home = () => {
       </div>
 
       {/* ส่วนเลือกสินค้า/รูป ตามปุ่ม */}
-      <div>
-        <h1>Shop by now</h1>
+      <div className='px-[16px] py-[48px] flex flex-col items-center gap-4 max-w-[1280px] mx-auto md:px-0'>
+        <h1 className='text-[96px] text-center w-full font-bold md:text-left md:text-7xl'>Shop by room</h1>
+        {/* mobile */}
+        <div className='flex w-full py-4 space-x-4 md:hidden carousel'>
+          {/* card */}
+          {items.map((item) => (
+            <div key={item.id} className='carousel-item h-[460px] w-[300px] text-center justify-between flex flex-col'>
+            <img src={item.img} alt="img-container" />
+            <p className='text-lg'>{item.name}</p>
+            <button className='px-12 py-3 text-white bg-black'>Explore more</button>
+          </div>
+          ))}
+
+        </div>
+
+        {/* desktop */}
+        <div className='flex justify-between w-[1280px] max-md:hidden'>
+          <div className='flex flex-col gap-6'>
+            <div className='flex'>
+              {items.map((item, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSelected(item.id)}
+                  className={`px-6 py-2 bg-white border border-black ${index === 0 && 'rounded-s-full'} ${ index === items.length - 1 && 'rounded-e-full'}`}
+                >
+                  {item.name}
+                </button>
+              ))}
+
+            </div>
+            <img src="https://via.placeholder.com/756x430" alt="img-container" />
+          </div>
+          <div key={selectedItem.id} className='h-[460px] w-[400px]'>
+            <div className='w-[300px] justify-between flex flex-col'>
+              <img className='h-[300px] w-[300px]' src={selectedItem.img} alt="selected-img" />
+              <p className='text-lg'>{selectedItem.description}</p>
+              <button className='px-12 py-3 text-white bg-black'>Explore more</button>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
   );
