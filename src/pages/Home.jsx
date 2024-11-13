@@ -175,7 +175,7 @@ const Home = () => {
           </div>
 
           {/* desktop */}
-          <div className='flex justify-between w-full max-md:hidden'>
+          <div className='flex justify-between w-full gap-8 max-md:hidden'>
             <div className='flex flex-col gap-6'>
               <div className='flex'>
                 {items.map((item, index) => (
