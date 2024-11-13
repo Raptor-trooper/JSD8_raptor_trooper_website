@@ -56,7 +56,7 @@ const Login = () => {
                 </button>
               </div>
             </form>
-    
+
             <div className="flex items-center justify-center mt-6">
               <button 
                 type="button" 
