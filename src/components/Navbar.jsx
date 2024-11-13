@@ -30,8 +30,8 @@ function Navbar() {
         </nav>
         <div className="flex space-x-4 max-md:absolute max-md:transform max-md:-translate-x-1/2 max-md:left-1/2">
           <img className="w-[24px] h-[24px]" src={search} alt="search-icon" />
-          <img className="w-[24px] h-[24px]" src={login} alt="login-icon" />
-          <img className="w-[24px] h-[24px]" src={cart} alt="cart-icon" />
+          <Link to='/login'><img className="w-[24px] h-[24px]" src={login} alt="login-icon" /></Link>
+          <Link to='/cartpage'><img className="w-[24px] h-[24px]" src={cart} alt="cart-icon" /></Link>
         </div>
         <button className="md:hidden">
           <img src={burger} alt="burger-icon" />
