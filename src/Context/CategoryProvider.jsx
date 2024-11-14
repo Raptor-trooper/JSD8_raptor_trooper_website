@@ -25,7 +25,7 @@ const CategoryProvider = ({ children }) => {
     }, [])
 
     return (
-        <DataCategory.Provider value={category}>
+        <DataCategory.Provider value={{ category }}>
             {children}
         </DataCategory.Provider>
     )
