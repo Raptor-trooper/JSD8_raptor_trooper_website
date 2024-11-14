@@ -94,31 +94,31 @@ const Home = () => {
                 src={data[currentIndex]?.image}
                 alt= ""
               />
-              <div className="w-[300px] h-[50px] bg-opacity-60 bg-white absolute bottom-0 flex items-center">
-                <h2 className='pl-4'>{data[getWrappedIndex(currentIndex)]?.category}</h2>
+              <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
+                <h2 className='py-3 pl-4 pr-24 text-2xl'>{data[getWrappedIndex(currentIndex)]?.category}</h2>
               </div>
             </div>
 
             {/* รูปสอง */}
             <div className='w-[400px] h-[400px] relative flex-none'>
               <img
-                className="object-cover w-full h-full"
+                className="object-cover w-full h-full rounded-lg"
                 src={data[getWrappedIndex(currentIndex + 1)]?.image}
                 alt= ""
               />
-              <div className="w-[250px] h-[50px] bg-opacity-60 bg-white absolute bottom-0 flex items-center">
-                <h2 className='pl-4'>{data[getWrappedIndex(currentIndex + 1)]?.category}</h2>
+              <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
+                <h2 className='py-3 pl-4 pr-24 text-2xl'>{data[getWrappedIndex(currentIndex + 1)]?.category}</h2>
               </div>
             </div>
             {/* รูปสาม */}
             <div className='w-[400px] h-[400px] relative flex-none'>
               <img
-                className="object-cover w-full h-full"
+                className="object-cover w-full h-full rounded-lg"
                 src={data[getWrappedIndex(currentIndex + 2)]?.image}
                 alt= ""
               />
-              <div className="w-[250px] h-[50px] bg-opacity-60 bg-white absolute bottom-0 flex items-center">
-                <h2 className='pl-4'>{data[getWrappedIndex(currentIndex + 2)]?.category}</h2>
+              <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
+                <h2 className='py-3 pl-4 pr-24 text-2xl'>{data[getWrappedIndex(currentIndex + 2)]?.category}</h2>
               </div>
             </div>
 
@@ -126,8 +126,7 @@ const Home = () => {
 
               {/* ข้อความโปรโมทสินค้า */}
               <div className='absolute top-0 left-1/2 max-w-[400px] transform -translate-x-[12%]'>
-                <h2 className='text-3xl'>Title</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum aperiam quidem rerum, ipsam ullam culpa tempora repellat corporis quia vero iste cum odit ducimus suscipit nihil dolore commodi perspiciatis assumenda.</p>
+                <p className='text-2xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
               </div>
 
               {/* ปุ่มเลื่อนรูป */}
@@ -175,7 +174,7 @@ const Home = () => {
           </div>
 
           {/* desktop */}
-          <div className='flex justify-between w-full max-md:hidden'>
+          <div className='flex justify-between w-full gap-8 max-md:hidden'>
             <div className='flex flex-col gap-6'>
               <div className='flex'>
                 {items.map((item, index) => (
