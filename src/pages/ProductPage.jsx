@@ -33,7 +33,24 @@ const ProductPage = () => {
 
     const handleAddToCart = () => {
         const cartItem = { ...product, quantity };
+        const existingItemIndex = cartItems.findIndex(item => item.id === cartItem.id);
+
+        if (existingItemIndex !== -1) {
+            // ถ้ามีสินค้านี้อยู่แล้ว ให้เพิ่มจำนวนสินค้า
+            const updatedCartItems = cartItems.map((item, index) => {
+                if (index === existingItemIndex) {
+                    return {
+                        ...item,
+                        quantity: item.quantity + quantity
+                    };
+                }
+                return item;
+        });
+        setCartItems(updatedCartItems);
+    } else {
+        // ถ้าไม่มีสินค้า ให้เพิ่มเป็นสินค้าใหม่ในตะกร้า
         setCartItems([...cartItems, cartItem]);
+    }
         setIsCartOpen(true);
     };
 
@@ -92,6 +109,7 @@ const ProductPage = () => {
                 onClose={handleCloseCart}
                 cartItems={cartItems}
                 totalAmount={totalAmount}
+                setCartItems={setCartItems}
             />
         </div>
     );
