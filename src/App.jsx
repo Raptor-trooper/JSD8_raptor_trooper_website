@@ -11,7 +11,6 @@ import SignUp from './pages/SignUp'
 import ChangePassword from './pages/ChangePassword'
 import ResetPassword from './pages/ResetPassword'
 import UserProfile from './pages/UserProfile'
-import UserEditProfile from './pages/UserEditProfile'
 import Admin from './pages/Admin'
 import CategoryProvider from './Context/CategoryProvider'
 import HomeDecor from './pages/HomeDecor'
@@ -19,6 +18,8 @@ import BathBody from './pages/BathBody'
 import Apparel from './pages/Apparel'
 import Accessories from './pages/Accessories'
 import AboutUs from './pages/AboutUs'
+import Address from './pages/Address'
+
 
 const router = createBrowserRouter([
   {
@@ -65,10 +66,7 @@ const router = createBrowserRouter([
         path: '/userprofile',
         element: <UserProfile />
       },
-      {
-        path: '/usereditprofile',
-        element: <UserEditProfile />
-      },
+   
       {
         path: '/admin',
         element: <Admin />
@@ -93,6 +91,11 @@ const router = createBrowserRouter([
         path: '/aboutus',
         element: <AboutUs />
       },
+      {
+        path: '/address',
+        element: <Address />
+      },
+     
     ]
   }
 ])
