@@ -45,10 +45,10 @@ const HomeAllProducts = () => {
                     {category.map((product) => (
                         <Link to={`/productpage/${product.name}`} key={product.id}>
 
-                            <div className=" w-full h-auto rounded-b-md shadow-lg hover:scale-105 duration-300">
+                            <div className=" w-full h-[540px] rounded-b-md shadow-lg hover:scale-105 duration-300">
                                 <img src={product.image} alt={product.name} className='w-full h-[412px] object-cover rounded-t-md' />
                                 <p className='p-2 pt-4 font-bold'>{product.name}</p>
-                                <p className='p-2'>Starting at <b>{product.price}$</b></p>
+                                <p className='p-2'>Starting at <b>฿{product.price}</b></p>
                             </div>
                         </Link>
                     ))}

@@ -57,7 +57,7 @@ const ProductPage = () => {
 
                 <div className="w-full md:w-1/2">
                     <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
-                    <p className="text-xl mb-4">฿{product.price * quantity}</p>
+                    <p className="text-xl mb-4">฿{product.price}</p>
                     <p className="text-lg text-gray-700 mb-8">{product.description}</p>
 
                     <div className="mb-6">
@@ -85,6 +85,17 @@ const ProductPage = () => {
                     >
                         Add to Cart
                     </button>
+                </div>
+            </div>
+
+            {/* Description */}
+            <div className='my-20'>
+                <div className="collapse collapse-plus bg-white border-y border-black rounded-none">
+                    <input type="checkbox" />
+                    <div className="collapse-title text-xl font-bold">Description</div>
+                    <div className="collapse-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam aspernatur iste sequi perspiciatis quas provident accusamus corrupti adipisci aliquid! Repellat?</p>
+                    </div>
                 </div>
             </div>
 
