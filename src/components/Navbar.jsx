@@ -37,8 +37,8 @@ function Navbar() {
     }, [isBurgerOpen]);
 
   return (
-    <div className="w-full h-full bg-[#4A4947] text-white ">
-      <div className="flex items-center h-fit justify-between px-[32px] py-[16px] relative max-lg:px-[12px]">
+    <div className="w-full h-full bg-[#4A4947] ">
+      <div className="flex items-center h-fit justify-between px-[32px] text-white py-[16px] relative max-lg:px-[12px]">
         {/* Logo */}
         <Link className="flex items-center justify-center max-lg:hidden" to="/" >
           <img className="h-[48px]" src={logo} alt="logo" />
