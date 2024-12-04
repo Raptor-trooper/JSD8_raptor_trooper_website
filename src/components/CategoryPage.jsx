@@ -44,12 +44,12 @@ const Products = ({ categoryName }) => {
                 {/* Grid For Products and map DataCategory */}
                 <div className='grid grid-cols-2 gap-8 m-4 md:grid-cols-3 md:mx-[88px]'>
                     {products.map(product => (
-                        <Link to={`/productpage/${product.name}`} key={product.id}>
+                        <Link className=' cursor-pointer' to={`/productpage/${product.name}`} key={product.id}>
 
-                            <div className=" w-full h-[540px] rounded-b-md shadow-lg hover:scale-105 duration-300">
+                            <div className="rounded-b-md overflow-hidden ease-in-out hover:scale-105 m-4 transition shadow-xl">
                                 <img src={product.image} alt={product.name} className='w-full h-[412px] object-cover rounded-t-md' />
-                                <p className="p-2 pt-4 font-bold">{product.name}</p>
-                                <p className="p-2">Starting at <b>฿{product.price}</b></p>
+                                <p className='px-6 pt-4 text-lg font-bold'>{product.name}</p>
+                                <p className='text-gray-700 px-6 pb-4 text-md '>Starting at <b>฿{product.price}</b></p>
                             </div>
 
                         </Link>
