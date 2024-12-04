@@ -46,11 +46,12 @@ const Products = ({ categoryName }) => {
                     {products.map(product => (
                         <Link className=' cursor-pointer' to={`/productpage/${product.name}`} key={product.id}>
 
-                            <div className="rounded-b-md overflow-hidden ease-in-out hover:scale-105 m-4 transition shadow-lg">
-                                <img src={product.image} alt={product.name} className='w-full h-[412px] object-cover    rounded-t-md' />
+                            <div className="rounded-b-md overflow-hidden ease-in-out hover:scale-105 m-4 transition shadow-xl">
+                                <img src={product.image} alt={product.name} className='w-full h-[412px] object-cover rounded-t-md' />
                                 <p className='px-6 pt-4 text-lg font-bold'>{product.name}</p>
                                 <p className='text-gray-700 px-6 pb-4 text-md '>Starting at <b>฿{product.price}</b></p>
                             </div>
+
                         </Link>
                     ))}
                 </div>
