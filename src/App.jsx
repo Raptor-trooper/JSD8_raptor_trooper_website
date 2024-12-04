@@ -13,6 +13,7 @@ import ResetPassword from './pages/ResetPassword'
 import UserProfile from './pages/UserProfile'
 import Admin from './pages/Admin'
 import CategoryProvider from './Context/CategoryProvider'
+import CartProvider from './Context/CartContext'
 import HomeDecor from './pages/HomeDecor'
 import BathBody from './pages/BathBody'
 import Apparel from './pages/Apparel'
@@ -103,9 +104,11 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-    <CategoryProvider>
-      <RouterProvider router={router} />
-    </CategoryProvider>
+      <CategoryProvider>
+        <CartProvider>
+          <RouterProvider router={router} />
+        </CartProvider>
+      </CategoryProvider>
   )
 }
 
