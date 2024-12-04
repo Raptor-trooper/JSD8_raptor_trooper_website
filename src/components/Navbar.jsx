@@ -4,7 +4,7 @@ import logoName from "../assets/Handy Haven.svg";
 import login from "../assets/login.svg";
 import cart from "../assets/cart.svg";
 import burger from "../assets/burger.svg";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import CartConfirm from "./CartConfirm";
 import { CartContext } from '../Context/CartContext';
@@ -13,7 +13,7 @@ import { CartContext } from '../Context/CartContext';
 function Navbar() {
   const [isBurgerOpen, setBurgerOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { cartItems, remove } = useContext(CartContext);
+  const { cartItems } = useContext(CartContext);
 
   const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -26,15 +26,6 @@ function Navbar() {
   const handleCloseCart = () => {
     setIsCartOpen(false);
   };
-
-    // Toggle body scrolling
-    useEffect(() => {
-      if (isBurgerOpen) {
-        document.body.classList.add("no-scroll");
-      } else {
-        document.body.classList.remove("no-scroll");
-      }
-    }, [isBurgerOpen]);
 
   return (
     <div className="w-full h-full bg-[#4A4947] ">
