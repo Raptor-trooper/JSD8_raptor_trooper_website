@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { CartContext } from '../Context/CartContext';
+import { ShopContext } from '../Context/ShopContext';
 import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
-    const { cartItems, removeFromCart, setCartItems } = useContext(CartContext);
+    const { cartItems, removeFromCart, setCartItems } = useContext(ShopContext);
     const navigate = useNavigate();
 
     // ฟังก์ชันสำหรับเพิ่มจำนวนสินค้า
@@ -18,12 +18,12 @@ const CartPage = () => {
     };
 
     const handleSignIn = () => {
-        
+
         navigate('/login'); // ย้ายไปที่ login page
     };
 
     const handleSignUp = () => {
-        
+
         navigate('/signup'); // ย้ายไปที่ signup page
     };
 
@@ -59,10 +59,10 @@ const CartPage = () => {
                         <p>Sign up to track your order history and save your information for faster checkouts.</p>
                         <div className="mt-4">
                             <button className="text-blue-500 font-semibold mr-4"
-                            onClick={handleSignIn}
+                                onClick={handleSignIn}
                             >Sign In</button>
                             <button className="text-blue-500 font-semibold"
-                            onClick={handleSignUp}
+                                onClick={handleSignUp}
                             >Sign Up</button>
                         </div>
                     </div>
@@ -74,7 +74,7 @@ const CartPage = () => {
                         <div className="space-y-4">
                             {cartItems.map((item, index) => (
                                 <div key={index} className="flex justify-between items-center border-b py-4">
-                                    <img src={item.image} alt={item.name} className="w-24 h-24 object-cover rounded" />
+                                    <img src={item.image[0]} alt={item.name} className="w-24 h-24 object-cover rounded" />
                                     <div className="flex-1 mx-4">
                                         <h3 className="font-semibold">{item.name}</h3>
                                         <p className="text-sm text-gray-500">BY {item.brand}</p>

@@ -12,8 +12,7 @@ import ChangePassword from './pages/ChangePassword'
 import ResetPassword from './pages/ResetPassword'
 import UserProfile from './pages/UserProfile'
 import Admin from './pages/Admin'
-import CategoryProvider from './Context/CategoryProvider'
-import CartProvider from './Context/CartContext'
+import ShopContextProvider from './Context/ShopContext'
 import HomeDecor from './pages/HomeDecor'
 import BathBody from './pages/BathBody'
 import Apparel from './pages/Apparel'
@@ -67,7 +66,7 @@ const router = createBrowserRouter([
         path: '/userprofile',
         element: <UserProfile />
       },
-   
+
       {
         path: '/admin',
         element: <Admin />
@@ -96,7 +95,7 @@ const router = createBrowserRouter([
         path: '/address',
         element: <Address />
       },
-     
+
     ]
   }
 ])
@@ -104,11 +103,9 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-      <CategoryProvider>
-        <CartProvider>
-          <RouterProvider router={router} />
-        </CartProvider>
-      </CategoryProvider>
+    <ShopContextProvider>
+      <RouterProvider router={router} />
+    </ShopContextProvider>
   )
 }
 

@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { DataCategory } from '../Context/CategoryProvider'
+import { ShopContext } from '../Context/ShopContext'
 import { Link } from 'react-router-dom'
 import Loading from '../components/Loading'
 
 const HomeAllProducts = () => {
 
     // Get Data Product from DataCategory fetch from folder Context
-    const { category } = useContext(DataCategory)
+    const { category } = useContext(ShopContext)
 
     // State for loading...
     const [loading, setLoading] = useState(true);
@@ -46,7 +46,7 @@ const HomeAllProducts = () => {
                         <Link className=' cursor-pointer' to={`/productpage/${product.name}`} key={product.id}>
 
                             <div className="rounded-b-md overflow-hidden ease-in-out hover:scale-105 m-4 transition shadow-xl">
-                                <img src={product.image} alt={product.name} className='w-full h-[412px] object-cover rounded-t-md' />
+                                <img src={product.image[0]} alt={product.name} className='w-full h-[412px] object-cover rounded-t-md' />
                                 <p className='px-6 pt-4 text-lg font-bold'>{product.name}</p>
                                 <p className='text-gray-700 px-6 pb-4 text-md '>Starting at <b>฿{product.price}</b></p>
                             </div>

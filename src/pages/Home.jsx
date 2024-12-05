@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { DataCategory } from '../Context/CategoryProvider';
+import { ShopContext } from '../Context/ShopContext';
 
 /* Mockup data */
 const items = [
@@ -33,7 +33,7 @@ const items = [
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState(items[0]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { category } = useContext(DataCategory);
+  const { category } = useContext(ShopContext);
 
   const handleSelected = (id) => {
     setSelectedItem(items.find((item) => item.id === id));
@@ -89,53 +89,53 @@ const Home = () => {
 
             {/* ข้อความโปรโมทสินค้า */}
             <div className='md:absolute top-0 left-1/2 max-w-[400px] md:translate-x-[70px] transform lg:-translate-x-[12%]'>
-                <p className='text-2xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              <p className='text-2xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             </div>
 
-          <div className='flex flex-row items-center gap-4 max-md:p-[16px]'>
-            {/* รูปแรก */}
-            <div className='relative lg:w-[700px] lg:h-[700px] w-[70vw] h-[70vw] flex-none'>
-              <img
-                className="object-cover w-full h-full rounded-lg"
-                src={category[currentIndex]?.image}
-                alt= ""
-              />
-              <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
-                <h2 className='py-3 pl-4 pr-24 text-2xl'>{category[getWrappedIndex(currentIndex)]?.category}</h2>
-              </div>
-            </div>
-
-            {/* รูปสอง */}
-            <div className='lg:w-[400px] lg:h-[400px] w-[40vw] h-[40vw] relative flex-none max-md:hidden'>
-              <img
-                className="object-cover w-full h-full rounded-lg"
-                src={category[getWrappedIndex(currentIndex + 1)]?.image}
-                alt= ""
-              />
-              <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
-                <h2 className='py-3 pl-4 pr-24 text-2xl'>{category[getWrappedIndex(currentIndex + 1)]?.category}</h2>
-              </div>
-            </div>
-            {/* รูปสาม */}
-            <div className='lg:w-[400px] lg:h-[400px] w-[40vw] h-[40vw] relative flex-none max-lg:hidden'>
-              <img
-                className="object-cover w-full h-full rounded-lg"
-                src={category[getWrappedIndex(currentIndex + 2)]?.image}
-                alt= ""
-              />
-              <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
-                <h2 className='py-3 pl-4 pr-24 text-2xl'>{category[getWrappedIndex(currentIndex + 2)]?.category}</h2>
-              </div>
-            </div>
-          </div>
-
-              {/* ปุ่มเลื่อนรูป */}
-              <div className='md:absolute p-4 bottom-0 md:left-1/2 lg:w-[400px] md:w-[40vw] w-full transform lg:-translate-x-[12%] md:translate-x-[70px]'>
-                <div className='flex justify-between w-full'>
-                  <button onClick={handlePrevClick} className='text-black border-black btn btn-outline btn-circle'> ❮ </button>
-                  <button onClick={handleNextClick} className='text-black border-black btn btn-outline btn-circle'> ❯ </button>
+            <div className='flex flex-row items-center gap-4 max-md:p-[16px]'>
+              {/* รูปแรก */}
+              <div className='relative lg:w-[700px] lg:h-[700px] w-[70vw] h-[70vw] flex-none'>
+                <img
+                  className="object-cover w-full h-full rounded-lg"
+                  src={category[currentIndex]?.image[0]}
+                  alt=""
+                />
+                <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
+                  <h2 className='py-3 pl-4 pr-24 text-2xl'>{category[getWrappedIndex(currentIndex)]?.category}</h2>
                 </div>
               </div>
+
+              {/* รูปสอง */}
+              <div className='lg:w-[400px] lg:h-[400px] w-[40vw] h-[40vw] relative flex-none max-md:hidden'>
+                <img
+                  className="object-cover w-full h-full rounded-lg"
+                  src={category[getWrappedIndex(currentIndex + 1)]?.image[0]}
+                  alt=""
+                />
+                <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
+                  <h2 className='py-3 pl-4 pr-24 text-2xl'>{category[getWrappedIndex(currentIndex + 1)]?.category}</h2>
+                </div>
+              </div>
+              {/* รูปสาม */}
+              <div className='lg:w-[400px] lg:h-[400px] w-[40vw] h-[40vw] relative flex-none max-lg:hidden'>
+                <img
+                  className="object-cover w-full h-full rounded-lg"
+                  src={category[getWrappedIndex(currentIndex + 2)]?.image[0]}
+                  alt=""
+                />
+                <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
+                  <h2 className='py-3 pl-4 pr-24 text-2xl'>{category[getWrappedIndex(currentIndex + 2)]?.category}</h2>
+                </div>
+              </div>
+            </div>
+
+            {/* ปุ่มเลื่อนรูป */}
+            <div className='md:absolute p-4 bottom-0 md:left-1/2 lg:w-[400px] md:w-[40vw] w-full transform lg:-translate-x-[12%] md:translate-x-[70px]'>
+              <div className='flex justify-between w-full'>
+                <button onClick={handlePrevClick} className='text-black border-black btn btn-outline btn-circle'> ❮ </button>
+                <button onClick={handleNextClick} className='text-black border-black btn btn-outline btn-circle'> ❯ </button>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -181,7 +181,7 @@ const Home = () => {
                   <button
                     key={index}
                     onClick={() => handleSelected(item.id)}
-                    className={`px-6 py-2 bg-white border border-black ${index === 0 && 'rounded-s-full'} ${ index === items.length - 1 && 'rounded-e-full'}`}
+                    className={`px-6 py-2 bg-white border border-black ${index === 0 && 'rounded-s-full'} ${index === items.length - 1 && 'rounded-e-full'}`}
                   >
                     {item.name}
                   </button>
@@ -192,7 +192,7 @@ const Home = () => {
             </div>
             <div key={selectedItem?.id} className='h-[460px] w-[300px]'>
               <div className='w-[300px] justify-between flex flex-col'>
-                <img className='h-[300px] w-[300px]' src={selectedItem?.img} alt="selected-img" />
+                <img className='h-[300px] w-[300px]' src={selectedItem?.img[0]} alt="selected-img" />
                 <p className='text-lg'>{selectedItem?.description}</p>
                 <button className='px-12 py-3 text-white bg-black'>Explore more</button>
               </div>
