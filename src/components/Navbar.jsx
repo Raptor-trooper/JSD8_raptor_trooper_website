@@ -7,13 +7,13 @@ import burger from "../assets/burger.svg";
 import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CartConfirm from "./CartConfirm";
-import { CartContext } from '../Context/CartContext';
+import { ShopContext } from '../Context/ShopContext';
 
 
 function Navbar() {
   const [isBurgerOpen, setBurgerOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { cartItems, remove } = useContext(CartContext);
+  const { cartItems, remove } = useContext(ShopContext);
 
   const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -27,18 +27,18 @@ function Navbar() {
     setIsCartOpen(false);
   };
 
-    // Toggle body scrolling
-    useEffect(() => {
-      if (isBurgerOpen) {
-        document.body.classList.add("no-scroll");
-      } else {
-        document.body.classList.remove("no-scroll");
-      }
-    }, [isBurgerOpen]);
+  // Toggle body scrolling
+  useEffect(() => {
+    if (isBurgerOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [isBurgerOpen]);
 
   return (
-    <div className="w-full h-full bg-[#4A4947] text-white ">
-      <div className="flex items-center h-fit justify-between px-[32px] py-[16px] relative max-lg:px-[12px]">
+    <div className="w-full h-full bg-[#4A4947] ">
+      <div className="flex items-center h-fit justify-between px-[32px] text-white py-[16px] relative max-lg:px-[12px]">
         {/* Logo */}
         <Link className="flex items-center justify-center max-lg:hidden" to="/" >
           <img className="h-[48px]" src={logo} alt="logo" />
@@ -75,12 +75,11 @@ function Navbar() {
 
       {/* Burger Menu */}
       {isBurgerOpen && (
-        <div className={`fixed top-0 right-0 h-full w-full md:w-[600px] z-50 bg-[#4A4947] text-white shadow-lg transform transition-transform duration-300 ease-in-out ${
-          isBurgerOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        <div className={`fixed top-0 right-0 h-full w-full md:w-[600px] z-50 bg-[#4A4947] text-white shadow-lg transform transition-transform duration-300 ease-in-out ${isBurgerOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         >
           <div className="flex items-center justify-end p-4">
-              <button onClick={handleBurger} className="text-xl font-semibold">CLOSE</button>
+            <button onClick={handleBurger} className="text-xl font-semibold">CLOSE</button>
           </div>
           <ul className="flex flex-col space-y-6 text-center items-left">
             <Link onClick={handleBurger} to="/homeallproducts">All Product</Link>

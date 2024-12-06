@@ -1,0 +1,62 @@
+import axios from 'axios'
+import React, { createContext, useEffect, useState } from 'react'
+
+export const ShopContext = createContext();
+
+const ShopContextProvider = ({ children }) => {
+
+    const [category, setCategory] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
+
+    // const Api = process.env.REACT_APP_API_URL || "https://672db6ccfd89797156435c66.mockapi.io/ApiTrooper/category"
+
+    const Api = "https://672db6ccfd89797156435c66.mockapi.io/ApiTrooper/category"
+
+    const FetchCategory = async () => {
+        try {
+            const response = await axios.get(`${Api}`)
+            setCategory(response.data)
+        } catch (error) {
+            console.log('Error get Api', error);
+        }
+    }
+
+    // ฟังก์ชันสำหรับเพิ่มสินค้าเข้า Cart
+    const addToCart = (product) => {
+        // ตรวจสอบว่าสินค้านี้มีอยู่ใน cartItems หรือไม่
+        const existingItemIndex = cartItems.findIndex(
+            (item) => item.name === product.name
+        );
+        if (existingItemIndex >= 0) {
+            // ถ้ามีแล้วให้เพิ่มจำนวน
+            const updatedCartItems = [...cartItems];
+            updatedCartItems[existingItemIndex].quantity += product.quantity;
+            setCartItems(updatedCartItems);
+        } else {
+            // ถ้ายังไม่มีให้เพิ่มเข้าไปใหม่
+            setCartItems([...cartItems, product]);
+        }
+    };
+
+    // ฟังก์ชันสำหรับลบสินค้าออกจาก Cart
+    const removeFromCart = (index) => {
+        setCartItems(cartItems.filter((_, i) => i !== index));
+    };
+
+    useEffect(() => {
+        FetchCategory()
+    }, [])
+
+    const value = {
+        category,
+        cartItems, addToCart, removeFromCart, setCartItems
+    }
+
+    return (
+        <ShopContext.Provider value={value}>
+            {children}
+        </ShopContext.Provider>
+    )
+}
+
+export default ShopContextProvider
