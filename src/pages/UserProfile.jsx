@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: 'เตเต้',
     lastName: 'เตเต้',
+    country: 'Thailand',
+    address: '123 Moo 4, Sukhumvit Road, Bangkok',
+    city: 'Bangkok',
+    zip: '10110',
+    phone: '+66 123 456 789',
   });
 
-  // ฟังก์ชันสำหรับสลับสถานะ
+  // ฟังก์ชันสำหรับสลับสถานะแก้ไข
   const toggleEdit = () => {
     setIsEditing(!isEditing);
   };
 
   // ฟังก์ชันสำหรับอัปเดตข้อมูล
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -24,10 +29,9 @@ const UserProfile = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-3/4 lg:w-1/2 bg-white shadow-lg rounded-lg p-8">
+      <div className="w-3/4 lg:w-1/2 bg-white shadow-lg rounded-lg p-8 space-y-8">
         {/* Header Section */}
         <div className="flex items-start justify-between mb-6">
-          {/* Profile Picture and Info */}
           <div className="flex items-center space-x-4">
             <img
               src="https://via.placeholder.com/100"
@@ -39,8 +43,6 @@ const UserProfile = () => {
               <p className="text-gray-500">tete@gmail.com</p>
             </div>
           </div>
-
-          {/* Buttons Section */}
           <div className="flex flex-col space-y-3">
             <button
               onClick={toggleEdit}
@@ -48,28 +50,16 @@ const UserProfile = () => {
             >
               {isEditing ? 'Save' : 'Edit'}
             </button>
-
-            {/* ปุ่ม "Change Password" จะแสดงเฉพาะเมื่อไม่อยู่ในโหมดแก้ไข */}
             {!isEditing && (
               <button className="w-40 p-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition">
                 Change Password
               </button>
             )}
-
-            {/* ปุ่ม "Address" จะแสดงเฉพาะเมื่อไม่อยู่ในโหมดแก้ไข */}
-            {!isEditing && (
-              <Link to="/address">
-                <button className="w-40 p-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition">
-                  Address
-                </button>
-              </Link>
-            )}
           </div>
         </div>
 
-        {/* Profile Details */}
+        {/* Profile Section */}
         <div className="grid grid-cols-2 gap-8">
-          {/* First Name */}
           <div>
             <h3 className="text-lg font-semibold">First Name</h3>
             {isEditing ? (
@@ -77,7 +67,7 @@ const UserProfile = () => {
                 type="text"
                 name="firstName"
                 value={formData.firstName}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 className="mt-2 p-2 border rounded w-full"
               />
             ) : (
@@ -85,7 +75,6 @@ const UserProfile = () => {
             )}
           </div>
 
-          {/* Last Name */}
           <div>
             <h3 className="text-lg font-semibold">Last Name</h3>
             {isEditing ? (
@@ -93,11 +82,90 @@ const UserProfile = () => {
                 type="text"
                 name="lastName"
                 value={formData.lastName}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 className="mt-2 p-2 border rounded w-full"
               />
             ) : (
               <p className="text-gray-700 mt-2">{formData.lastName}</p>
+            )}
+          </div>
+        </div>
+
+        {/* Address Section */}
+        <div className="space-y-4">
+          <div>
+            <h3 className="text-lg font-semibold">Country/Region</h3>
+            {isEditing ? (
+              <input
+                type="text"
+                name="country"
+                value={formData.country}
+                onChange={handleInputChange}
+                className="mt-2 p-2 border rounded w-full"
+              />
+            ) : (
+              <p className="text-gray-700 mt-2">{formData.country}</p>
+            )}
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold">Address</h3>
+            {isEditing ? (
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleInputChange}
+                className="mt-2 p-2 border rounded w-full"
+              />
+            ) : (
+              <p className="text-gray-700 mt-2">{formData.address}</p>
+            )}
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <h3 className="text-lg font-semibold">City</h3>
+              {isEditing ? (
+                <input
+                  type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleInputChange}
+                  className="mt-2 p-2 border rounded w-full"
+                />
+              ) : (
+                <p className="text-gray-700 mt-2">{formData.city}</p>
+              )}
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold">ZIP Code</h3>
+              {isEditing ? (
+                <input
+                  type="text"
+                  name="zip"
+                  value={formData.zip}
+                  onChange={handleInputChange}
+                  className="mt-2 p-2 border rounded w-full"
+                />
+              ) : (
+                <p className="text-gray-700 mt-2">{formData.zip}</p>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold">Phone</h3>
+            {isEditing ? (
+              <input
+                type="text"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="mt-2 p-2 border rounded w-full"
+              />
+            ) : (
+              <p className="text-gray-700 mt-2">{formData.phone}</p>
             )}
           </div>
         </div>
