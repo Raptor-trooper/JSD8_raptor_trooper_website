@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { CartContext } from '../Context/CartContext';
+
+import { ShopContext } from '../Context/ShopContext';
 
 const CheckoutPage = () => {
-    const { cartItems, setCartItems } = useContext(CartContext);
+    const { cartItems, setCartItems } = useContext(ShopContext);
 
     // สรุปยอดรวมสินค้า
     const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -61,28 +62,28 @@ const CheckoutPage = () => {
                             </div>
                             {/* Credit Card Details */}
                             <div className="bg-gray-100 p-4 rounded-md">
-                        <h2 className="text-lg font-bold mb-4">Payment</h2>
-                        <form className="space-y-4">
-                            <div>
-                                <label htmlFor="cardName" className="block text-sm font-medium">Name on card</label>
-                                <input type="text" id="cardName" className="w-full p-2 border rounded-md" />
+                                <h2 className="text-lg font-bold mb-4">Payment</h2>
+                                <form className="space-y-4">
+                                    <div>
+                                        <label htmlFor="cardName" className="block text-sm font-medium">Name on card</label>
+                                        <input type="text" id="cardName" className="w-full p-2 border rounded-md" />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="cardNumber" className="block text-sm font-medium">Card number</label>
+                                        <input type="text" id="cardNumber" className="w-full p-2 border rounded-md" />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label htmlFor="expiryDate" className="block text-sm font-medium">Expiry date</label>
+                                            <input type="text" id="expiryDate" className="w-full p-2 border rounded-md" placeholder="MM/YY" />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="cvv" className="block text-sm font-medium">CVV</label>
+                                            <input type="text" id="cvv" className="w-full p-2 border rounded-md" />
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div>
-                                <label htmlFor="cardNumber" className="block text-sm font-medium">Card number</label>
-                                <input type="text" id="cardNumber" className="w-full p-2 border rounded-md" />
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label htmlFor="expiryDate" className="block text-sm font-medium">Expiry date</label>
-                                    <input type="text" id="expiryDate" className="w-full p-2 border rounded-md" placeholder="MM/YY" />
-                                </div>
-                                <div>
-                                    <label htmlFor="cvv" className="block text-sm font-medium">CVV</label>
-                                    <input type="text" id="cvv" className="w-full p-2 border rounded-md" />
-                                </div>
-                            </div>
-                        </form>
-                    </div>
                         </form>
                     </div>
                 </div>
@@ -93,7 +94,7 @@ const CheckoutPage = () => {
                     <div className="space-y-4 mb-4">
                         {cartItems.map((item, index) => (
                             <div key={index} className="flex justify-between items-center">
-                                <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded" />
+                                <img src={item.image[0]} alt={item.name} className="w-16 h-16 object-cover rounded" />
                                 <div className="flex-1 mx-4">
                                     <h3 className="font-semibold">{item.name}</h3>
                                     <p className="text-sm text-gray-500">Size: {item.size}</p>
