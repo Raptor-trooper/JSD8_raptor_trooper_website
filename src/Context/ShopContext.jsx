@@ -8,14 +8,12 @@ const ShopContextProvider = ({ children }) => {
     const [category, setCategory] = useState([]);
     const [cartItems, setCartItems] = useState([]);
 
-    // const Api = process.env.REACT_APP_API_URL || "https://672db6ccfd89797156435c66.mockapi.io/ApiTrooper/category"
-
-    const Api = "https://672db6ccfd89797156435c66.mockapi.io/ApiTrooper/category"
+    const Api = import.meta.env.VITE_BACKEND_URL;
 
     const FetchCategory = async () => {
         try {
-            const response = await axios.get(`${Api}`)
-            setCategory(response.data)
+            const response = await axios.get(`${Api}/product/list`)
+            setCategory(response.data.products)
         } catch (error) {
             console.log('Error get Api', error);
         }
