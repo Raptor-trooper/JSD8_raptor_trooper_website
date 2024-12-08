@@ -18,7 +18,6 @@ import BathBody from './pages/BathBody'
 import Apparel from './pages/Apparel'
 import Accessories from './pages/Accessories'
 import AboutUs from './pages/AboutUs'
-import Address from './pages/Address'
 
 
 const router = createBrowserRouter([
@@ -63,7 +62,7 @@ const router = createBrowserRouter([
         element: <ResetPassword />
       },
       {
-        path: '/userprofile',
+        path: '/UserProfile',
         element: <UserProfile />
       },
 
@@ -90,10 +89,6 @@ const router = createBrowserRouter([
       {
         path: '/aboutus',
         element: <AboutUs />
-      },
-      {
-        path: '/address',
-        element: <Address />
       },
 
     ]
