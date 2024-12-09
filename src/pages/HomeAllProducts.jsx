@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { DataCategory } from '../Context/CategoryProvider'
+import { ShopContext } from '../Context/ShopContext'
 import { Link } from 'react-router-dom'
 import Loading from '../components/Loading'
 
 const HomeAllProducts = () => {
 
     // Get Data Product from DataCategory fetch from folder Context
-    const dataCategory = useContext(DataCategory)
+    const { category } = useContext(ShopContext)
 
     // State for loading...
     const [loading, setLoading] = useState(true);
@@ -40,16 +40,17 @@ const HomeAllProducts = () => {
                 </div>
 
                 {/* Grid For Products and map DataCategory */}
-                <div className='grid grid-cols-2 gap-8 m-4 md:grid-cols-3 md:mx-[88px]'>
+                <div className='grid grid-cols-2 md:grid-cols-4 md:m-[88px] gap-4 gap-y-6'>
 
-                    {dataCategory.map((product) => (
-                        <Link to={`/productpage/${product.name}`} key={product.id}>
+                    {category.map((product) => (
+                        <Link className='cursor-pointer' to={`/productpage/${product.name}`} key={product.id}>
 
-                            <div className=" w-full h-auto rounded-b-md shadow-lg hover:scale-105 duration-300">
-                                <img src={product.image} alt={product.name} className='w-full h-[412px] object-cover rounded-t-md' />
-                                <p className='p-2 pt-4 font-bold'>{product.name}</p>
-                                <p className='p-2'>Starting at <b>{product.price}$</b></p>
+                            <div className="overflow-hidden ease-in-out hover:scale-105 shadow-md m-4 transition">
+                                <img src={product.image[0]} alt={product.name} className='w-full h-[412px] object-cover transition ease-in-out' />
+                                <p className='px-6 pt-4 text-lg font-bold'>{product.name}</p>
+                                <p className='text-gray-700 px-6 pb-4 text-md '>Starting at <b>฿{product.price}</b></p>
                             </div>
+
                         </Link>
                     ))}
 
@@ -86,3 +87,4 @@ export default HomeAllProducts
         <button onClick={() => handleFilter("Apparel")} className='bg-black text-white p-2 text-center rounded-full shadow-md'>Apparel</button>
         <button onClick={() => handleFilter("Accessories")} className='bg-black text-white p-2 text-center rounded-full shadow-md'>Accessories</button>
     </div> */
+
