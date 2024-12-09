@@ -19,6 +19,7 @@ import Apparel from './pages/Apparel'
 import Accessories from './pages/Accessories'
 import AboutUs from './pages/AboutUs'
 
+export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const router = createBrowserRouter([
   {
@@ -65,10 +66,9 @@ const router = createBrowserRouter([
         path: '/UserProfile',
         element: <UserProfile />
       },
-
       {
-        path: '/admin',
-        element: <Admin />
+        path: '/admin/*',
+        element: <Admin />,
       },
       {
         path: '/homedecor',
@@ -90,7 +90,6 @@ const router = createBrowserRouter([
         path: '/aboutus',
         element: <AboutUs />
       },
-
     ]
   }
 ])

@@ -4,7 +4,7 @@ import logoName from "../assets/Handy Haven.svg";
 import login from "../assets/login.svg";
 import cart from "../assets/cart.svg";
 import burger from "../assets/burger.svg";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import CartConfirm from "./CartConfirm";
 import { ShopContext } from '../Context/ShopContext';
@@ -13,7 +13,7 @@ import { ShopContext } from '../Context/ShopContext';
 function Navbar() {
   const [isBurgerOpen, setBurgerOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { cartItems, remove } = useContext(ShopContext);
+  const { cartItems, token, setToken, isAdmin } = useContext(ShopContext);
 
   const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -26,15 +26,11 @@ function Navbar() {
   const handleCloseCart = () => {
     setIsCartOpen(false);
   };
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken("");
+  }
 
-  // Toggle body scrolling
-  useEffect(() => {
-    if (isBurgerOpen) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-  }, [isBurgerOpen]);
 
   return (
     <div className="w-full h-full bg-[#4A4947] ">
@@ -61,7 +57,28 @@ function Navbar() {
 
         {/* Icons */}
         <div className="flex space-x-4 max-md:absolute max-md:transform max-md:-translate-x-1/2 max-md:left-1/2">
-          <Link to='/login'><img className="w-[24px] h-[24px]" src={login} alt="login-icon" /></Link>
+          {/* <Link to='/login'><img className="w-[24px] h-[24px]" src={login} alt="login-icon" /></Link> */}
+
+          {/* Dropdown menu */}
+          <div className="bg-[#4A4947] group relative dropdown px-2">
+            <img className="w-[24px] h-[24px] cursor-pointer" src={login} alt="login-icon" />
+            
+              <div className="absolute hidden h-auto p-4 group-hover:block dropdown-menu right-1">
+                <ul className="bg-[#4A4947] flex flex-col gap-2 w-32 top-0 p-4 shadow">
+                  {token ? (
+                    <>
+                      <li className="cursor-pointer"><Link className="block" to='/userprofile'>User Profile</Link></li>
+                      {isAdmin && <li className="cursor-pointer"><Link className="block" to='/admin'>Admin</Link></li> }
+                    </>
+                  ) : (
+                    <li className="cursor-pointer"><Link className="block" to='/login'>Login</Link></li>
+                  )}
+                  <li className="cursor-pointer"><Link className="block" to='/cartpage'>Orders</Link></li>
+                  <li onClick={logout} className="cursor-pointer"><Link className="block" to='/login'>Logout</Link></li>
+                </ul>
+              </div>
+         
+          </div>
           <button onClick={() => handleOpenCart()}>
             <img className="w-[24px] h-[24px]" src={cart} alt="cart-icon" />
           </button>
