@@ -12,6 +12,7 @@ import ChangePassword from './pages/ChangePassword'
 import ResetPassword from './pages/ResetPassword'
 import UserProfile from './pages/UserProfile'
 import Admin from './pages/Admin'
+import Add from './pages/Admin/Add'
 import ShopContextProvider from './Context/ShopContext'
 import HomeDecor from './pages/HomeDecor'
 import BathBody from './pages/BathBody'
@@ -19,6 +20,7 @@ import Apparel from './pages/Apparel'
 import Accessories from './pages/Accessories'
 import AboutUs from './pages/AboutUs'
 
+export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const router = createBrowserRouter([
   {
@@ -89,10 +91,10 @@ const router = createBrowserRouter([
         path: '/aboutus',
         element: <AboutUs />
       },
-      {
-        path: '/address',
-        element: <Address />
-      },
+      // {
+      //   path: '/address',
+      //   element: <Address />
+      // },
     ]
   }
 ])
