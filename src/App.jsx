@@ -65,10 +65,9 @@ const router = createBrowserRouter([
         path: '/UserProfile',
         element: <UserProfile />
       },
-
       {
-        path: '/admin',
-        element: <Admin />
+        path: '/admin/*',
+        element: <Admin />,
       },
       {
         path: '/homedecor',
@@ -91,6 +90,10 @@ const router = createBrowserRouter([
         element: <AboutUs />
       },
 
+      {
+        path: '/address',
+        element: <Address />
+      },
     ]
   }
 ])
