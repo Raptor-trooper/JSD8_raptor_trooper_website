@@ -66,10 +66,9 @@ const router = createBrowserRouter([
         path: '/userprofile',
         element: <UserProfile />
       },
-
       {
-        path: '/admin',
-        element: <Admin />
+        path: '/admin/*',
+        element: <Admin />,
       },
       {
         path: '/homedecor',
@@ -95,7 +94,6 @@ const router = createBrowserRouter([
         path: '/address',
         element: <Address />
       },
-
     ]
   }
 ])
