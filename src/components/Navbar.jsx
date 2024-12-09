@@ -74,7 +74,7 @@ function Navbar() {
                     <li className="cursor-pointer"><Link className="block" to='/login'>Login</Link></li>
                   )}
                   <li className="cursor-pointer"><Link className="block" to='/cartpage'>Orders</Link></li>
-                  <li onClick={logout} className="cursor-pointer"><Link className="block" to='/login'>Logout</Link></li>
+                  {token && <li onClick={logout} className="cursor-pointer"><Link className="block" to='/login'>Logout</Link></li>}
                 </ul>
               </div>
          
