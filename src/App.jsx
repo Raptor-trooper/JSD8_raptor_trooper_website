@@ -90,10 +90,6 @@ const router = createBrowserRouter([
         element: <AboutUs />
       },
 
-      {
-        path: '/address',
-        element: <Address />
-      },
     ]
   }
 ])

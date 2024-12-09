@@ -7,6 +7,8 @@ const ShopContextProvider = ({ children }) => {
 
     const [category, setCategory] = useState([]);
     const [cartItems, setCartItems] = useState([]);
+    const [token, setToken] = useState("");
+    const [isAdmin, setIsAdmin] = useState(true);
 
     const Api = import.meta.env.VITE_BACKEND_URL;
 
@@ -45,9 +47,17 @@ const ShopContextProvider = ({ children }) => {
         FetchCategory()
     }, [])
 
+    useEffect(() => {
+        if (!token && localStorage.getItem("token")) {
+            setToken(localStorage.getItem("token"));
+          }
+    }, [token])
+
     const value = {
         category,
-        cartItems, addToCart, removeFromCart, setCartItems
+        cartItems, addToCart, removeFromCart, setCartItems,
+        token, setToken,
+        isAdmin, setIsAdmin
     }
 
     return (
