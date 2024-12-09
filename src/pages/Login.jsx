@@ -1,12 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { backendUrl } from "../App";
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Login");
-  const { token, setToken, navigate, backendUrl } = useContext(ShopContext);
+  const { token, setToken, } = useContext(ShopContext);
+  const navigate = useNavigate(); 
 
   const [name, setName] = useState("");
   const [password, setPasword] = useState("");
@@ -24,6 +27,7 @@ const Login = () => {
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
+      
         } else {
           toast.error(response.data.message);
         }
@@ -35,6 +39,7 @@ const Login = () => {
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
+          
         } else {
           toast.error(response.data.message);
         }
@@ -47,9 +52,9 @@ const Login = () => {
 
   useEffect(() => {
     if (token) {
-      navigate("/");
+      navigate("/"); 
     }
-  }, [token]);
+  }, [token,navigate]);
 
   return (
     <form
@@ -113,4 +118,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login; 

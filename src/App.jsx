@@ -11,7 +11,6 @@ import ChangePassword from './pages/ChangePassword'
 import ResetPassword from './pages/ResetPassword'
 import UserProfile from './pages/UserProfile'
 import Admin from './pages/Admin'
-import Add from './pages/Admin/Add'
 import ShopContextProvider from './Context/ShopContext'
 import HomeDecor from './pages/HomeDecor'
 import BathBody from './pages/BathBody'
@@ -86,10 +85,6 @@ const router = createBrowserRouter([
         path: '/aboutus',
         element: <AboutUs />
       },
-      // {
-      //   path: '/address',
-      //   element: <Address />
-      // },
     ]
   }
 ])
