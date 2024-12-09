@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, { createContext, useEffect, useState } from 'react'
-
 export const ShopContext = createContext();
 
 const ShopContextProvider = ({ children }) => {
@@ -9,7 +8,6 @@ const ShopContextProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
     const [token, setToken] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
-
     const Api = import.meta.env.VITE_BACKEND_URL;
 
     const FetchCategory = async () => {
@@ -65,7 +63,8 @@ const ShopContextProvider = ({ children }) => {
         category,
         cartItems, addToCart, removeFromCart, setCartItems,
         token, setToken,
-        isAdmin, setIsAdmin
+        isAdmin, setIsAdmin,
+    
     }
 
     return (
