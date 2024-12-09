@@ -8,7 +8,7 @@ const ShopContextProvider = ({ children }) => {
     const [category, setCategory] = useState([]);
     const [cartItems, setCartItems] = useState([]);
     const [token, setToken] = useState("");
-    const [isAdmin, setIsAdmin] = useState(true);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const Api = import.meta.env.VITE_BACKEND_URL;
 
@@ -47,11 +47,19 @@ const ShopContextProvider = ({ children }) => {
         FetchCategory()
     }, [])
 
+    // เรียกใช้ token จาก localstorage
     useEffect(() => {
         if (!token && localStorage.getItem("token")) {
             setToken(localStorage.getItem("token"));
           }
     }, [token])
+
+    // เรียกใช้ role จาก localstorage
+    useEffect(() => {
+        if (localStorage.getItem("role") === "admin") {
+            setIsAdmin(true);
+        }
+    }, [isAdmin])
 
     const value = {
         category,

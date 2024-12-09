@@ -13,7 +13,7 @@ import { ShopContext } from '../Context/ShopContext';
 function Navbar() {
   const [isBurgerOpen, setBurgerOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { cartItems, token, setToken, isAdmin, setIsAdmin } = useContext(ShopContext);
+  const { cartItems, token, setToken, isAdmin } = useContext(ShopContext);
 
   const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
