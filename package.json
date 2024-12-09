@@ -16,10 +16,6 @@
     "react-router-dom": "^6.28.0",
     "react-toastify": "^10.0.6",
     "swiper": "^11.1.15",
-<<<<<<< HEAD
-=======
-
->>>>>>> c6ea466e15dc5d95c221f13846d9a41b0c8f639b
     "sweetalert2": "^11.14.5"
   },
   "devDependencies": {
