@@ -50,14 +50,12 @@ const ShopContextProvider = ({ children }) => {
         if (!token && localStorage.getItem("token")) {
             setToken(localStorage.getItem("token"));
           }
-    }, [token])
-
-    // เรียกใช้ role จาก localstorage
-    useEffect(() => {
         if (localStorage.getItem("role") === "admin") {
             setIsAdmin(true);
+        } else {
+            setIsAdmin(false);
         }
-    }, [isAdmin])
+    }, [token])
 
     const value = {
         category,
