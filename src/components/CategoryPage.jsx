@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { DataCategory } from '../Context/CategoryProvider'
+import { ShopContext } from '../Context/ShopContext'
 import { Link } from 'react-router-dom'
 import Loading from './Loading'
 
-const Products = ({ category }) => {
+const Products = ({ categoryName }) => {
 
     // Get Data Product from DataCategory fetch from floder Context
-    const dataCategory = useContext(DataCategory);
+    const { category } = useContext(ShopContext);
 
     // State for loading...
     const [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ const Products = ({ category }) => {
         }, 1000);
     }, [loading]);
 
-    const products = dataCategory.filter(item => item.category === category);
+    const products = category.filter(item => item.category === categoryName);
 
     return (
         <div>
@@ -27,7 +27,7 @@ const Products = ({ category }) => {
 
                 {/* Header */}
                 <div className='px-[88px] mx-auto'>
-                    <h1 className='mt-16 text-5xl font-bold'> {category} </h1>
+                    <h1 className='mt-16 text-5xl font-bold'> {categoryName} </h1>
                     <p className='my-8'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, unde.</p>
                     <hr />
 
@@ -44,12 +44,12 @@ const Products = ({ category }) => {
                 {/* Grid For Products and map DataCategory */}
                 <div className='grid grid-cols-2 gap-8 m-4 md:grid-cols-3 md:mx-[88px]'>
                     {products.map(product => (
-                        <Link to={`/productpage/${product.name}`} key={product.id}>
+                        <Link className=' cursor-pointer' to={`/productpage/${product.name}`} key={product.id}>
 
-                            <div className="w-full h-auto duration-300 shadow-lg  rounded-b-md hover:scale-105">
-                                <img src={product.image} alt={product.name} className='w-full h-[412px] object-cover rounded-t-md' />
-                                <p className="p-2 pt-4 font-bold">{product.name}</p>
-                                <p className="p-2">Starting at {product.price}</p>
+                            <div className="rounded-b-md overflow-hidden ease-in-out hover:scale-105 m-4 transition shadow-xl">
+                                <img src={product.image[0]} alt={product.name} className='w-full h-[412px] object-cover rounded-t-md' />
+                                <p className='px-6 pt-4 text-lg font-bold'>{product.name}</p>
+                                <p className='text-gray-700 px-6 pb-4 text-md '>Starting at <b>฿{product.price}</b></p>
                             </div>
 
                         </Link>

@@ -1,76 +1,122 @@
-import React from 'react'
+import { useContext, useEffect, useState } from "react";
+import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { backendUrl } from "../App";
 import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
-    const navigate = useNavigate();
+  const [currentState, setCurrentState] = useState("Login");
+  const { token, setToken, } = useContext(ShopContext);
+  const navigate = useNavigate(); 
 
-    const handleSignUpClick = () => {
-        navigate ("/signup");
-    };
+  const [name, setName] = useState("");
+  const [password, setPasword] = useState("");
+  const [email, setEmail] = useState("");
 
-    return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-          <div className="w-full max-w-md p-8 bg-gray-100 rounded-md shadow-lg">
-            <h2 className="mb-6 text-3xl font-medium text-center">Handy Haven</h2>
-            
-            <form className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Email address</label>
-                <input 
-                  type="email" 
-                  placeholder="Enter Username" 
-                  className="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                />
-              </div>
-    
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Password</label>
-                <div className="relative">
-                  <input 
-                    type="password" 
-                    placeholder="Enter Password" 
-                    className="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  />
-                  <button type="button" className="absolute text-gray-500 right-3 top-3">
-                    <i className="far fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-    
-              <div className="text-right">
-                <a href="#" className="text-sm text-gray-500 hover:underline">forgot password</a>
-              </div>
-    
-              <div className="flex space-x-2">
-                <button 
-                  type="submit" 
-                  className="w-full py-2 text-white bg-indigo-600 rounded-md shadow hover:bg-indigo-700 focus:outline-none">
-                  Login
-                </button>
-                <button 
-                  type="button" 
-                  className="w-full py-2 text-gray-700 bg-gray-200 rounded-md shadow hover:bg-gray-300 focus:outline-none">
-                  className="w-full py-2 text-gray-700 bg-gray-200 rounded-md shadow hover:bg-gray-300 focus:outline-none"
-                  onClick={handleSignUpClick}>
-                  sign up
-                </button>
-              </div>
-            </form>
-    
-            <div className="flex items-center justify-center mt-6">
-              <button 
-                type="button" 
-                className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo" className="w-5 h-5 mr-2" />
-                ลงชื่อเข้าใช้ด้วย Google
-              </button>
-            </div>
-          </div>
-        </div>
-      );
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+    try {
+      if (currentState === "Sign Up") {
+        const response = await axios.post(backendUrl + "/user/register", {
+          name,
+          email,
+          password,
+        });
+        if (response.data.success) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+      
+        } else {
+          toast.error(response.data.message);
+        }
+      } else {
+        const response = await axios.post(backendUrl + "/user/login", {
+          email,
+          password,
+        });
+        if (response.data.success) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("role", response.data.role);
+          
+        } else {
+          toast.error(response.data.message);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
     }
+  };
 
-export default Login
+  useEffect(() => {
+    if (token) {
+      navigate("/"); 
+    }
+  }, [token,navigate]);
 
+  return (
+    <form
+      onSubmit={onSubmitHandler}
+      className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800"
+    >
+      <div className="inline-flex items-center gap-2 mt-10 mb-2">
+        <p className="text-3xl prata-regular">{currentState}</p>
+        <hr className="border-none h-[1.5px] w-8 bg-gray-800" />
+      </div>
+      {currentState === "Login" ? (
+        ""
+      ) : (
+        <input
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+          type="text"
+          className="w-full px-3 py-2 border border-gray-800"
+          placeholder="Name"
+          required
+        />
+      )}
+      <input
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
+        type="email"
+        className="w-full px-3 py-2 border border-gray-800"
+        placeholder="Email"
+        required
+      />
+      <input
+        onChange={(e) => setPasword(e.target.value)}
+        value={password}
+        type="password"
+        className="w-full px-3 py-2 border border-gray-800"
+        placeholder="Password"
+        required
+      />
+      <div className="w-full flex justify-between text-sm mt-[-8px]">
+        <p className="cursor-pointer ">Forgot your password?</p>
+        {currentState === "Login" ? (
+          <p
+            onClick={() => setCurrentState("Sign Up")}
+            className="cursor-pointer "
+          >
+            Create account
+          </p>
+        ) : (
+          <p
+            onClick={() => setCurrentState("Login")}
+            className="cursor-pointer "
+          >
+            Login Here
+          </p>
+        )}
+      </div>
+      <button className="px-8 py-2 mt-4 font-light text-white bg-black">
+        {currentState === "Login" ? "Sign In" : "Sign Up"}
+      </button>
+    </form>
+  );
+};
 
+export default Login; //รอแก้หน้าตากลับ
