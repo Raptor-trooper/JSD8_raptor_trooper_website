@@ -250,9 +250,7 @@ const ProductPage = () => {
           <div className="collapse-title text-xl font-bold">Description</div>
           <div className="collapse-content">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam
-              aspernatur iste sequi perspiciatis quas provident accusamus
-              corrupti adipisci aliquid! Repellat?
+              {product.description}
             </p>
           </div>
         </div>
