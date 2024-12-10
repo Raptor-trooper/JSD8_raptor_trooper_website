@@ -7,7 +7,6 @@ import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
 import CheckOutPage from './pages/CheckOutPage'
 import Login from './pages/Login'
-import SignUp from './pages/SignUp'
 import ChangePassword from './pages/ChangePassword'
 import ResetPassword from './pages/ResetPassword'
 import UserProfile from './pages/UserProfile'
@@ -49,10 +48,6 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />
-      },
-      {
-        path: '/signup',
-        element: <SignUp />
       },
       {
         path: '/changepassword',

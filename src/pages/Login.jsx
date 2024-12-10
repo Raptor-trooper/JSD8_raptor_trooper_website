@@ -1,120 +1,121 @@
-import React, { useState } from 'react';
+import { useContext, useEffect, useState } from "react";
+import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { backendUrl } from "../App";
 import { useNavigate } from 'react-router-dom';
 
+
 const Login = () => {
-  const navigate = useNavigate();
+  const [currentState, setCurrentState] = useState("Login");
+  const { token, setToken, } = useContext(ShopContext);
+  const navigate = useNavigate(); 
 
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-  });
+  const [name, setName] = useState("");
+  const [password, setPasword] = useState("");
+  const [email, setEmail] = useState("");
 
-  const [errors, setErrors] = useState({});
-
-  const handleSignUpClick = () => {
-    navigate('/signup');
-  };
-
-  // Handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  // Validation function
-  const validate = () => {
-    const newErrors = {};
-    if (!formData.username) {
-      newErrors.username = 'Username is required.';
-    }
-    if (!formData.password) {
-      newErrors.password = 'Password is required.';
-    }
-    return newErrors;
-  };
-
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-    } else {
-      setErrors({});
-      alert('Login successful!'); // Replace this with your login API call
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+    try {
+      if (currentState === "Sign Up") {
+        const response = await axios.post(backendUrl + "/user/register", {
+          name,
+          email,
+          password,
+        });
+        if (response.data.success) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+      
+        } else {
+          toast.error(response.data.message);
+        }
+      } else {
+        const response = await axios.post(backendUrl + "/user/login", {
+          email,
+          password,
+        });
+        if (response.data.success) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+          
+        } else {
+          toast.error(response.data.message);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/"); 
+    }
+  }, [token,navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-semibold mb-8">Log in</h1>
-      <form className="w-80 space-y-4" onSubmit={handleSubmit}>
-        {/* Username */}
-        <div>
-          <label className="text-sm font-medium mb-1">Username</label>
-          <input
-            type="text"
-            name="username"
-            placeholder="Enter Username"
-            value={formData.username}
-            onChange={handleChange}
-            className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.username && (
-            <p className="text-sm text-red-500 mt-1">{errors.username}</p>
-          )}
-        </div>
-
-        {/* Password */}
-        <div>
-          <label className="text-sm font-medium mb-1">Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter Password"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.password && (
-            <p className="text-sm text-red-500 mt-1">{errors.password}</p>
-          )}
-        </div>
-
-        {/* Forgot Password */}
-        <div className="flex justify-end">
-          <a href="#" className="text-sm text-gray-600 hover:underline">
-            Forgot password?
-          </a>
-        </div>
-
-        {/* Login Button */}
-        <button
-          type="submit"
-          className="w-full p-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 transition"
-        >
-          Log in
-        </button>
-
-        {/* Sign Up Button */}
-        <div className="flex justify-center mt-4">
-          <p className="text-sm text-gray-600">
-            Don't have an account?
-            <button
-              type="button"
-              onClick={handleSignUpClick}
-              className="ml-2 text-blue-500 hover:underline"
-            >
-              Sign up
-            </button>
+    <form
+      onSubmit={onSubmitHandler}
+      className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800"
+    >
+      <div className="inline-flex items-center gap-2 mb-2 mt-10">
+        <p className="prata-regular text-3xl">{currentState}</p>
+        <hr className="border-none h-[1.5px] w-8 bg-gray-800" />
+      </div>
+      {currentState === "Login" ? (
+        ""
+      ) : (
+        <input
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+          type="text"
+          className="w-full px-3 py-2 border border-gray-800"
+          placeholder="Name"
+          required
+        />
+      )}
+      <input
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
+        type="email"
+        className="w-full px-3 py-2 border border-gray-800"
+        placeholder="Email"
+        required
+      />
+      <input
+        onChange={(e) => setPasword(e.target.value)}
+        value={password}
+        type="password"
+        className="w-full px-3 py-2 border border-gray-800"
+        placeholder="Password"
+        required
+      />
+      <div className="w-full flex justify-between text-sm mt-[-8px]">
+        <p className=" cursor-pointer">Forgot your password?</p>
+        {currentState === "Login" ? (
+          <p
+            onClick={() => setCurrentState("Sign Up")}
+            className=" cursor-pointer"
+          >
+            Create account
           </p>
-        </div>
-      </form>
-    </div>
+        ) : (
+          <p
+            onClick={() => setCurrentState("Login")}
+            className=" cursor-pointer"
+          >
+            Login Here
+          </p>
+        )}
+      </div>
+      <button className="bg-black text-white font-light px-8 py-2 mt-4">
+        {currentState === "Login" ? "Sign In" : "Sign Up"}
+      </button>
+    </form>
   );
 };
 
-export default Login;
+export default Login; //รอแก้หน้าตากลับ
