@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Login");
-  const { token, setToken, } = useContext(ShopContext);
-  const navigate = useNavigate(); 
+  const { token, setToken } = useContext(ShopContext);
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [password, setPasword] = useState("");
