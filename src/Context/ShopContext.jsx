@@ -84,17 +84,15 @@ const ShopContextProvider = ({ children }) => {
     };
 
     const updateQuantity = async (itemId, quantity) => {
-        let cartData = structuredClone(cartItems);
-
-        cartData[itemId] = quantity;
-
-        setCartItems(cartData);
+        // let cartData = structuredClone(cartItems);
+        // cartData[itemId] = quantity;
+        // setCartItems(cartData);
 
         if (token) {
             try {
                 await axios.post(
                     `${Api}/cart/update`,
-                    { itemId, quantity },
+                    { itemId, quantity: cartItems },
                     {
                         headers: {
                             authorization: `Bearer ${token}` // ใส่ Token ใน Header

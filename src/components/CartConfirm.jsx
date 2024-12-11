@@ -108,7 +108,7 @@ import { ShopContext } from '../Context/ShopContext';
 
 const CartConfirm = ({ isOpen, onClose }) => {
     const navigate = useNavigate();
-    const { cartItems, setCartItems, category, token } = useContext(ShopContext);
+    const { cartItems, setCartItems, category, token, updateQuantity } = useContext(ShopContext);
     const [cartData, setCartData] = useState([]);
     console.log("cartData", cartData);
 
@@ -145,31 +145,32 @@ const CartConfirm = ({ isOpen, onClose }) => {
         setCartItems(updatedCartItems);
     };
 
-    // ฟังก์ชันสำหรับเพิ่มจำนวนสินค้า
-    const handleIncrement = (index) => {
-        const updatedCartItems = cartItems.map((item, i) => {
-            if (i === index) {
-                return { ...item, quantity: item.quantity + 1 };
-            }
-            return item;
-        });
+    const handleIncrement = (id) => {
+        const updatedCartItems = { ...cartItems };
+        if (updatedCartItems[id] !== undefined) {
+            updatedCartItems[id] += 1;
+        } else {
+            updatedCartItems[id] = 1;
+        }
         setCartItems(updatedCartItems);
     };
 
     // ฟังก์ชันสำหรับลดจำนวนสินค้า
-    const handleDecrement = (index) => {
-        const updatedCartItems = cartItems.map((item, i) => {
-            if (i === index && item.quantity > 1) {
-                return { ...item, quantity: item.quantity - 1 };
+    const handleDecrement = (id) => {
+        const updatedCartItems = { ...cartItems };
+        if (updatedCartItems[id] !== undefined) {
+            if (updatedCartItems[id] === 1) {
+                delete updatedCartItems[id]
+            } else {
+                updatedCartItems[id] -= 1;
             }
-            return item;
-        });
+        }
         setCartItems(updatedCartItems);
     };
-
-    // const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-    // console.log("CARTITEM = ", cartItems);
-
+    useEffect(() => {
+        console.log("USEEFFECT EIIE", cartItems);
+        updateQuantity()
+    }, [cartItems])
 
     return (
         <div
@@ -181,7 +182,7 @@ const CartConfirm = ({ isOpen, onClose }) => {
                 <button onClick={onClose} className="text-gray-600 text-xl font-semibold">CLOSE</button>
             </div>
             <div className="p-4 space-y-4">
-                {cartData.map((item, index) => {
+                {/* {cartData.map((item, index) => {
                     const productData = category.find(
                         (cate) => cate._id === item._id
                     )
@@ -191,12 +192,34 @@ const CartConfirm = ({ isOpen, onClose }) => {
                             <div className="flex-1 mx-4">
                                 <h3 className="font-semibold">{productData.name}</h3>
                                 <div className="flex items-center mt-2">
-                                    <button onClick={() => handleDecrement(index)} className="px-2 border">-</button>
+                                    <button onClick={() => handleDecrement(item._id)} className="px-2 border">-</button>
                                     <p className='px-2'>{cartData.quantity}</p>
-                                    <button onClick={() => handleIncrement(index)} className="px-2 border">+</button>
+                                    <button onClick={() => handleIncrement(item._id)} className="px-2 border">+</button>
                                 </div>
                             </div>
                             <p className="font-semibold">฿{productData.price}</p>
+                            <button onClick={() => handleDeleteItem(index)} className="text-red-500 hover:text-red-700 ml-4">
+                                <i className="fas fa-trash">❌</i>
+                            </button>
+                        </div>
+                    )
+                })} */}
+                {Object.keys(cartItems).map((item, index) => {
+                    const productData = category.find(
+                        (cate) => cate._id === item
+                    )
+                    return (
+                        <div key={index} className="flex justify-between items-center border-b py-4">
+                            <img src={productData?.image[0]} alt={productData?.name} className="w-16 h-16 object-cover rounded" />
+                            <div className="flex-1 mx-4">
+                                <h3 className="font-semibold">{productData?.name}</h3>
+                                <div className="flex items-center mt-2">
+                                    <button onClick={() => handleDecrement(item)} className="px-2 border">-</button>
+                                    <p className='px-2'>{cartItems[item]}</p>
+                                    <button onClick={() => handleIncrement(item)} className="px-2 border">+</button>
+                                </div>
+                            </div>
+                            <p className="font-semibold">฿{productData?.price}</p>
                             <button onClick={() => handleDeleteItem(index)} className="text-red-500 hover:text-red-700 ml-4">
                                 <i className="fas fa-trash">❌</i>
                             </button>
