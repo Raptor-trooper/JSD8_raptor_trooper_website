@@ -1,21 +1,41 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ShopContext } from '../Context/ShopContext';
 import { useNavigate } from 'react-router-dom';
+import CartTotal from '../components/CartTotal';
 
 const CartPage = () => {
-    const { cartItems, removeFromCart, setCartItems } = useContext(ShopContext);
+    const { cartItems, removeFromCart, setCartItems, updateQuantity, category } = useContext(ShopContext);
     const navigate = useNavigate();
 
-    // ฟังก์ชันสำหรับเพิ่มจำนวนสินค้า
-    const handleIncrement = (index) => {
-        const updatedCartItems = cartItems.map((item, i) => {
-            if (i === index) {
-                return { ...item, quantity: item.quantity + 1 };
+    const [cartData, setCartData] = useState([]);
+    console.log("CARTITEM = ", cartData);
+
+    useEffect(() => {
+        if (category.length > 0) {
+            const tempData = [];
+            for (const items in cartItems) {
+                if (cartItems[items] > 0) {
+                    tempData.push({
+                        _id: items,
+                        quantity: cartItems[items],
+                    });
+                }
+
             }
-            return item;
-        });
-        setCartItems(updatedCartItems);
-    };
+            setCartData(tempData);
+        }
+    }, [cartItems, category]);
+
+    // ฟังก์ชันสำหรับเพิ่มจำนวนสินค้า
+    // const handleIncrement = (index) => {
+    //     const updatedCartItems = cartItems.map((item, i) => {
+    //         if (i === index) {
+    //             return { ...item, quantity: item.quantity + 1 };
+    //         }
+    //         return item;
+    //     });
+    //     setCartItems(updatedCartItems);
+    // };
 
     const handleSignIn = () => {
 
@@ -45,7 +65,7 @@ const CartPage = () => {
     };
 
     // สรุปยอดรวมสินค้า
-    const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    // const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
     return (
         <div className="max-w-screen-xl mx-auto p-8">
@@ -71,49 +91,76 @@ const CartPage = () => {
                     {cartItems.length === 0 ? (
                         <p>Your cart is currently empty.</p>
                     ) : (
-                        <div className="space-y-4">
-                            {cartItems.map((item, index) => (
-                                <div key={index} className="flex justify-between items-center border-b py-4">
-                                    <img src={item.image[0]} alt={item.name} className="w-24 h-24 object-cover rounded" />
-                                    <div className="flex-1 mx-4">
-                                        <h3 className="font-semibold">{item.name}</h3>
-                                        <p className="text-sm text-gray-500">BY {item.brand}</p>
-                                        <p className="text-sm text-gray-500">Size: {item.size}</p>
-                                        <div className="flex items-center mt-2">
-                                            <button onClick={() => handleDecrement(index)} className="px-2 border">-</button>
-                                            <p className='px-2'>{item.quantity}</p>
-                                            <button onClick={() => handleIncrement(index)} className="px-2 border">+</button>
+                        <div>
+                            {cartData.map((item, index) => {
+                                const productData = category.find(
+                                    (product) => product._id === item._id
+                                );
+
+                                return (
+                                    <div
+                                        key={index}
+                                        className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
+                                    >
+                                        <div className=" flex items-start gap-6">
+                                            <img
+                                                className="w-16 sm:w-20"
+                                                src={productData.image[0]}
+                                                alt=""
+                                            />
+                                            <div>
+                                                <p className="text-xs sm:text-lg font-medium">
+                                                    {productData.name}
+                                                </p>
+                                                <div className="flex items-center gap-5 mt-2">
+                                                    <p>
+                                                        {currency}
+                                                        {productData.price}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <input
+                                            onChange={(e) =>
+                                                e.target.value === "" || e.target.value === "0"
+                                                    ? null
+                                                    : updateQuantity(
+                                                        item._id,
+                                                        Number(e.target.value)
+                                                    )
+                                            }
+                                            className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
+                                            type="number"
+                                            min={1}
+                                            defaultValue={item.quantity}
+                                        />
+                                        <p
+                                            onClick={() => updateQuantity(item._id, 0)}
+                                            className="w-4 mr-4 sm:w-5 cursor-pointer">
+                                            ❌
+                                        </p>
                                     </div>
-                                    <p className="font-semibold">฿{item.price * item.quantity}</p>
-                                    <button onClick={() => removeFromCart(index)} className="text-red-500 hover:text-red-700 ml-4">
-                                        <i className="fas fa-trash">❌</i>
-                                    </button>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     )}
                 </div>
 
                 {/* Section Order Summary */}
-                <div className="bg-gray-100 p-6 rounded-md">
-                    <h2 className="text-lg font-bold mb-4">Order Summary</h2>
-                    <div className="flex justify-between mb-2">
-                        <span className="font-semibold">Subtotal</span>
-                        <span>฿{totalAmount}</span>
+                <div className="flex justify-end my-20">
+                    <div className="w-full sm:w-[450px]">
+                        <CartTotal />
+                        <div className=" w-full text-end">
+                            <button
+                                onClick={handleCheckout}
+                                className="bg-black text-white text-sm my-8 px-8 py-3"
+                            >
+                                PROCEED TO CHECKOUT
+                            </button>
+                        </div>
                     </div>
-                    <div className="flex justify-between mb-2">
-                        <span className="font-semibold">Estimated Shipping</span>
-                        <span>Calculated in checkout</span>
-                    </div>
-                    <div className="flex justify-between mb-4">
-                        <span className="font-semibold">Total</span>
-                        <span className="font-semibold">฿{totalAmount}</span>
-                    </div>
-                    <button className="w-full py-3 bg-black text-white font-semibold" onClick={handleCheckout}>
-                        CHECKOUT
-                    </button>
                 </div>
+
             </div>
         </div>
     );
