@@ -58,65 +58,88 @@ const Login = () => {
   }, [token,navigate]);
 
   return (
-    <form
-      onSubmit={onSubmitHandler}
-      className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800"
-    >
-      <div className="inline-flex items-center gap-2 mt-10 mb-2">
-        <p className="text-3xl prata-regular">{currentState}</p>
-        <hr className="border-none h-[1.5px] w-8 bg-gray-800" />
-      </div>
-      {currentState === "Login" ? (
-        ""
-      ) : (
-        <input
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          type="text"
-          className="w-full px-3 py-2 border border-gray-800"
-          placeholder="Name"
-          required
-        />
-      )}
-      <input
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-        type="email"
-        className="w-full px-3 py-2 border border-gray-800"
-        placeholder="Email"
-        required
-      />
-      <input
-        onChange={(e) => setPasword(e.target.value)}
-        value={password}
-        type="password"
-        className="w-full px-3 py-2 border border-gray-800"
-        placeholder="Password"
-        required
-      />
-      <div className="w-full flex justify-between text-sm mt-[-8px]">
-        <p className="cursor-pointer ">Forgot your password?</p>
-        {currentState === "Login" ? (
-          <p
-            onClick={() => setCurrentState("Sign Up")}
-            className="cursor-pointer "
-          >
-            Create account
-          </p>
-        ) : (
-          <p
-            onClick={() => setCurrentState("Login")}
-            className="cursor-pointer "
-          >
-            Login Here
-          </p>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h1 className="text-3xl font-semibold mb-8">
+        {currentState === "Login" ? "Log in" : "Sign Up"}
+      </h1>
+      <form className="w-80 space-y-4" onSubmit={onSubmitHandler}>
+        {/* Name (only for Sign Up) */}
+        {currentState === "Sign Up" && (
+          <div>
+            <label className="text-sm font-medium mb-1">Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
         )}
-      </div>
-      <button className="px-8 py-2 mt-4 font-light text-white bg-black">
-        {currentState === "Login" ? "Sign In" : "Sign Up"}
-      </button>
-    </form>
+  
+        {/* Email */}
+        <div>
+          <label className="text-sm font-medium mb-1">Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+  
+        {/* Password */}
+        <div>
+          <label className="text-sm font-medium mb-1">Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPasword(e.target.value)}
+            className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+  
+        {/* Forgot Password */}
+        <div className="flex justify-end">
+          <a href="#" className="text-sm text-gray-600 hover:underline">
+            Forgot password?
+          </a>
+        </div>
+  
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full p-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 transition"
+        >
+          {currentState === "Login" ? "Log in" : "Sign Up"}
+        </button>
+  
+        {/* Toggle Login/Sign Up */}
+        <div className="flex justify-center mt-4">
+          <p className="text-sm text-gray-600">
+            {currentState === "Login"
+              ? "Don't have an account?"
+              : "Already have an account?"}
+            <button
+              type="button"
+              onClick={() =>
+                setCurrentState(currentState === "Login" ? "Sign Up" : "Login")
+              }
+              className="ml-2 text-blue-500 hover:underline"
+            >
+              {currentState === "Login" ? "Sign up" : "Log in"}
+            </button>
+          </p>
+        </div>
+      </form>
+    </div>
   );
+  
 };
 
 export default Login; //รอแก้หน้าตากลับ
