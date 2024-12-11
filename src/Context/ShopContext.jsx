@@ -37,19 +37,15 @@ const ShopContextProvider = ({ children }) => {
     //     }
     // };
 
-    const addToCart = async (itemId, userId) => {
-        console.log("userId", userId);
+    const addToCart = async (itemId) => {
         console.log("itemId", itemId);
 
         let cartData = structuredClone(cartItems);
         if (cartData[itemId]) {
-            if (cartData[itemId]) {
-                cartData[itemId] += 1;
-            } else {
-                cartData[itemId] = 1;
-            }
+            cartData[itemId] += 1;
         } else {
             cartData[itemId] = {};
+            cartData[itemId] = 1;
         }
         setCartItems(cartData);
         if (token) {
