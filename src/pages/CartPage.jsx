@@ -8,42 +8,29 @@ const CartPage = () => {
     const navigate = useNavigate();
 
     const [cartData, setCartData] = useState([]);
-    console.log("CARTITEM = ", cartData);
 
     useEffect(() => {
         if (category.length > 0) {
             const tempData = [];
             for (const items in cartItems) {
                 if (cartItems[items] > 0) {
+                    console.log("CARTITEMSSS", cartItems);
+
                     tempData.push({
                         _id: items,
                         quantity: cartItems[items],
                     });
                 }
-
             }
             setCartData(tempData);
         }
     }, [cartItems, category]);
 
-    // ฟังก์ชันสำหรับเพิ่มจำนวนสินค้า
-    // const handleIncrement = (index) => {
-    //     const updatedCartItems = cartItems.map((item, i) => {
-    //         if (i === index) {
-    //             return { ...item, quantity: item.quantity + 1 };
-    //         }
-    //         return item;
-    //     });
-    //     setCartItems(updatedCartItems);
-    // };
-
     const handleSignIn = () => {
-
         navigate('/login'); // ย้ายไปที่ login page
     };
 
     const handleSignUp = () => {
-
         navigate('/signup'); // ย้ายไปที่ signup page
     };
 
@@ -64,103 +51,76 @@ const CartPage = () => {
         navigate('/checkoutpage');
     };
 
-    // สรุปยอดรวมสินค้า
-    // const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-
     return (
-        <div className="max-w-screen-xl mx-auto p-8">
-            <h1 className="text-3xl font-bold mb-8">Cart ({cartItems.length})</h1>
+        <div className="border-t pt-14">
+            <div className=" text-2xl mb-3">
+                <h1>Cart</h1>
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {/* Section สำหรับ Create a Account */}
-                <div className="md:col-span-2 space-y-8">
-                    <div className="bg-gray-100 p-4 rounded-md">
-                        <h2 className="text-lg font-bold">Create a Account</h2>
-                        <p>Sign up to track your order history and save your information for faster checkouts.</p>
-                        <div className="mt-4">
-                            <button className="text-blue-500 font-semibold mr-4"
-                                onClick={handleSignIn}
-                            >Sign In</button>
-                            <button className="text-blue-500 font-semibold"
-                                onClick={handleSignUp}
-                            >Sign Up</button>
-                        </div>
-                    </div>
+            <div>
+                {cartData.map((item, index) => {
+                    const productData = category.find(
+                        (cate) => cate._id === item._id
+                    );
 
-                    {/* Section รายการสินค้า */}
-                    {cartItems.length === 0 ? (
-                        <p>Your cart is currently empty.</p>
-                    ) : (
-                        <div>
-                            {cartData.map((item, index) => {
-                                const productData = category.find(
-                                    (product) => product._id === item._id
-                                );
-
-                                return (
-                                    <div
-                                        key={index}
-                                        className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
-                                    >
-                                        <div className=" flex items-start gap-6">
-                                            <img
-                                                className="w-16 sm:w-20"
-                                                src={productData.image[0]}
-                                                alt=""
-                                            />
-                                            <div>
-                                                <p className="text-xs sm:text-lg font-medium">
-                                                    {productData.name}
-                                                </p>
-                                                <div className="flex items-center gap-5 mt-2">
-                                                    <p>
-                                                        {currency}
-                                                        {productData.price}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <input
-                                            onChange={(e) =>
-                                                e.target.value === "" || e.target.value === "0"
-                                                    ? null
-                                                    : updateQuantity(
-                                                        item._id,
-                                                        Number(e.target.value)
-                                                    )
-                                            }
-                                            className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
-                                            type="number"
-                                            min={1}
-                                            defaultValue={item.quantity}
-                                        />
-                                        <p
-                                            onClick={() => updateQuantity(item._id, 0)}
-                                            className="w-4 mr-4 sm:w-5 cursor-pointer">
-                                            ❌
+                    return (
+                        <div
+                            key={index}
+                            className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
+                        >
+                            <div className=" flex items-start gap-6">
+                                <img
+                                    className="w-16 sm:w-20"
+                                    src={productData.image[0]}
+                                    alt=""
+                                />
+                                <div>
+                                    <p className="text-xs sm:text-lg font-medium">
+                                        {productData.name}
+                                    </p>
+                                    <div className="flex items-center gap-5 mt-2">
+                                        <p>
+                                            {productData.price}
                                         </p>
                                     </div>
-                                );
-                            })}
-                        </div>
-                    )}
-                </div>
-
-                {/* Section Order Summary */}
-                <div className="flex justify-end my-20">
-                    <div className="w-full sm:w-[450px]">
-                        <CartTotal />
-                        <div className=" w-full text-end">
+                                </div>
+                            </div>
+                            <input
+                                onChange={(e) =>
+                                    e.target.value === "" || e.target.value === "0"
+                                        ? null
+                                        : updateQuantity(
+                                            item._id,
+                                            Number(e.target.value)
+                                        )
+                                }
+                                className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
+                                type="number"
+                                min={1}
+                                defaultValue={item.quantity}
+                            />
                             <button
-                                onClick={handleCheckout}
-                                className="bg-black text-white text-sm my-8 px-8 py-3"
-                            >
-                                PROCEED TO CHECKOUT
-                            </button>
+                                onClick={() => updateQuantity(item._id, 0)}
+                                className="w-4 mr-4 sm:w-5 cursor-pointer"
+                            >❌</button>
                         </div>
+                    );
+                })}
+            </div>
+
+            <div className="flex justify-end my-20">
+                <div className="w-full sm:w-[450px]">
+                    <h1>Order Summary</h1>
+                    <CartTotal />
+                    <div className=" w-full text-end">
+                        <button
+                            onClick={() => navigate("/checkoutpage")}
+                            className="bg-black text-white text-sm my-8 px-8 py-3"
+                        >
+                            PROCEED TO CHECKOUT
+                        </button>
                     </div>
                 </div>
-
             </div>
         </div>
     );
@@ -213,6 +173,24 @@ export default CartPage;
 
 //     return (
 //         <div className="max-w-screen-xl mx-auto p-8">
+
+//                                 ฝาก
+
+{/* <div className="bg-gray-100 p-4 rounded-md">
+                        <h2 className="text-lg font-bold">Create a Account</h2>
+                        <p>Sign up to track your order history and save your information for faster checkouts.</p>
+                        <div className="mt-4">
+                            <button className="text-blue-500 font-semibold mr-4"
+                                onClick={handleSignIn}
+                            >Sign In</button>
+                            <button className="text-blue-500 font-semibold"
+                                onClick={handleSignUp}
+                            >Sign Up</button>
+                        </div>
+                    </div> */}
+//ฝาก
+
+
 //             <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
 //             {cartItems.length === 0 ? (
 //                 <p>Your cart is currently empty.</p>

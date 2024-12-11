@@ -44,7 +44,6 @@ const HomeAllProducts = () => {
 
                     {category.map((product) => (
                         <Link className='cursor-pointer' to={`/productpage/${product._id}`} key={product._id}>
-
                             <div className="overflow-hidden ease-in-out hover:scale-105 shadow-md m-4 transition">
                                 <img src={product.image[0]} alt={product.name} className='w-full h-[412px] object-cover transition ease-in-out' />
                                 <p className='px-6 pt-4 text-lg font-bold'>{product.name}</p>

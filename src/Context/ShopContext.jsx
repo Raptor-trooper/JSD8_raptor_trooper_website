@@ -111,7 +111,7 @@ const ShopContextProvider = ({ children }) => {
     const getCartAmount = () => {
         let totalAmount = 0;
         for (const items in cartItems) {
-            let itemInfo = products.find((product) => product._id === items);
+            let itemInfo = category.find((product) => product._id === items);
             try {
                 if (cartItems[items] > 0) {
                     totalAmount += itemInfo.price * cartItems[items];
@@ -156,11 +156,15 @@ const ShopContextProvider = ({ children }) => {
     useEffect(() => {
         if (!token && localStorage.getItem("token")) {
             setToken(localStorage.getItem("token"));
+            getUserCart(localStorage.getItem("token"));
         }
         if (localStorage.getItem("role") === "admin") {
             setIsAdmin(true);
         } else {
             setIsAdmin(false);
+        }
+        if (token) {
+            getUserCart(token);
         }
     }, [token])
 
