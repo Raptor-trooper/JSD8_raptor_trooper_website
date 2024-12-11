@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { createContext, useEffect, useState } from 'react'
-
+import { toast } from "react-toastify";
 export const ShopContext = createContext();
 
 const ShopContextProvider = ({ children }) => {
@@ -38,11 +38,15 @@ const ShopContextProvider = ({ children }) => {
     // };
 
     const addToCart = async (itemId) => {
-        console.log("itemId", itemId);
 
         let cartData = structuredClone(cartItems);
+
         if (cartData[itemId]) {
-            cartData[itemId] += 1;
+            if (cartData[itemId]) {
+                cartData[itemId] += 1;
+            } else {
+                cartData[itemId] = 1;
+            }
         } else {
             cartData[itemId] = {};
             cartData[itemId] = 1;
@@ -52,7 +56,7 @@ const ShopContextProvider = ({ children }) => {
             try {
                 await axios.post(
                     `${Api}/cart/add`,
-                    { userId, itemId }, // Data ที่จะส่งไป
+                    { itemId }, // Data ที่จะส่งไป
                     {
                         headers: {
                             authorization: `Bearer ${token}` // ใส่ Token ใน Header
@@ -65,7 +69,6 @@ const ShopContextProvider = ({ children }) => {
             }
         }
     };
-    console.log("cartItems =", cartItems);
     const getCartCount = () => {
         let totalCount = 0;
         for (const items in cartItems) {
