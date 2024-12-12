@@ -1,58 +1,80 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import { ShopContext } from '../Context/ShopContext';
 
 const CheckoutPage = () => {
-    const { cartItems, setCartItems } = useContext(ShopContext);
+    const { cartItems, setCartItems, token } = useContext(ShopContext);
+    const Api = import.meta.env.VITE_BACKEND_URL;
 
     // สรุปยอดรวมสินค้า
     const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
-    return (
-        <div className="max-w-screen-xl mx-auto p-8">
-            <h1 className="text-3xl font-bold mb-8">Checkout</h1>
+    
+    axios.get("/", {})
+    const stripe = async () => {
+        try {
+            const response = await axios.post(
+                `${Api}/order/stripe`,
+                {items, amount, address},
+                {
+                    headers: {
+                        authorization: `Bearer ${token}` // ใส่ Token ใน Header
+                    }
+                }
+                // { headers: { token } }
+              );
+        } catch(error) {
+            console.log(error);
+        }
+    }
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    return (
+        <div className="max-w-screen-xl p-8 mx-auto">
+            <h1 className="mb-8 text-3xl font-bold">Checkout</h1>
+
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                 {/* Section Delivery */}
-                <div className="md:col-span-2 space-y-8">
-                    <div className="bg-gray-100 p-4 rounded-md">
+                <div className="space-y-8 md:col-span-2">
+                    <div className="p-4 bg-gray-100 rounded-md">
                         <h2 className="text-lg font-bold">Delivery</h2>
                         <form className="space-y-4">
                             {/* Address Form */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                                 <div>
                                     <label htmlFor="firstName" className="block text-sm font-medium">First name</label>
-                                    <input type="text" id="firstName" className="mt-1 p-2 block w-full border rounded-md" />
+                                    <input type="text" id="firstName" className="block w-full p-2 mt-1 border rounded-md" />
                                 </div>
                                 <div>
                                     <label htmlFor="lastName" className="block text-sm font-medium">Last name</label>
-                                    <input type="text" id="lastName" className="mt-1 p-2 block w-full border rounded-md" />
+                                    <input type="text" id="lastName" className="block w-full p-2 mt-1 border rounded-md" />
                                 </div>
                             </div>
                             {/* Address, City, ZIP, Phone */}
                             <div>
                                 <label htmlFor="address" className="block text-sm font-medium">Address</label>
-                                <input type="text" id="address" className="mt-1 p-2 block w-full border rounded-md" />
+                                <input type="text" id="address" className="block w-full p-2 mt-1 border rounded-md" />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label htmlFor="city" className="block text-sm font-medium">City</label>
-                                    <input type="text" id="city" className="mt-1 p-2 block w-full border rounded-md" />
+                                    <input type="text" id="city" className="block w-full p-2 mt-1 border rounded-md" />
                                 </div>
                                 <div>
                                     <label htmlFor="zip" className="block text-sm font-medium">ZIP code</label>
-                                    <input type="text" id="zip" className="mt-1 p-2 block w-full border rounded-md" />
+                                    <input type="text" id="zip" className="block w-full p-2 mt-1 border rounded-md" />
                                 </div>
                             </div>
                             <div>
                                 <label htmlFor="phone" className="block text-sm font-medium">Phone</label>
-                                <input type="text" id="phone" className="mt-1 p-2 block w-full border rounded-md" />
+                                <input type="text" id="phone" className="block w-full p-2 mt-1 border rounded-md" />
                             </div>
                         </form>
                     </div>
 
                     {/* Section Payment */}
-                    <div className="bg-gray-100 p-4 rounded-md">
+                    <div className="p-4 bg-gray-100 rounded-md">
                         <h2 className="text-lg font-bold">Payment</h2>
                         <form className="space-y-4">
                             {/* Payment Method */}
@@ -61,8 +83,8 @@ const CheckoutPage = () => {
                                 <label htmlFor="creditCard" className="text-sm font-medium">Credit card</label>
                             </div>
                             {/* Credit Card Details */}
-                            <div className="bg-gray-100 p-4 rounded-md">
-                                <h2 className="text-lg font-bold mb-4">Payment</h2>
+                            <div className="p-4 bg-gray-100 rounded-md">
+                                <h2 className="mb-4 text-lg font-bold">Payment</h2>
                                 <form className="space-y-4">
                                     <div>
                                         <label htmlFor="cardName" className="block text-sm font-medium">Name on card</label>
@@ -89,12 +111,12 @@ const CheckoutPage = () => {
                 </div>
 
                 {/* Section Order Summary */}
-                <div className="bg-gray-100 p-6 rounded-md">
-                    <h2 className="text-lg font-bold mb-4">Order Summary</h2>
-                    <div className="space-y-4 mb-4">
+                <div className="p-6 bg-gray-100 rounded-md">
+                    <h2 className="mb-4 text-lg font-bold">Order Summary</h2>
+                    <div className="mb-4 space-y-4">
                         {cartItems.map((item, index) => (
-                            <div key={index} className="flex justify-between items-center">
-                                <img src={item.image[0]} alt={item.name} className="w-16 h-16 object-cover rounded" />
+                            <div key={index} className="flex items-center justify-between">
+                                <img src={item.image[0]} alt={item.name} className="object-cover w-16 h-16 rounded" />
                                 <div className="flex-1 mx-4">
                                     <h3 className="font-semibold">{item.name}</h3>
                                     <p className="text-sm text-gray-500">Size: {item.size}</p>
@@ -116,7 +138,12 @@ const CheckoutPage = () => {
                         <span className="font-semibold">Total</span>
                         <span className="font-semibold">฿{totalAmount}</span>
                     </div>
-                    <button className="w-full py-3 bg-black text-white font-semibold">Pay now</button>
+                    <button
+                        onClick={() => handleCheckout()}
+                        className="w-full py-3 font-semibold text-white bg-black"
+                    >
+                        Pay now
+                    </button>
                 </div>
             </div>
         </div>
