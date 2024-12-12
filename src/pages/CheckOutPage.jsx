@@ -1,12 +1,27 @@
-import React, { useContext } from 'react';
-
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ShopContext } from '../Context/ShopContext';
+import CartTotal from '../components/CartTotal';
 
 const CheckoutPage = () => {
-    const { cartItems, setCartItems } = useContext(ShopContext);
+    const navigate = useNavigate();
+    const { cartItems, category, updateQuantity, getCartCount } = useContext(ShopContext);
+    const [cartData, setCartData] = useState([]);
 
-    // สรุปยอดรวมสินค้า
-    const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    useEffect(() => {
+        if (category.length > 0) {
+            const tempData = [];
+            for (const items in cartItems) {
+                if (cartItems[items] > 0) {
+                    tempData.push({
+                        _id: items,
+                        quantity: cartItems[items],
+                    });
+                }
+            }
+            setCartData(tempData);
+        }
+    }, [cartItems, category]);
 
     return (
         <div className="max-w-screen-xl mx-auto p-8">
@@ -90,32 +105,34 @@ const CheckoutPage = () => {
 
                 {/* Section Order Summary */}
                 <div className="bg-gray-100 p-6 rounded-md">
-                    <h2 className="text-lg font-bold mb-4">Order Summary</h2>
-                    <div className="space-y-4 mb-4">
-                        {cartItems.map((item, index) => (
-                            <div key={index} className="flex justify-between items-center">
-                                <img src={item.image[0]} alt={item.name} className="w-16 h-16 object-cover rounded" />
-                                <div className="flex-1 mx-4">
-                                    <h3 className="font-semibold">{item.name}</h3>
-                                    <p className="text-sm text-gray-500">Size: {item.size}</p>
-                                    <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+                    {cartData.map((item, index) => {
+                        const productData = category.find(
+                            (cate) => cate._id === item._id
+                        );
+
+                        return (
+                            <div
+                                key={index}
+                                className="flex py-4 border-t border-b text-gray-700  items-center gap-4"
+                            >
+                                <div className=" flex items-start gap-6">
+                                    <img
+                                        className="w-16 sm:w-20"
+                                        src={productData.image[0]}
+                                        alt=""
+                                    />
+                                    <div>
+                                        <p>{productData.name}</p>
+                                        <p>{productData.price}</p>
+                                    </div>
                                 </div>
-                                <p className="font-semibold">฿{item.price * item.quantity}</p>
+                                <div className="flex items-center">
+                                    <p className='px-2'>{getCartCount()}</p>
+                                </div>
                             </div>
-                        ))}
-                    </div>
-                    <div className="flex justify-between mb-2">
-                        <span className="font-semibold">Subtotal</span>
-                        <span>฿{totalAmount}</span>
-                    </div>
-                    <div className="flex justify-between mb-2">
-                        <span className="font-semibold">Estimated Shipping</span>
-                        <span>Calculated in checkout</span>
-                    </div>
-                    <div className="flex justify-between mb-4">
-                        <span className="font-semibold">Total</span>
-                        <span className="font-semibold">฿{totalAmount}</span>
-                    </div>
+                        );
+                    })}
+                    <CartTotal />
                     <button className="w-full py-3 bg-black text-white font-semibold">Pay now</button>
                 </div>
             </div>
