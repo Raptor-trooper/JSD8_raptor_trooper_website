@@ -1,16 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
-import CartConfirm from "../components/CartConfirm";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 
 const ProductPage = () => {
   const { productId } = useParams();
-  const { category, cartItems, addToCart } = useContext(ShopContext);
+  const { category, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
-  const [isCartOpen, setIsCartOpen] = useState(false);
+
 
   const fetchProductData = async () => {
     category.map((item) => {
@@ -21,15 +19,6 @@ const ProductPage = () => {
       }
     });
   }
-
-  const handleCloseCart = () => {
-    setIsCartOpen(false);
-  };
-
-  // const totalAmount = cartItems.reduce(
-  //   (total, item) => total + item.price * item.quantity,
-  //   0
-  // );
 
   useEffect(() => {
     fetchProductData();
@@ -72,12 +61,6 @@ const ProductPage = () => {
           <hr className="mt-8 sm:w-4/5" />
         </div>
       </div>
-      {/* <CartConfirm
-        isOpen={isCartOpen}
-        onClose={handleCloseCart}
-        cartItems={cartItems}
-        totalAmount={totalAmount}
-      /> */}
     </div>
   ) : (
     <div className=" opacity-0"></div>

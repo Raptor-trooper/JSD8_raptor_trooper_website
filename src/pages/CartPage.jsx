@@ -14,8 +14,6 @@ const CartPage = () => {
             const tempData = [];
             for (const items in cartItems) {
                 if (cartItems[items] > 0) {
-                    console.log("CARTITEMSSS", cartItems);
-
                     tempData.push({
                         _id: items,
                         quantity: cartItems[items],
@@ -25,15 +23,6 @@ const CartPage = () => {
             setCartData(tempData);
         }
     }, [cartItems, category]);
-
-    const handleSignIn = () => {
-        navigate('/login'); // ย้ายไปที่ login page
-    };
-
-    const handleSignUp = () => {
-        navigate('/signup'); // ย้ายไปที่ signup page
-    };
-
 
     // ฟังก์ชันสำหรับลดจำนวนสินค้า
     const handleDecrement = (index) => {
@@ -110,7 +99,6 @@ const CartPage = () => {
 
             <div className="flex justify-end my-20">
                 <div className="w-full sm:w-[450px]">
-                    <h1>Order Summary</h1>
                     <CartTotal />
                     <div className=" w-full text-end">
                         <button

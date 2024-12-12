@@ -20,23 +20,6 @@ const ShopContextProvider = ({ children }) => {
         }
     }
 
-    // // ฟังก์ชันสำหรับเพิ่มสินค้าเข้า Cart
-    // const addToCart = (product) => {
-    //     // ตรวจสอบว่าสินค้านี้มีอยู่ใน cartItems หรือไม่
-    //     const existingItemIndex = cartItems.findIndex(
-    //         (item) => item.name === product.name
-    //     );
-    //     if (existingItemIndex >= 0) {
-    //         // ถ้ามีแล้วให้เพิ่มจำนวน
-    //         const updatedCartItems = [...cartItems];
-    //         updatedCartItems[existingItemIndex].quantity += product.quantity;
-    //         setCartItems(updatedCartItems);
-    //     } else {
-    //         // ถ้ายังไม่มีให้เพิ่มเข้าไปใหม่
-    //         setCartItems([...cartItems, product]);
-    //     }
-    // };
-
     const addToCart = async (itemId) => {
 
         let cartData = structuredClone(cartItems);
@@ -57,11 +40,7 @@ const ShopContextProvider = ({ children }) => {
                 await axios.post(
                     `${Api}/cart/add`,
                     { itemId }, // Data ที่จะส่งไป
-                    {
-                        headers: {
-                            authorization: `Bearer ${token}` // ใส่ Token ใน Header
-                        }
-                    }
+                    { headers: { authorization: `Bearer ${token}` } }
                 );
             } catch (error) {
                 console.log(error);
@@ -84,20 +63,16 @@ const ShopContextProvider = ({ children }) => {
     };
 
     const updateQuantity = async (itemId, quantity) => {
-        // let cartData = structuredClone(cartItems);
-        // cartData[itemId] = quantity;
-        // setCartItems(cartData);
+        let cartData = structuredClone(cartItems);
+        cartData[itemId] = quantity;
+        setCartItems(cartData);
 
         if (token) {
             try {
                 await axios.post(
                     `${Api}/cart/update`,
-                    { itemId, quantity: cartItems },
-                    {
-                        headers: {
-                            authorization: `Bearer ${token}` // ใส่ Token ใน Header
-                        }
-                    }
+                    { itemId, quantity },
+                    { headers: { authorization: `Bearer ${token}` } }
                 );
             } catch (error) {
                 console.log(error);
@@ -126,11 +101,7 @@ const ShopContextProvider = ({ children }) => {
             const response = await axios.post(
                 `${Api}/cart/get`,
                 {},
-                {
-                    headers: {
-                        authorization: `Bearer ${token}` // ใส่ Token ใน Header
-                    }
-                }
+                { headers: { authorization: `Bearer ${token}` } }
             );
             if (response.data.success) {
                 setCartItems(response.data.cartData);

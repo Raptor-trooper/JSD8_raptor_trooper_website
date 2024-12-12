@@ -25,66 +25,21 @@ const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
-      {
-        path: '/',
-        element: <Home />
-      },
-      {
-        path: '/homeallproducts',
-        element: <HomeAllProducts />
-      },
-      {
-        path: '/productpage/:productId',
-        element: <ProductPage />
-      },
-      {
-        path: '/cartpage',
-        element: <CartPage />
-      },
-      {
-        path: '/checkoutpage',
-        element: <CheckOutPage />
-      },
-      {
-        path: '/login',
-        element: <Login />
-      },
-      {
-        path: '/changepassword',
-        element: <ChangePassword />
-      },
-      {
-        path: '/resetpassword',
-        element: <ResetPassword />
-      },
-      {
-        path: '/UserProfile',
-        element: <UserProfile />
-      },
-      {
-        path: '/admin/*',
-        element: <Admin />,
-      },
-      {
-        path: '/homedecor',
-        element: <HomeDecor />
-      },
-      {
-        path: '/bathbody',
-        element: <BathBody />
-      },
-      {
-        path: '/apparel',
-        element: <Apparel />
-      },
-      {
-        path: '/accessories',
-        element: <Accessories />
-      },
-      {
-        path: '/aboutus',
-        element: <AboutUs />
-      },
+      { path: '/', element: <Home /> },
+      { path: '/homeallproducts', element: <HomeAllProducts /> },
+      { path: '/productpage/:productId', element: <ProductPage /> },
+      { path: '/cartpage', element: <CartPage /> },
+      { path: '/checkoutpage', element: <CheckOutPage /> },
+      { path: '/login', element: <Login /> },
+      { path: '/changepassword', element: <ChangePassword /> },
+      { path: '/resetpassword', element: <ResetPassword /> },
+      { path: '/userprofile', element: <UserProfile /> },
+      { path: '/admin/*', element: <Admin />, },
+      { path: '/homedecor', element: <HomeDecor /> },
+      { path: '/bathbody', element: <BathBody /> },
+      { path: '/apparel', element: <Apparel /> },
+      { path: '/accessories', element: <Accessories /> },
+      { path: '/aboutus', element: <AboutUs /> },
     ]
   }
 ])
