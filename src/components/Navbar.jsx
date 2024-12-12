@@ -13,9 +13,10 @@ import { ShopContext } from '../Context/ShopContext';
 function Navbar() {
   const [isBurgerOpen, setBurgerOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { cartItems, token, setToken, isAdmin } = useContext(ShopContext);
+  const { cartItems, token, setToken, isAdmin, getCartCount } = useContext(ShopContext);
 
-  const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  // const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  // console.log("CARTITEM = ", cartItems);
 
   const handleBurger = () => {
     setBurgerOpen(!isBurgerOpen);
@@ -63,25 +64,28 @@ function Navbar() {
           {/* Dropdown menu */}
           <div className="bg-[#4A4947] group relative dropdown px-2">
             <img className="w-[24px] h-[24px] cursor-pointer" src={login} alt="login-icon" />
-            
-              <div className="absolute hidden h-auto p-4 group-hover:block dropdown-menu right-1">
-                <ul className="bg-[#4A4947] flex flex-col gap-2 w-32 top-0 p-4 shadow">
-                  {token ? (
-                    <>
-                      <li className="cursor-pointer"><Link className="block" to='/userprofile'>User Profile</Link></li>
-                      {isAdmin && <li className="cursor-pointer"><Link className="block" to='/admin'>Admin</Link></li> }
-                    </>
-                  ) : (
-                    <li className="cursor-pointer"><Link className="block" to='/login'>Login</Link></li>
-                  )}
-                  <li className="cursor-pointer"><Link className="block" to='/cartpage'>Orders</Link></li>
-                  {token && <li onClick={logout} className="cursor-pointer"><Link className="block" to='/login'>Logout</Link></li>}
-                </ul>
-              </div>
-         
+
+            <div className="absolute hidden h-auto p-4 group-hover:block dropdown-menu right-1">
+              <ul className="bg-[#4A4947] flex flex-col gap-2 w-32 top-0 p-4 shadow">
+                {token ? (
+                  <>
+                    <li className="cursor-pointer"><Link className="block" to='/userprofile'>User Profile</Link></li>
+                    {isAdmin && <li className="cursor-pointer"><Link className="block" to='/admin'>Admin</Link></li>}
+                  </>
+                ) : (
+                  <li className="cursor-pointer"><Link className="block" to='/login'>Login</Link></li>
+                )}
+                <li className="cursor-pointer"><Link className="block" to='/cartpage'>Orders</Link></li>
+                <li onClick={logout} className="cursor-pointer"><Link className="block" to='/login'>Logout</Link></li>
+              </ul>
+            </div>
+
           </div>
           <button onClick={() => handleOpenCart()}>
             <img className="w-[24px] h-[24px]" src={cart} alt="cart-icon" />
+            <p className="absolute right-[23px] top-[20px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
+              {getCartCount()}
+            </p>
           </button>
         </div>
 
@@ -111,8 +115,6 @@ function Navbar() {
       <CartConfirm
         isOpen={isCartOpen}
         onClose={handleCloseCart}
-        cartItems={cartItems}
-        totalAmount={totalAmount}
       />
 
     </div>
