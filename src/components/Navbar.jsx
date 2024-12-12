@@ -83,7 +83,7 @@ function Navbar() {
           </div>
           <button onClick={() => handleOpenCart()}>
             <img className="w-[24px] h-[24px]" src={cart} alt="cart-icon" />
-            <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
+            <p className="absolute right-[23px] top-[20px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
               {getCartCount()}
             </p>
           </button>
@@ -112,12 +112,10 @@ function Navbar() {
           </ul>
         </div>
       )}
-      {/* <CartConfirm
+      <CartConfirm
         isOpen={isCartOpen}
         onClose={handleCloseCart}
-        cartItems={cartItems}
-        totalAmount={totalAmount}
-      /> */}
+      />
 
     </div>
   )

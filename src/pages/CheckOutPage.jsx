@@ -1,34 +1,25 @@
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
+import { useState, useContext, useEffect } from 'react';
 import { ShopContext } from '../Context/ShopContext';
+import CartTotal from '../components/CartTotal';
 
 const CheckoutPage = () => {
-    const { cartItems, setCartItems, token } = useContext(ShopContext);
-    const Api = import.meta.env.VITE_BACKEND_URL;
+    const { cartItems, category, getCartCount } = useContext(ShopContext);
+    const [cartData, setCartData] = useState([]);
 
-    // สรุปยอดรวมสินค้า
-    const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-
-    
-    axios.get("/", {})
-    const stripe = async () => {
-        try {
-            const response = await axios.post(
-                `${Api}/order/stripe`,
-                {items, amount, address},
-                {
-                    headers: {
-                        authorization: `Bearer ${token}` // ใส่ Token ใน Header
-                    }
+    useEffect(() => {
+        if (category.length > 0) {
+            const tempData = [];
+            for (const items in cartItems) {
+                if (cartItems[items] > 0) {
+                    tempData.push({
+                        _id: items,
+                        quantity: cartItems[items],
+                    });
                 }
-                // { headers: { token } }
-              );
-        } catch(error) {
-            console.log(error);
+            }
+            setCartData(tempData);
         }
-    }
+    }, [cartItems, category]);
 
     return (
         <div className="max-w-screen-xl p-8 mx-auto">
@@ -112,38 +103,35 @@ const CheckoutPage = () => {
 
                 {/* Section Order Summary */}
                 <div className="p-6 bg-gray-100 rounded-md">
-                    <h2 className="mb-4 text-lg font-bold">Order Summary</h2>
-                    <div className="mb-4 space-y-4">
-                        {cartItems.map((item, index) => (
-                            <div key={index} className="flex items-center justify-between">
-                                <img src={item.image[0]} alt={item.name} className="object-cover w-16 h-16 rounded" />
-                                <div className="flex-1 mx-4">
-                                    <h3 className="font-semibold">{item.name}</h3>
-                                    <p className="text-sm text-gray-500">Size: {item.size}</p>
-                                    <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+                    {cartData.map((item, index) => {
+                        const productData = category.find(
+                            (cate) => cate._id === item._id
+                        );
+
+                        return (
+                            <div
+                                key={index}
+                                className="flex items-center gap-4 py-4 text-gray-700 border-t border-b"
+                            >
+                                <div className="flex items-start gap-6 ">
+                                    <img
+                                        className="w-16 sm:w-20"
+                                        src={productData.image[0]}
+                                        alt=""
+                                    />
+                                    <div>
+                                        <p>{productData.name}</p>
+                                        <p>{productData.price}</p>
+                                    </div>
                                 </div>
-                                <p className="font-semibold">฿{item.price * item.quantity}</p>
+                                <div className="flex items-center">
+                                    <p className='px-2'>{getCartCount()}</p>
+                                </div>
                             </div>
-                        ))}
-                    </div>
-                    <div className="flex justify-between mb-2">
-                        <span className="font-semibold">Subtotal</span>
-                        <span>฿{totalAmount}</span>
-                    </div>
-                    <div className="flex justify-between mb-2">
-                        <span className="font-semibold">Estimated Shipping</span>
-                        <span>Calculated in checkout</span>
-                    </div>
-                    <div className="flex justify-between mb-4">
-                        <span className="font-semibold">Total</span>
-                        <span className="font-semibold">฿{totalAmount}</span>
-                    </div>
-                    <button
-                        onClick={() => handleCheckout()}
-                        className="w-full py-3 font-semibold text-white bg-black"
-                    >
-                        Pay now
-                    </button>
+                        );
+                    })}
+                    <CartTotal />
+                    <button className="w-full py-3 font-semibold text-white bg-black">Pay now</button>
                 </div>
             </div>
         </div>
