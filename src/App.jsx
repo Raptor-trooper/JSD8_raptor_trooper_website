@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       { path: '/login', element: <Login /> },
       { path: '/changepassword', element: <ChangePassword /> },
       { path: '/resetpassword', element: <ResetPassword /> },
-      { path: '/UserProfile', element: <UserProfile /> },
+      { path: '/userprofile', element: <UserProfile /> },
       { path: '/admin/*', element: <Admin />, },
       { path: '/homedecor', element: <HomeDecor /> },
       { path: '/bathbody', element: <BathBody /> },
