@@ -21,6 +21,8 @@ const ShopContextProvider = ({ children }) => {
         }
     }
 
+    
+
     // Function AddToCart to Backend
     const addToCart = async (itemId) => {
 

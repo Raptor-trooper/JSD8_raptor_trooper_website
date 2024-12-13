@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { ShopContext } from "../Context/ShopContext";
 import { toast } from "react-toastify";
@@ -23,21 +23,21 @@ const UserProfile = () => {
       if (token) {
         const response = await axios.get(
           `${Api}/user/userprofile`,
-          {},
           {
             headers: { Authorization: `Bearer ${token}` }
           }
         );
+        console.log("Response Data:", response.data);
         if (response.data.success) {
           setName(response.data.user.name);
           setEmail(response.data.user.email);
-          setFirstName(response.data.user.firstName);
-          setLastName(response.data.user.lastName);
-          setCountry(response.data.user.country);
-          setAddress(response.data.user.address)
-          setCity(response.data.user.city);
-          setZip(response.data.user.zip);
-          setPhone(response.data.user.phone);
+          setFirstName(response.data.user.delivery.firstName);
+          setLastName(response.data.user.delivery.lastName);
+          setCountry(response.data.user.delivery.country);
+          setAddress(response.data.user.delivery.address)
+          setCity(response.data.user.delivery.city);
+          setZip(response.data.user.delivery.zip);
+          setPhone(response.data.user.delivery.phone);
         } else {
           toast.error("Failed to get user name and email.");
         }
@@ -51,6 +51,10 @@ const UserProfile = () => {
     }
 
   }
+  
+  useEffect(() => {
+    if (token) getProfile();
+  }, [token]);
 
   // ฟังก์ชันสำหรับสลับสถานะแก้ไข
   const toggleEdit = () => {
@@ -62,11 +66,11 @@ const UserProfile = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const address = {
+    const delivery = {
       firstName,
       lastName,
       country,
-      location,
+      address,
       zip,
       phone,
     }
@@ -80,7 +84,7 @@ const UserProfile = () => {
       if (token) {
         const response = await axios.post(
           `${Api}/user/userprofile`,
-            { address },
+            { delivery },
             { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -123,8 +127,8 @@ const UserProfile = () => {
               className="object-cover w-24 h-24 rounded-full"
             />
             <div>
-              <h2 className="text-xl font-semibold">{firstName}</h2>
-              <p className="text-gray-500">tete@gmail.com</p>
+              <h2 className="text-xl font-semibold text-black">{name}</h2>
+              <p className="text-gray-500">{email}</p>
             </div>
           </div>
           <div className="flex flex-col space-y-3">
@@ -213,7 +217,7 @@ const UserProfile = () => {
                 className="w-full p-2 mt-2 border rounded"
               />
             ) : (
-              <p className="mt-2 text-gray-700">{location}</p>
+              <p className="mt-2 text-gray-700">{address}</p>
             )}
           </div>
 
