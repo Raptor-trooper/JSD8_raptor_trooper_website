@@ -63,22 +63,26 @@ function Navbar() {
 
           {/* Dropdown menu */}
           <div className="bg-[#4A4947] group relative dropdown px-2">
-            <img className="w-[24px] h-[24px] cursor-pointer" src={login} alt="login-icon" />
 
-            <div className="absolute hidden h-auto p-4 group-hover:block dropdown-menu right-1">
-              <ul className="bg-[#4A4947] flex flex-col gap-2 w-32 top-0 p-4 shadow">
-                {token ? (
-                  <>
-                    <li className="cursor-pointer"><Link className="block" to='/userprofile'>User Profile</Link></li>
-                    {isAdmin && <li className="cursor-pointer"><Link className="block" to='/admin'>Admin</Link></li>}
-                  </>
-                ) : (
-                  <li className="cursor-pointer"><Link className="block" to='/login'>Login</Link></li>
-                )}
-                <li className="cursor-pointer"><Link className="block" to='/cartpage'>Orders</Link></li>
-                <li onClick={logout} className="cursor-pointer"><Link className="block" to='/login'>Logout</Link></li>
-              </ul>
-            </div>
+            {token ?
+              <img className="w-[24px] h-[24px] cursor-pointer" src={login} alt="login-icon" />
+            : <Link className="block" to='/login'><div className="cursor-pointer">Login</div></Link>
+            }
+
+            { token &&
+              <div className="absolute hidden h-auto p-4 group-hover:block dropdown-menu right-1">
+                <ul className="bg-[#4A4947] flex flex-col gap-2 w-32 top-0 p-4 shadow">
+                  <li className="cursor-pointer"><Link className="block" to='/userprofile'>User Profile</Link></li>
+                  {isAdmin && <li className="cursor-pointer"><Link className="block" to='/admin'>Admin</Link></li>}
+                  {token &&
+                    <>
+                      <li className="cursor-pointer"><Link className="block" to='/cartpage'>Orders</Link></li>
+                      <li onClick={logout} className="cursor-pointer"><Link className="block" to='/login'>Logout</Link></li>
+                    </>
+                  }
+                </ul>
+              </div>
+            }
 
           </div>
           <button onClick={() => handleOpenCart()}>

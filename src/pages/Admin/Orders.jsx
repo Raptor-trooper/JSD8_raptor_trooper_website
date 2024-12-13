@@ -16,7 +16,6 @@
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { backendUrl } from "../../App";
 import { toast } from "react-toastify";
 import { assets } from "../../assets/admin/assets";
 import { ShopContext } from "../../Context/ShopContext";
