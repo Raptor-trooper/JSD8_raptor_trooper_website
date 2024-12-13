@@ -70,7 +70,7 @@ const CartConfirm = ({ isOpen, onClose }) => {
                                 </div>
                             </div>
                             <div className="flex items-center">
-                                <p className='px-2'>{getCartCount()}</p>
+                                <p className='px-2'>{item.quantity}</p>
                             </div>
                             <button
                                 onClick={() => updateQuantity(item._id, 0)}
