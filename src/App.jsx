@@ -17,6 +17,7 @@ import BathBody from './pages/BathBody'
 import Apparel from './pages/Apparel'
 import Accessories from './pages/Accessories'
 import AboutUs from './pages/AboutUs'
+import Verify from './pages/Verify'
 
 export const Api = import.meta.env.VITE_BACKEND_URL;
 
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
       { path: '/apparel', element: <Apparel /> },
       { path: '/accessories', element: <Accessories /> },
       { path: '/aboutus', element: <AboutUs /> },
+      { path: '/verify', element: <Verify /> }
     ]
   }
 ])
