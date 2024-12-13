@@ -6,8 +6,6 @@ import axios from "axios";
 const CheckoutPage = () => {
     const { Api, cartItems, setCartItems, getCartAmount, category, token } = useContext(ShopContext);
     const [cartData, setCartData] = useState([]);
-    const [method, setMethod] = useState("cod");
-
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -29,8 +27,6 @@ const CheckoutPage = () => {
     const onSubmitHandler = async (event) => {
         event.preventDefault();
 
-        console.log("Event =", event);
-
         try {
             let orderItems = [];
 
@@ -51,7 +47,7 @@ const CheckoutPage = () => {
                 items: orderItems,
                 amount: getCartAmount() + 10,
             };
-            console.log("OrderData", orderData);
+
             const responseStripe = await axios.post(
                 `${Api}/order/stripe`,
                 orderData,
@@ -65,13 +61,12 @@ const CheckoutPage = () => {
             if (responseStripe.data.success) {
                 const { session_url } = responseStripe.data;
                 window.location.replace(session_url);
-                navigate("/orders");
             } else {
-                console.log("ERROR Stripe=", error);
+                console.log(error);
                 // toast.error(responseStripe.data.message);
             }
         } catch (error) {
-            console.log("ERROR Catch=", error);
+            console.log(error);
             // toast.error(error.message);
         }
     };
