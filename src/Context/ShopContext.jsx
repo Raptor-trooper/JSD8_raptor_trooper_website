@@ -6,11 +6,12 @@ export const ShopContext = createContext();
 const ShopContextProvider = ({ children }) => {
 
     const [category, setCategory] = useState([]);
-    const [cartItems, setCartItems] = useState({});
+    const [cartItems, setCartItems] = useState({}); // ตัวอย่าง {6753df71ab254052ebe066f4: 3}
     const [token, setToken] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
     const Api = import.meta.env.VITE_BACKEND_URL;
 
+    // ฟังก์ชั่น ดึงข้อมูลสินค้า mongoDB
     const FetchCategory = async () => {
         try {
             const response = await axios.get(`${Api}/product/list`)
@@ -20,9 +21,10 @@ const ShopContextProvider = ({ children }) => {
         }
     }
 
+    // Function AddToCart to Backend
     const addToCart = async (itemId) => {
 
-        let cartData = structuredClone(cartItems);
+        let cartData = structuredClone(cartItems); // cartData คือร่างแยกของ cartItems
 
         if (cartData[itemId]) {
             if (cartData[itemId]) {
@@ -39,8 +41,7 @@ const ShopContextProvider = ({ children }) => {
             try {
                 await axios.post(
                     `${Api}/cart/add`,
-                    { itemId }, // Data ที่จะส่งไป
-                    { headers: { authorization: `Bearer ${token}` } }
+                    { itemId }, { headers: { authorization: `Bearer ${token}` } }
                 );
             } catch (error) {
                 console.log(error);
@@ -48,8 +49,12 @@ const ShopContextProvider = ({ children }) => {
             }
         }
     };
+
+    // ฟังก์ชั่น รวมจำนวน ชิ้น สินค้า
     const getCartCount = () => {
+
         let totalCount = 0;
+
         for (const items in cartItems) {
             try {
                 if (cartItems[items] > 0) {
@@ -62,17 +67,24 @@ const ShopContextProvider = ({ children }) => {
         return totalCount;
     };
 
+    // ฟังก์ชั่น update จำนวนสินค้า
     const updateQuantity = async (itemId, quantity) => {
-        let cartData = structuredClone(cartItems);
-        cartData[itemId] = quantity;
+
+        let cartData = structuredClone(cartItems); // cartData คือ ร่างแยกของ cartItems
+
+        if (quantity === 0) {
+            delete cartData[itemId];
+        } else {
+            cartData[itemId] = quantity;
+        }
+
         setCartItems(cartData);
 
         if (token) {
             try {
                 await axios.post(
                     `${Api}/cart/update`,
-                    { itemId, quantity },
-                    { headers: { authorization: `Bearer ${token}` } }
+                    { itemId, quantity }, { headers: { authorization: `Bearer ${token}` } }
                 );
             } catch (error) {
                 console.log(error);
@@ -81,9 +93,10 @@ const ShopContextProvider = ({ children }) => {
         }
     };
 
+    // ฟังก์ชั่น คำนวณ ราคาสินค้า
     const getCartAmount = () => {
         let totalAmount = 0;
-        for (const items in cartItems) {
+        for (const items in cartItems) { // items คือ จำนวนสินค้า
             let itemInfo = category.find((product) => product._id === items);
             try {
                 if (cartItems[items] > 0) {
@@ -96,6 +109,7 @@ const ShopContextProvider = ({ children }) => {
         return totalAmount;
     };
 
+    // ฟังก์ชั่น เรียกดู สินค้า ในตระกร้าโดยการ ส่ง token ไป backend ละส่ง cartdata จาก mongoDB กลับมา
     const getUserCart = async (token) => {
         try {
             const response = await axios.post(
@@ -117,6 +131,7 @@ const ShopContextProvider = ({ children }) => {
         setCartItems(cartItems.filter((_, i) => i !== index));
     };
 
+    // เรียก product จาก mongoDB
     useEffect(() => {
         FetchCategory()
     }, [])

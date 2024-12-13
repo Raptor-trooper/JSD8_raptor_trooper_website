@@ -43,14 +43,15 @@ const HomeAllProducts = () => {
                 <div className='grid grid-cols-2 md:grid-cols-4 md:m-[88px] gap-4 gap-y-6'>
 
                     {category.map((product) => (
+
                         <Link className='cursor-pointer' to={`/productpage/${product._id}`} key={product._id}>
                             <div className="overflow-hidden ease-in-out hover:scale-105 shadow-md m-4 transition">
                                 <img src={product.image[0]} alt={product.name} className='w-full h-[412px] object-cover transition ease-in-out' />
                                 <p className='px-6 pt-4 text-lg font-bold'>{product.name}</p>
                                 <p className='text-gray-700 px-6 pb-4 text-md '>Starting at <b>฿{product.price}</b></p>
                             </div>
-
                         </Link>
+
                     ))}
 
                 </div>
@@ -60,30 +61,3 @@ const HomeAllProducts = () => {
 }
 
 export default HomeAllProducts
-
-// ===========================  Filter Function ===========================
-
-// State for filter show products
-// const [selectedCategory, setSelectedCategory] = useState("All Product")
-
-// Get category type and set state to show user
-// const handleFilter = (category) => {
-//     setLoading(true);
-//     setSelectedCategory(category);
-// }
-
-// Function Filter DataCategory to show
-// const filterFunction = selectedCategory === "All Product"
-//     ? dataCategory
-//     : dataCategory.filter(item => item.category === selectedCategory);
-
-/* {selectedCategory ? (<h1 className='text-5xl mt-16 font-bold'>{selectedCategory}</h1>) : (<h1>Error 404</h1>)} */
-
-/* <div className='grid grid-cols-1 grid-rows-5 gap-4 w-full my-8 md:flex'>
-        <button onClick={() => handleFilter("All Product")} className='bg-black text-white p-2 text-center rounded-full shadow-md'>ALL</button>
-        <button onClick={() => handleFilter("Home Decor")} className='bg-black text-white p-2 text-center rounded-full shadow-md'>Home Decor</button>
-        <button onClick={() => handleFilter("Bath & Body")} className='bg-black text-white p-2 text-center rounded-full shadow-md'>Bath & Body</button>
-        <button onClick={() => handleFilter("Apparel")} className='bg-black text-white p-2 text-center rounded-full shadow-md'>Apparel</button>
-        <button onClick={() => handleFilter("Accessories")} className='bg-black text-white p-2 text-center rounded-full shadow-md'>Accessories</button>
-    </div> */
-
