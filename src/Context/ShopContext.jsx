@@ -153,6 +153,7 @@ const ShopContextProvider = ({ children }) => {
     }, [token])
 
     const value = {
+        Api,
         category,
         cartItems,
         addToCart,
