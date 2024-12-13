@@ -19,7 +19,7 @@ import Accessories from './pages/Accessories'
 import AboutUs from './pages/AboutUs'
 import Verify from './pages/Verify'
 
-export const backendUrl = import.meta.env.VITE_BACKEND_URL;
+export const Api = import.meta.env.VITE_BACKEND_URL;
 
 const router = createBrowserRouter([
   {

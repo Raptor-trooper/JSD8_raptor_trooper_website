@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { assets } from "../../assets/admin/assets";
 import axios from "axios";
-import { backendUrl } from "../../App";
+import { Api } from "../../App";
 import { toast } from "react-toastify";
 
 const Add = () => {
@@ -35,7 +35,7 @@ const Add = () => {
       console.log(formData)
 
       const response = await axios.post(
-        backendUrl + "/product/add",
+        `${Api}/product/add`,
         formData,
         // { headers: { token } }
       );
@@ -61,7 +61,7 @@ const Add = () => {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className="flex flex-col w-full items-start gap-3"
+      className="flex flex-col items-start w-full gap-3"
     >
       <div>
         <p className="mb-2">Upload Image</p>
@@ -142,7 +142,7 @@ const Add = () => {
           required
         />
       </div>
-      <div className="flex flex-col sm:flex-row gap-2 w-full sm:gap-8">
+      <div className="flex flex-col w-full gap-2 sm:flex-row sm:gap-8">
         <div>
           <p className="mb-2">Product category</p>
           <select
@@ -249,7 +249,7 @@ const Add = () => {
         </label>
       </div> */}
 
-      <button type="submit" className="w-28 py-3 mt-4 bg-black text-white">
+      <button type="submit" className="py-3 mt-4 text-white bg-black w-28">
         ADD
       </button>
     </form>

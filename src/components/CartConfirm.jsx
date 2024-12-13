@@ -187,9 +187,9 @@ export default CartConfirm;
 //             className={`fixed top-0 right-0 h-full w-full md:w-[600px] bg-white shadow-lg transform ${isOpen ? 'translate-x-0' : 'translate-x-full'
 //                 } transition-transform duration-300 ease-in-out z-50`}
 //         >
-//             <div className="p-4 flex justify-between items-center border-b">
+//             <div className="flex items-center justify-between p-4 border-b">
 //                 {/* <h2 className="text-xl font-bold">Cart({cartItems.length})</h2> */}
-//                 <button onClick={onClose} className="text-gray-600 text-xl font-semibold">CLOSE</button>
+//                 <button onClick={onClose} className="text-xl font-semibold text-gray-600">CLOSE</button>
 //             </div>
 //             <div className="p-4 space-y-4">
 //                 {/* {cartData.map((item, index) => {
@@ -197,8 +197,8 @@ export default CartConfirm;
 //                         (cate) => cate._id === item._id
 //                     )
 //                     return (
-//                         <div key={index} className="flex justify-between items-center border-b py-4">
-//                             <img src={productData.image[0]} alt={productData.name} className="w-16 h-16 object-cover rounded" />
+//                         <div key={index} className="flex items-center justify-between py-4 border-b">
+//                             <img src={productData.image[0]} alt={productData.name} className="object-cover w-16 h-16 rounded" />
 //                             <div className="flex-1 mx-4">
 //                                 <h3 className="font-semibold">{productData.name}</h3>
 //                                 <div className="flex items-center mt-2">
@@ -208,7 +208,7 @@ export default CartConfirm;
 //                                 </div>
 //                             </div>
 //                             <p className="font-semibold">฿{productData.price}</p>
-//                             <button onClick={() => handleDeleteItem(index)} className="text-red-500 hover:text-red-700 ml-4">
+//                             <button onClick={() => handleDeleteItem(index)} className="ml-4 text-red-500 hover:text-red-700">
 //                                 <i className="fas fa-trash">❌</i>
 //                             </button>
 //                         </div>
@@ -219,8 +219,8 @@ export default CartConfirm;
 //                         (cate) => cate._id === item
 //                     )
 //                     return (
-//                         <div key={index} className="flex justify-between items-center border-b py-4">
-//                             <img src={productData?.image[0]} alt={productData?.name} className="w-16 h-16 object-cover rounded" />
+//                         <div key={index} className="flex items-center justify-between py-4 border-b">
+//                             <img src={productData?.image[0]} alt={productData?.name} className="object-cover w-16 h-16 rounded" />
 //                             <div className="flex-1 mx-4">
 //                                 <h3 className="font-semibold">{productData?.name}</h3>
 //                                 <div className="flex items-center mt-2">
@@ -230,7 +230,7 @@ export default CartConfirm;
 //                                 </div>
 //                             </div>
 //                             <p className="font-semibold">฿{productData?.price}</p>
-//                             <button onClick={() => handleDeleteItem(index)} className="text-red-500 hover:text-red-700 ml-4">
+//                             <button onClick={() => handleDeleteItem(index)} className="ml-4 text-red-500 hover:text-red-700">
 //                                 <i className="fas fa-trash">❌</i>
 //                             </button>
 //                         </div>
@@ -238,17 +238,17 @@ export default CartConfirm;
 //                 })}
 //             </div>
 //             <div className="p-4 bg-gray-200">
-//                 <div className="flex justify-between items-center">
+//                 <div className="flex items-center justify-between">
 //                     <span className="font-semibold">SUBTOTAL</span>
 //                     {/* <span className="font-semibold">฿{totalAmount}</span> */}
 //                 </div>
-//                 <p className="text-sm text-gray-500 mt-2">Shipping & taxes calculated at checkout</p>
+//                 <p className="mt-2 text-sm text-gray-500">Shipping & taxes calculated at checkout</p>
 //             </div>
-//             <div className="p-4 flex space-x-4">
-//                 <button className="w-1/2 py-2 border border-black text-black font-semibold"
+//             <div className="flex p-4 space-x-4">
+//                 <button className="w-1/2 py-2 font-semibold text-black border border-black"
 //                     onClick={handleViewCart}
 //                 >VIEW CART</button>
-//                 <button className="w-1/2 py-2 bg-black text-white font-semibold"
+//                 <button className="w-1/2 py-2 font-semibold text-white bg-black"
 //                     onClick={handleCheckout}
 //                 >CHECKOUT</button>
 //             </div>

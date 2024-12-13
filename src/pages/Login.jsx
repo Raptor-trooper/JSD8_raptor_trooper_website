@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../Context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { backendUrl } from "../App";
+import { Api } from "../App";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -19,7 +19,7 @@ const Login = () => {
     event.preventDefault();
     try {
       if (currentState === "Sign Up") {
-        const response = await axios.post(backendUrl + "/user/register", {
+        const response = await axios.post(`${Api}/user/register`, {
           name,
           email,
           password,
@@ -32,7 +32,7 @@ const Login = () => {
           toast.error(response.data.message);
         }
       } else {
-        const response = await axios.post(backendUrl + "/user/login", {
+        const response = await axios.post(`${Api}/user/login`, {
           email,
           password,
         });
@@ -59,14 +59,14 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-semibold mb-8">
+      <h1 className="mb-8 text-3xl font-semibold">
         {currentState === "Login" ? "Log in" : "Sign Up"}
       </h1>
-      <form className="w-80 space-y-4" onSubmit={onSubmitHandler}>
+      <form className="space-y-4 w-80" onSubmit={onSubmitHandler}>
         {/* Name (only for Sign Up) */}
         {currentState === "Sign Up" && (
           <div>
-            <label className="text-sm font-medium mb-1">Name</label>
+            <label className="mb-1 text-sm font-medium">Name</label>
             <input
               type="text"
               name="name"
@@ -80,7 +80,7 @@ const Login = () => {
   
         {/* Email */}
         <div>
-          <label className="text-sm font-medium mb-1">Email</label>
+          <label className="mb-1 text-sm font-medium">Email</label>
           <input
             type="email"
             name="email"
@@ -93,7 +93,7 @@ const Login = () => {
   
         {/* Password */}
         <div>
-          <label className="text-sm font-medium mb-1">Password</label>
+          <label className="mb-1 text-sm font-medium">Password</label>
           <input
             type="password"
             name="password"
@@ -114,7 +114,7 @@ const Login = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full p-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 transition"
+          className="w-full p-3 text-white transition bg-blue-500 rounded-lg shadow-lg hover:bg-blue-600"
         >
           {currentState === "Login" ? "Log in" : "Sign Up"}
         </button>
