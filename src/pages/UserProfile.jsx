@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const { token } = useContext(ShopContext);
-  const [name, setName] = useState("");
+  const [name, setName] = useState();
   const [email, setEmail] = useState()
   const [firstName, setFirstName] = useState('เตเต้');
   const [lastName, setLastName] = useState('เตเต้');
@@ -20,31 +20,26 @@ const UserProfile = () => {
 
   const getProfile = async () => {
     try {
-      if (token) {
-        const response = await axios.get(
-          `${Api}/user/userprofile`,
-          {
-            headers: { Authorization: `Bearer ${token}` }
-          }
-        );
-        console.log("Response Data:", response.data);
-        if (response.data.success) {
-          setName(response.data.user.name);
-          setEmail(response.data.user.email);
-          setFirstName(response.data.user.delivery.firstName);
-          setLastName(response.data.user.delivery.lastName);
-          setCountry(response.data.user.delivery.country);
-          setAddress(response.data.user.delivery.address)
-          setCity(response.data.user.delivery.city);
-          setZip(response.data.user.delivery.zip);
-          setPhone(response.data.user.delivery.phone);
+      const response = await axios.get(
+        `${Api}/user/userprofile`,
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      const data = response.data;
+      if (data.success) {
+        setName(data.user.name);
+        setEmail(data.user.email);
+        setFirstName(data.user.delivery.firstName);
+        setLastName(data.user.delivery.lastName);
+        setCountry(data.user.delivery.country);
+        setAddress(data.user.delivery.address);
+        setCity(data.user.delivery.city);
+        setZip(data.user.delivery.zip);
+        setPhone(data.user.delivery.phone);
         } else {
           toast.error("Failed to get user name and email.");
         }
-      } else {
-          toast.error("Authentication failed. Please log in again.");
-      }
-
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -71,6 +66,7 @@ const UserProfile = () => {
       lastName,
       country,
       address,
+      city,
       zip,
       phone,
     }

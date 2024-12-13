@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { createContext, useEffect, useState } from 'react'
 import { toast } from "react-toastify";
 export const ShopContext = createContext();
+import { Api } from '../App';
 
 const ShopContextProvider = ({ children }) => {
 
@@ -9,7 +10,6 @@ const ShopContextProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState({}); // ตัวอย่าง {6753df71ab254052ebe066f4: 3}
     const [token, setToken] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
-    const Api = import.meta.env.VITE_BACKEND_URL;
 
     // ฟังก์ชั่น ดึงข้อมูลสินค้า mongoDB
     const FetchCategory = async () => {
@@ -20,8 +20,6 @@ const ShopContextProvider = ({ children }) => {
             console.log('Error get Api', error);
         }
     }
-
-    
 
     // Function AddToCart to Backend
     const addToCart = async (itemId) => {

@@ -18,7 +18,7 @@ import Apparel from './pages/Apparel'
 import Accessories from './pages/Accessories'
 import AboutUs from './pages/AboutUs'
 
-export const backendUrl = import.meta.env.VITE_BACKEND_URL;
+export const Api = import.meta.env.VITE_BACKEND_URL;
 
 const router = createBrowserRouter([
   {

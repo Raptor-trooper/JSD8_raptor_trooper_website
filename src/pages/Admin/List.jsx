@@ -12,10 +12,8 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { backendUrl } from "../../App";
+import { Api } from "../../App";
 import { toast } from "react-toastify";
-
-const Api = import.meta.env.VITE_BACKEND_URL;
 
 const List = ({ token }) => {
   const [list, setList] = useState([]);
@@ -39,7 +37,7 @@ const List = ({ token }) => {
     try {
       console.log(id)
       const response = await axios.post(
-        backendUrl + "/product/remove",
+        `${Api}/product/remove`,
         { id },
         // { headers: { token } }
       );
@@ -88,7 +86,7 @@ const List = ({ token }) => {
             <p>{item.price}</p>
             <p
               onClick={() => removeProduct(item._id)}
-              className="text-right md:text-center cursor-pointer text-lg"
+              className="text-lg text-right cursor-pointer md:text-center"
             >
               X
             </p>
