@@ -39,10 +39,10 @@ const CartConfirm = ({ isOpen, onClose }) => {
                 ${isOpen ? "translate-x-0" : "translate-x-full"} 
                 transition-transform duration-300 ease-in-out z-50`}
     >
-      <div className="p-4 flex justify-between items-center border-b">
+      <div className="flex items-center justify-between p-4 border-b">
         <button
           onClick={onClose}
-          className="text-gray-600 text-xl font-semibold"
+          className="text-xl font-semibold text-gray-600"
         >
           CLOSE
         </button>
@@ -54,20 +54,18 @@ const CartConfirm = ({ isOpen, onClose }) => {
           return (
             <div
               key={index}
-              className="flex justify-between items-center border-b py-4"
+              className="flex items-center justify-between py-4 border-b"
             >
-              <div className=" flex items-start gap-6">
+              <div className="flex items-start gap-6 ">
                 <img
-                  className="w-16 h-16 object-cover rounded"
+                  className="object-cover w-16 h-16 rounded"
                   src={productData.image[0]}
                   alt={productData.name}
                 />
                 <div className="flex-1 mx-4" >
                   <h3 className="font-semibold" >{productData.name}</h3>
                   <div>
-                    <p>
-                      <p className="font-medium">{productData.price}</p>
-                    </p>
+                    <p className="font-medium">{productData.price}</p>
                   </div>
                 </div>
               </div>
@@ -76,7 +74,7 @@ const CartConfirm = ({ isOpen, onClose }) => {
               </div>
               <button
                 onClick={() => updateQuantity(item._id, 0)}
-                className="text-red-500 hover:text-red-700 ml-4"
+                className="ml-4 text-red-500 hover:text-red-700"
               >
                 ❌
               </button>
@@ -85,22 +83,22 @@ const CartConfirm = ({ isOpen, onClose }) => {
         })}
       </div>
       <div className="p-4 bg-gray-200">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <span className="font-semibold">SUBTOTAL</span>
         </div>
-        <p className="text-sm text-gray-500 mt-2">
+        <p className="mt-2 text-sm text-gray-500">
           Shipping & taxes calculated at checkout
         </p>
       </div>
-      <div className="p-4 flex space-x-4">
+      <div className="flex p-4 space-x-4">
         <button
-          className="w-1/2 py-2 border border-black text-black font-semibold"
+          className="w-1/2 py-2 font-semibold text-black border border-black"
           onClick={handleViewCart}
         >
           VIEW CART
         </button>
         <button
-          className="w-1/2 py-2 bg-black text-white font-semibold"
+          className="w-1/2 py-2 font-semibold text-white bg-black"
           onClick={handleCheckout}
         >
           CHECKOUT
