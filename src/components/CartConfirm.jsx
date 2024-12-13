@@ -47,7 +47,10 @@ const CartConfirm = ({ isOpen, onClose }) => {
           CLOSE
         </button>
       </div>
-      <div className="p-4 space-y-4">
+      <div className="p-4 space-y-4 overflow-y-auto"
+      style={{ maxHeight: "60vh" }}>
+
+
         {cartData.map((item, index) => {
           const productData = category.find((cate) => cate._id === item._id);
 

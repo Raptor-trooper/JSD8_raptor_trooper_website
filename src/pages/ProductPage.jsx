@@ -52,7 +52,7 @@ const ProductPage = () => {
 
         {/* รูปภาพเพิ่มเติม */}
         <div className="hidden md:flex flex-col gap-4 w-1/4">
-          {productData?.image?.map((img, index) => (
+          {productData.image.map((img, index) => (
             <img
               key={index}
               src={img}
@@ -115,6 +115,12 @@ const ProductPage = () => {
   );
 };
 export default ProductPage;
+
+
+
+
+
+
 
 // import React, { useContext, useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";

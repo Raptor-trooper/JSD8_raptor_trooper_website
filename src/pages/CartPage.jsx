@@ -24,24 +24,11 @@ const CartPage = () => {
         }
     }, [cartItems, category]);
 
-    // ฟังก์ชันสำหรับลดจำนวนสินค้า
-    const handleDecrement = (index) => {
-        const updatedCartItems = cartItems.map((item, i) => {
-            if (i === index && item.quantity > 1) {
-                return { ...item, quantity: item.quantity - 1 };
-            }
-            return item;
-        });
-        setCartItems(updatedCartItems);
-    };
 
-    // ฟังก์ชันสำหรับดำเนินการสั่งซื้อ
-    const handleCheckout = () => {
-        navigate('/checkoutpage');
-    };
+
 
     return (
-        <div className="border-t pt-14">
+        <div className="max-w-screen-xl mx-auto p-8">
             <div className=" text-2xl mb-3">
                 <h1>Cart</h1>
             </div>
@@ -103,7 +90,7 @@ const CartPage = () => {
                     <div className=" w-full text-end">
                         <button
                             onClick={() => navigate("/checkoutpage")}
-                            className="bg-black text-white text-sm my-8 px-8 py-3"
+                            className="py-3 px-6  bg-black text-white font-bold rounded-md hover:bg-gray-800 transition"
                         >
                             PROCEED TO CHECKOUT
                         </button>
@@ -177,7 +164,6 @@ export default CartPage;
                         </div>
                     </div> */}
 //ฝาก
-
 
 //             <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
 //             {cartItems.length === 0 ? (
