@@ -62,11 +62,11 @@ const UserProfile = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const address = {
+    const delivery = {
       firstName,
       lastName,
       country,
-      location,
+      address,
       zip,
       phone,
     }
@@ -80,7 +80,7 @@ const UserProfile = () => {
       if (token) {
         const response = await axios.post(
           `${Api}/user/userprofile`,
-            { address },
+            { delivery },
             { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -213,7 +213,7 @@ const UserProfile = () => {
                 className="w-full p-2 mt-2 border rounded"
               />
             ) : (
-              <p className="mt-2 text-gray-700">{location}</p>
+              <p className="mt-2 text-gray-700">{address}</p>
             )}
           </div>
 

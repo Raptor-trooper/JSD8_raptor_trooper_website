@@ -125,7 +125,7 @@ const CheckoutPage = () => {
                                     </div>
                                 </div>
                                 <div className="flex items-center">
-                                    <p className='px-2'>{getCartCount()}</p>
+                                    <p className='px-2'>{item.quantity}</p>
                                 </div>
                             </div>
                         );
