@@ -6,33 +6,51 @@ import { toast } from "react-toastify";
 const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const { token } = useContext(ShopContext);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState()
   const [firstName, setFirstName] = useState('เตเต้');
   const [lastName, setLastName] = useState('เตเต้');
   const [country, setCountry] = useState('Thailand');
-  const [location, setLocation] = useState('123 Moo 4, Sukhumvit Road, Bangkok');
+  const [address, setAddress] = useState('123 Moo 4, Sukhumvit Road, Bangkok');
   const [city, setCity] = useState('Bangkok')
   const [zip, setZip] = useState('10110');
   const [phone, setPhone] = useState('+66 123 456 789');
 
   const Api = import.meta.env.VITE_BACKEND_URL;
 
-  // const user = await axios.get(
-  //   `${Api}/user/userprofile`,
-  //   { address },
-  //   {
-  //     headers: { Authorization: `Bearer ${token}` }
-  //   }
-  // );
+  const getProfile = async () => {
+    try {
+      if (token) {
+        const response = await axios.get(
+          `${Api}/user/userprofile`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${token}` }
+          }
+        );
+        if (response.data.success) {
+          setName(response.data.user.name);
+          setEmail(response.data.user.email);
+          setFirstName(response.data.user.firstName);
+          setLastName(response.data.user.lastName);
+          setCountry(response.data.user.country);
+          setAddress(response.data.user.address)
+          setCity(response.data.user.city);
+          setZip(response.data.user.zip);
+          setPhone(response.data.user.phone);
+        } else {
+          toast.error("Failed to get user name and email.");
+        }
+      } else {
+          toast.error("Authentication failed. Please log in again.");
+      }
 
-  // const [formData, setFormData] = useState({
-  //   firstName: 'เตเต้',
-  //   lastName: 'เตเต้',
-  //   country: 'Thailand',
-  //   address: '123 Moo 4, Sukhumvit Road, Bangkok',
-  //   city: 'Bangkok',
-  //   zip: '10110',
-  //   phone: '+66 123 456 789',
-  // });
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+
+  }
 
   // ฟังก์ชันสำหรับสลับสถานะแก้ไข
   const toggleEdit = () => {
@@ -55,14 +73,6 @@ const UserProfile = () => {
     
     setLoading(true);
     console.log("Form submitted");
-      // const formData = new FormData();
-
-      // formData.append("firstName", firstName);
-      // formData.append("lastName", lastName);
-      // formData.append("country", country);
-      // formData.append("location", location);
-      // formData.append("zip", zip);
-      // formData.append("phone", phone);
 
     console.log(address);
 
@@ -198,8 +208,8 @@ const UserProfile = () => {
               <input
                 type="text"
                 name="address"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
                 className="w-full p-2 mt-2 border rounded"
               />
             ) : (
