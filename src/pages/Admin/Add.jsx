@@ -1,15 +1,3 @@
-// import React from 'react'
-
-// const Add = () => {
-//   return (
-//     <div>
-//       Add Item
-//     </div>
-//   )
-// }
-
-// export default Add
-
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { assets } from "../../assets/admin/assets";
@@ -27,9 +15,6 @@ const Add = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("Home Decor");
-  // const [subCategory, setSubCategory] = useState("");
-  // const [bestseller, setBestseller] = useState(false);
-  // const [sizes, setSizes] = useState([]);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -41,9 +26,6 @@ const Add = () => {
       formData.append("description", description);
       formData.append("price", price);
       formData.append("category", category);
-      // formData.append("subCategory", subCategory);
-      // formData.append("bestseller", bestseller);
-      // formData.append("sizes", JSON.stringify(sizes));
 
       image1 && formData.append("image1", image1);
       image2 && formData.append("image2", image2);
@@ -57,7 +39,7 @@ const Add = () => {
         formData,
         // { headers: { token } }
       );
-      
+
       if (response.data.success) {
         toast.success(response.data.message);
         setName("");
