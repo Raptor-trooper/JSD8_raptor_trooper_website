@@ -10,6 +10,20 @@ const ShopContextProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState({}); // ตัวอย่าง {6753df71ab254052ebe066f4: 3}
     const [token, setToken] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
+    const userInfo = {
+        name: "",
+        email: "",
+        delivery: {
+            firstName: "",
+            lastName: "",
+            country: "",
+            address: "",
+            city: "",
+            zip: "",
+            phone: "",
+        }
+    }
+    const [user, setUser] = useState(userInfo);
 
     // ฟังก์ชั่น ดึงข้อมูลสินค้า mongoDB
     const FetchCategory = async () => {
@@ -20,6 +34,53 @@ const ShopContextProvider = ({ children }) => {
             console.log('Error get Api', error);
         }
     }
+
+    // get user profile from backend
+    const getProfile = async () => {
+        try {
+          const response = await axios.get(
+            `${Api}/user/userprofile`,
+            {
+              headers: { Authorization: `Bearer ${token}` }
+            }
+          );
+          const data = response.data;
+          if (data.success) {
+            setUser(data.user)
+          } else {
+            toast.error("Failed to fetch user profile.");
+          }
+        } catch (error) {
+          console.log(error);
+          toast.error(error.message);
+        }
+    
+      }
+
+      // update user profile to backend
+      const updateProfile = async () => {
+        if (token) {
+            try {
+                const response = await axios.post(
+                `${Api}/user/userprofile`,
+                  { delivery: user.delivery },
+                  { headers: { Authorization: `Bearer ${token}` } }
+                );
+                if (response.data.success) {
+                  toast.success("Profile updated successfully!");
+                  console.log(response.data);
+                    // setUser((prevUser) => ({
+                    //   ...prevUser,
+                    //   delivery: user.delivery,
+                    // }));
+                }
+            } catch (error) {
+              console.log(error);
+              console.log(user)
+              toast.error(error.message);
+            }
+        }
+      }
 
     // Function AddToCart to Backend
     const addToCart = async (itemId) => {
@@ -149,6 +210,7 @@ const ShopContextProvider = ({ children }) => {
         }
         if (token) {
             getUserCart(token);
+            getProfile()
         }
     }, [token])
 
@@ -164,6 +226,11 @@ const ShopContextProvider = ({ children }) => {
         setToken,
         isAdmin,
         setIsAdmin,
+        user,
+        userInfo,
+        setUser,
+        getProfile,
+        updateProfile,
         updateQuantity,
     }
 

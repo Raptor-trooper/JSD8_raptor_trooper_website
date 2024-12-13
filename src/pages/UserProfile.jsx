@@ -1,55 +1,31 @@
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { ShopContext } from "../Context/ShopContext";
 import { toast } from "react-toastify";
 
 const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const { token } = useContext(ShopContext);
-  const [name, setName] = useState();
-  const [email, setEmail] = useState()
-  const [firstName, setFirstName] = useState('เตเต้');
-  const [lastName, setLastName] = useState('เตเต้');
-  const [country, setCountry] = useState('Thailand');
-  const [address, setAddress] = useState('123 Moo 4, Sukhumvit Road, Bangkok');
-  const [city, setCity] = useState('Bangkok')
-  const [zip, setZip] = useState('10110');
-  const [phone, setPhone] = useState('+66 123 456 789');
+  const { user, setUser, updateProfile } = useContext(ShopContext);
+  const name = user.name;
+  const email = user.email;
+  const [firstName, setFirstName] = useState(user.delivery.firstName);
+  const [lastName, setLastName] = useState(user.delivery.lastName);
+  const [country, setCountry] = useState(user.delivery.country);
+  const [address, setAddress] = useState(user.delivery.address);
+  const [city, setCity] = useState(user.delivery.city);
+  const [zip, setZip] = useState(user.delivery.zip);
+  const [phone, setPhone] = useState(user.delivery.phone);
 
-  const Api = import.meta.env.VITE_BACKEND_URL;
-
-  const getProfile = async () => {
-    try {
-      const response = await axios.get(
-        `${Api}/user/userprofile`,
-        {
-          headers: { Authorization: `Bearer ${token}` }
-        }
-      );
-      const data = response.data;
-      if (data.success) {
-        setName(data.user.name);
-        setEmail(data.user.email);
-        setFirstName(data.user.delivery.firstName);
-        setLastName(data.user.delivery.lastName);
-        setCountry(data.user.delivery.country);
-        setAddress(data.user.delivery.address);
-        setCity(data.user.delivery.city);
-        setZip(data.user.delivery.zip);
-        setPhone(data.user.delivery.phone);
-        } else {
-          toast.error("Failed to get user name and email.");
-        }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-    }
-
-  }
-  
   useEffect(() => {
-    if (token) getProfile();
-  }, [token]);
+    if (user.delivery) {
+      setFirstName(user.delivery.firstName);
+      setLastName(user.delivery.lastName);
+      setCountry(user.delivery.country);
+      setAddress(user.delivery.address);
+      setCity(user.delivery.city);
+      setZip(user.delivery.zip);
+      setPhone(user.delivery.phone);
+    }
+  }, [user.delivery]);
 
   // ฟังก์ชันสำหรับสลับสถานะแก้ไข
   const toggleEdit = () => {
@@ -58,56 +34,34 @@ const UserProfile = () => {
 
   const [loading, setLoading] = useState(false);
 
+  // update ข้อมูลไปหลังบ้านหลังกด save
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-
-    const delivery = {
-      firstName,
-      lastName,
-      country,
-      address,
-      city,
-      zip,
-      phone,
-    }
-    
     setLoading(true);
-    console.log("Form submitted");
-
-    console.log(address);
-
     try {
-      if (token) {
-        const response = await axios.post(
-          `${Api}/user/userprofile`,
-            { delivery },
-            { headers: { Authorization: `Bearer ${token}` } }
-        );
-
-        if (response.data.success) {
-          toast.success("Profile updated successfully!");
-          setIsEditing(false); // Exit edit mode
-        } else {
-          toast.error("Failed to update profile.");
-        }
-      } else {
-        toast.error("Authentication failed. Please log in again.");
-      }
+      await updateProfile();
+      console.log("Profile updated successfully!");
+      toast.success("Profile updated successfully!");
     } catch (error) {
-      console.log(error);
-      toast.error(error.message);
+      console.log(error.message);
+      toast.error("Failed to update profile.");
+    } finally {
+      setLoading(false);
+      setIsEditing(false);
     }
-    setLoading(false);
-  };
+  }
 
   // ฟังก์ชันสำหรับอัปเดตข้อมูล
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser((prevUser) => ({
+      ...prevUser,
+      delivery: {
+        ...prevUser.delivery,
+        [name]: value,
+      },
+    }));
+  };
 
   return (
     <form
@@ -131,6 +85,7 @@ const UserProfile = () => {
             {isEditing && (
               <button
                 type="submit"
+                disabled={loading}
                 className="w-40 p-3 text-white transition bg-blue-500 rounded-lg shadow-md hover:bg-blue-600"
               >
                 {loading ? "Saving..." : "Save"}
@@ -161,7 +116,7 @@ const UserProfile = () => {
                 type="text"
                 name="firstName"
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 mt-2 border rounded"
               />
             ) : (
@@ -176,7 +131,7 @@ const UserProfile = () => {
                 type="text"
                 name="lastName"
                 value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 mt-2 border rounded"
               />
             ) : (
@@ -194,7 +149,7 @@ const UserProfile = () => {
                 type="text"
                 name="country"
                 value={country}
-                onChange={(e) => setCountry(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 mt-2 border rounded"
               />
             ) : (
@@ -209,7 +164,7 @@ const UserProfile = () => {
                 type="text"
                 name="address"
                 value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 mt-2 border rounded"
               />
             ) : (
@@ -225,7 +180,7 @@ const UserProfile = () => {
                   type="text"
                   name="city"
                   value={city}
-                  onChange={(e) => setCity(e.target.value)}
+                  onChange={handleChange}
                   className="w-full p-2 mt-2 border rounded"
                 />
               ) : (
@@ -239,7 +194,7 @@ const UserProfile = () => {
                   type="text"
                   name="zip"
                   value={zip}
-                  onChange={(e) => setZip(e.target.value)}
+                  onChange={handleChange}
                   className="w-full p-2 mt-2 border rounded"
                 />
               ) : (
@@ -255,7 +210,7 @@ const UserProfile = () => {
                 type="text"
                 name="phone"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 mt-2 border rounded"
               />
             ) : (
