@@ -1,42 +1,28 @@
-// import React from 'react'
-
-// const Orders = () => {
-//   return (
-//     <div>
-//       Orders
-//     </div>
-//   )
-// }
-
-// export default Orders
-
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-undef */
-/* eslint-disable react/prop-types */
-import { useContext, useEffect } from "react";
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { assets } from "../../assets/admin/assets";
 import { ShopContext } from "../../Context/ShopContext";
+import { FaTruck, FaBox, FaPhoneAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
-
-const Orders = ({ token }) => {
+const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const {Api} = useContext(ShopContext)
+  const { Api, token } = useContext(ShopContext);
+  const MySwal = withReactContent(Swal);
+
   const fetchAllOrders = async () => {
-    if (!token) {
-      return null;
-    }
+    if (!token) return;
     try {
       const response = await axios.post(
         `${Api}/order/list`,
         {},
         {
           headers: {
-              authorization: `Bearer ${token}` // ใส่ Token ใน Header
-          }
-      }
+            authorization: `Bearer ${token}`, // ใส่ Token ใน Header
+          },
+        }
       );
       if (response.data.success) {
         setOrders(response.data.orders.reverse());
@@ -49,23 +35,35 @@ const Orders = ({ token }) => {
   };
 
   const statusHandler = async (event, orderId) => {
-    try {
-      const response = await axios.post(
-        `${Api}/order/status`,
-        { orderId, status: event.target.value },
-        {
-          headers: {
-              authorization: `Bearer ${token}` // ใส่ Token ใน Header
+    const newStatus = event.target.value;
+    MySwal.fire({
+      title: "Confirm Status Change",
+      text: `Are you sure to change status to "${newStatus}"?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.post(
+            `${Api}/order/status`,
+            { orderId, status: newStatus },
+            {
+              headers: {
+                authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (response.data.success) {
+            toast.success("Status updated successfully");
+            await fetchAllOrders();
           }
+        } catch (error) {
+          toast.error(error.message);
+        }
       }
-      );
-      if (response.data.success) {
-        await fetchAllOrders();
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(response.data.message);
-    }
+    });
   };
 
   useEffect(() => {
@@ -73,68 +71,52 @@ const Orders = ({ token }) => {
   }, [token]);
 
   return (
-    <div>
-      <h3>Order Page</h3>
-      <div>
+    <div className="container mx-auto px-4 py-8">
+      <h3 className="text-4xl font-bold mb-4 ">Order Management</h3>
+      {/* เพิ่ม Scroll ที่นี่ */}
+      <div
+        className="overflow-y-auto max-h-[500px] border border-gray-300 rounded-lg shadow-md"
+        style={{ scrollbarWidth: "thin", scrollbarColor: "#ccc #f0f0f0" }}
+      >
         {orders.map((order, index) => (
           <div
-            className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
             key={index}
+            className="grid grid-cols-1 md:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-4 items-center border-b border-gray-200 p-4 bg-white"
           >
-            <img className="w-12" src={assets.parcel_icon} alt="" />
+            <div className="flex items-center justify-center">
+              <img className="w-12" src={assets.parcel_icon} alt="Parcel" />
+            </div>
             <div>
-              <div>
-                {order.items.map((item, index) => {
-                  if (index === order.items.length - 1) {
-                    return (
-                      <p className="py-0.5" key={index}>
-                        {" "}
-                        {item.name} x {item.quantity}{" "}
-                      </p>
-                    );
-                  } else {
-                    return (
-                      <p className="py-0.5" key={index}>
-                        {" "}
-                        {item.name} x {item.quantity} ,
-                      </p>
-                    );
-                  }
-                })}
-              </div>
-              <p className="mt-3 mb-2 font-medium">
-                {order.address.firstName + " " + order.address.lastName}
-              </p>
-              <div>
-                <p>{order.address.street + ","}</p>
-                <p>
-                  {order.address.city +
-                    ", " +
-                    order.address.state +
-                    ", " +
-                    order.address.country +
-                    ", " +
-                    order.address.zipcode}
+              <p className="text-lg font-semibold mb-2">Order Items</p>
+              {order.items.map((item, idx) => (
+                <p key={idx} className="text-sm text-gray-700">
+                  <FaBox className="inline mr-2 text-gray-500" />
+                  {item.name} x {item.quantity}
                 </p>
-              </div>
-              <p>{order.address.phone}</p>
+              ))}
+              <p className="text-sm mt-4 font-medium">
+                {order?.delivery?.firstName} {order?.delivery?.lastName}
+              </p>
+              <p className="text-sm text-gray-600">
+                <FaPhoneAlt className="inline mr-2 text-gray-500" />
+                {order?.delivery?.phone}
+              </p>
             </div>
             <div>
-              <p className="text-sm sm:text-[15px]">
-                Items : {order.items.length}
+              <p className="text-sm">
+                Items: {order.items.length}
               </p>
-              <p className="mt-3">Method : {order.paymentMethod}</p>
-              <p>Payment : {order.payment ? "Done" : "Pending"}</p>
-              <p>Date : {new Date(order.date).toLocaleDateString()}</p>
+              <p>Method: {order.paymentMethod}</p>
+              <p>Payment: {order.payment ? "Done" : "Pending"}</p>
+              <p>Date: {new Date(order.date).toLocaleDateString()}</p>
             </div>
-            <p className="text-sm sm:text-[15px]">
-              {currency}
-              {order.amount}
-            </p>
+            <div className="text-lg font-bold text-center text-green-600">
+              ${order.amount}
+            </div>
             <select
               onChange={(event) => statusHandler(event, order._id)}
               value={order.status}
-              className="p-2 font-semibold"
+              className="p-2 border border-gray-300 rounded-lg bg-gray-100 font-semibold focus:outline-none"
             >
               <option value="Order Placed">Order Placed</option>
               <option value="Packing">Packing</option>

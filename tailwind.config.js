@@ -13,11 +13,9 @@ export default {
   },
   plugins: [
     require('daisyui'),
-    
     // require("@tailwindcss/forms"),
   ],
   daisyui: {
-    themes: ["light", "dark"], // กำหนดธีมที่สามารถใช้ได้
-    darkTheme: "light",       // บังคับให้ "light" เป็นค่าของ Dark Mode
+    darkTheme: "light",
   },
 }

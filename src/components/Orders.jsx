@@ -66,6 +66,7 @@ const Orders = () => {
               <p className="mt-1 my-1">
                 Payment: <span className="text-gray-500">{item.paymentMethod}</span>
               </p>
+              <p>Status : <span className="text-gray-500">{item.status}</span></p>
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-green-500"></span>
                 {/* ข้อความ open */}
@@ -73,20 +74,6 @@ const Orders = () => {
               </div>
             </div>
           </div>
-
-          {/* <div className="flex flex-col gap-2 items-center">
-            <p className="text-sm text-gray-500 my-1">
-              Date: <span className="text-gray-400">{new Date(item.date).toDateString()}</span>
-            </p>
-            <p className="mt-1 text-sm text-gray-500 my-1">
-              Payment: <span className="text-gray-400">{item.paymentMethod}</span>
-            </p>
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-green-500"></span>
-              <p className="text-sm text-gray-700 flex items-center">Payment completed</p>
-            </div>
-          </div> */}
-
         </div>
       ))}
     </div>
