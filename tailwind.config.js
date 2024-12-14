@@ -12,6 +12,8 @@ export default {
       colors: {
         autofillBg: "#ffffff",
         autofillText: "#000000",
+        primary: "#4A4947",
+        secondary: "ffffff",
       },
     },
   },
