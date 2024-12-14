@@ -1,15 +1,3 @@
-// import React from 'react'
-
-// const List = () => {
-//   return (
-//     <div>
-//       Lists Item
-//     </div>
-//   )
-// }
-
-// export default List
-
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
