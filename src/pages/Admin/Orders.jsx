@@ -21,9 +21,9 @@ import { assets } from "../../assets/admin/assets";
 import { ShopContext } from "../../Context/ShopContext";
 
 
-const Orders = ({ token }) => {
+const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const {Api} = useContext(ShopContext)
+  const {Api, token} = useContext(ShopContext)
   const fetchAllOrders = async () => {
     if (!token) {
       return null;
@@ -31,7 +31,6 @@ const Orders = ({ token }) => {
     try {
       const response = await axios.post(
         `${Api}/order/list`,
-        {},
         {
           headers: {
               authorization: `Bearer ${token}` // ใส่ Token ใน Header
