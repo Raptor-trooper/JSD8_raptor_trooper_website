@@ -88,151 +88,141 @@ const CheckoutPage = () => {
 
     return (
         <form
-            onSubmit={onSubmitHandler}
-            className="w-full flex justify-center gap-16"
+          onSubmit={onSubmitHandler}
+          className="max-w-screen-xl mx-auto p-4 grid gap-8 lg:grid-cols-3"
         >
-            {/* ------------- Left Side ---------------- */}
-            <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
-                <div className="text-xl sm:text-2xl my-3">
-                    <h1>Delibery infomation</h1>
-                </div>
-                <div className="flex gap-3">
-                    <input
-                        required
-                        onChange={onChangeHandler}
-                        name="firstName"
-                        value={formData.firstName}
-                        className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-                        type="text"
-                        placeholder="First name"
-                    />
-                    <input
-                        required
-                        onChange={onChangeHandler}
-                        name="lastName"
-                        value={formData.lastName}
-                        className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-                        type="text"
-                        placeholder="Last name"
-                    />
-                </div>
-                <input
-                    required
-                    onChange={onChangeHandler}
-                    name="email"
-                    value={formData.email}
-                    className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-                    type="email"
-                    placeholder="Email address"
-                />
-                <input
-                    required
-                    onChange={onChangeHandler}
-                    name="street"
-                    value={formData.street}
-                    className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-                    type="text"
-                    placeholder="Street"
-                />
-                <div className="flex gap-3">
-                    <input
-                        required
-                        onChange={onChangeHandler}
-                        name="city"
-                        value={formData.city}
-                        className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-                        type="text"
-                        placeholder="City"
-                    />
-                    <input
-                        onChange={onChangeHandler}
-                        name="state"
-                        value={formData.state}
-                        className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-                        type="text"
-                        placeholder="State"
-                    />
-                </div>
-                <div className="flex gap-3">
-                    <input
-                        required
-                        onChange={onChangeHandler}
-                        name="zipcode"
-                        value={formData.zipcode}
-                        className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-                        type="number"
-                        placeholder="Zipcode"
-                    />
-                    <input
-                        required
-                        onChange={onChangeHandler}
-                        name="country"
-                        value={formData.country}
-                        className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-                        type="text"
-                        placeholder="Country"
-                    />
-                </div>
-                <input
-                    required
-                    onChange={onChangeHandler}
-                    name="phone"
-                    value={formData.phone}
-                    className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-                    type="number"
-                    placeholder="Phone"
-                />
+          {/* ----------- Delivery Information ----------- */}
+          <div className="lg:col-span-2 space-y-4">
+            <h2 className="text-2xl font-bold">Delivery Information</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              <input
+                required
+                name="firstName"
+                value={formData.firstName}
+                onChange={onChangeHandler}
+                className="border border-gray-300 rounded py-2 px-3 w-full"
+                type="text"
+                placeholder="First Name"
+              />
+              <input
+                required
+                name="lastName"
+                value={formData.lastName}
+                onChange={onChangeHandler}
+                className="border border-gray-300 rounded py-2 px-3 w-full"
+                type="text"
+                placeholder="Last Name"
+              />
             </div>
-
-            {/* ------------- Right Side ------------------ */}
-            <div className="">
-                <div className="">
-
-                    {cartData.map((item, index) => {
-                        const productData = category.find(
-                            (cate) => cate._id === item._id
-                        );
-
-                        return (
-                            <div
-                                key={index}
-                                className="flex items-center gap-4 py-4 text-gray-700 border-t border-b"
-                            >
-                                <div className="flex items-start gap-6 ">
-                                    <img
-                                        className="w-16 sm:w-20"
-                                        src={productData.image[0]}
-                                        alt=""
-                                    />
-                                    <div>
-                                        <p>{productData.name}</p>
-                                        <p>{productData.price}</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center">
-                                    <p className='px-2'>{item.quantity}</p>
-                                </div>
-                            </div>
-                        );
-                    })}
-                    <CartTotal />
-                </div>
-                <div className="mt-12">
-                    <h1>Pay ment</h1>
-                    {/* --------------- Payment Method Selection ------------- */}
-                    <img src="/Images/Stripe_New.png" alt="Stripe_New" className='w-24 h-auto bg-black' />
-                    <div className="w-full text-end mt-8">
-                        <button
-                            type="submit"
-                            className="bg-black text-white px-16 py-3 text-sm"
-                        >
-                            PAY NOW
-                        </button>
-                    </div>
-                </div>
+            <input
+              required
+              name="email"
+              value={formData.email}
+              onChange={onChangeHandler}
+              className="border border-gray-300 rounded py-2 px-3 w-full"
+              type="email"
+              placeholder="Email Address"
+            />
+            <input
+              required
+              name="street"
+              value={formData.street}
+              onChange={onChangeHandler}
+              className="border border-gray-300 rounded py-2 px-3 w-full"
+              type="text"
+              placeholder="Street Address"
+            />
+            <div className="grid gap-4 md:grid-cols-3">
+              <input
+                required
+                name="city"
+                value={formData.city}
+                onChange={onChangeHandler}
+                className="border border-gray-300 rounded py-2 px-3 w-full"
+                type="text"
+                placeholder="City"
+              />
+              <input
+                name="state"
+                value={formData.state}
+                onChange={onChangeHandler}
+                className="border border-gray-300 rounded py-2 px-3 w-full"
+                type="text"
+                placeholder="State"
+              />
+              <input
+                required
+                name="zipcode"
+                value={formData.zipcode}
+                onChange={onChangeHandler}
+                className="border border-gray-300 rounded py-2 px-3 w-full"
+                type="text"
+                placeholder="Zipcode"
+              />
             </div>
-        </form >
-    );
+            <input
+              required
+              name="country"
+              value={formData.country}
+              onChange={onChangeHandler}
+              className="border border-gray-300 rounded py-2 px-3 w-full"
+              type="text"
+              placeholder="Country"
+            />
+            <input
+              required
+              name="phone"
+              value={formData.phone}
+              onChange={onChangeHandler}
+              className="border border-gray-300 rounded py-2 px-3 w-full"
+              type="text"
+              placeholder="Phone Number"
+            />
+          </div>
+    
+          {/* ----------- Order Summary ----------- */}
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold">Order Summary</h2>
+            {cartData.map((item, index) => {
+              const product = category.find((cate) => cate._id === item._id);
+              return (
+                <div key={index} className="flex items-center gap-4">
+                  <img
+                    src={product.image[0]}
+                    alt={product.name}
+                    className="w-16 h-16 object-cover rounded"
+                  />
+                  <div>
+                    <h3 className="font-semibold">{product.name}</h3>
+                    <p>Quantity: {item.quantity}</p>
+                    <p>฿{product.price * item.quantity}</p>
+                  </div>
+                </div>
+              );
+            })}
+            <CartTotal/>
+            
+            <div className="flex justify-between font-bold">
+              <span>Subtotal:</span>
+              <span>฿{getCartAmount()}</span>
+            </div>
+            <div className="flex justify-between font-bold">
+              <span>Shipping:</span>
+              <span>฿10</span>
+            </div>
+            <div className="flex justify-between font-bold">
+              <span>Total:</span>
+              <span>฿{getCartAmount() + 10}</span>
+            </div>
+            <button
+              type="submit"
+              className="w-full py-3 bg-black text-white font-semibold rounded"
+            >
+              Confirm & Pay
+            </button>
+          </div>
+        </form>
+      );
 };
 
 export default CheckoutPage;
