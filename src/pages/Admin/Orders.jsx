@@ -141,7 +141,6 @@ const Orders = () => {
     try {
       const response = await axios.post(
         `${Api}/order/list`,
-        {},
         {
           headers: {
             authorization: `Bearer ${token}`, // ใส่ Token ใน Header

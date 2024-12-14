@@ -7,25 +7,10 @@ const Layout = () => {
     return (
         <div className='bg-white text-black'>
             <Navbar />
-            <Outlet />
+            <div className='min-h-screen'>
+                <Outlet />
+            </div>
             <Footer />
-            {/* <style>
-                {`
-                    input,
-                    textarea {
-                        background-color: #ffffff; 
-                        color: #000000; 
-                        border: 1px solid #ccc; 
-                        padding: 0.5rem; 
-                        border-radius: 5px;
-                    }
-
-                    input:-webkit-autofill {
-                        background-color: #ffffff !important;
-                        -webkit-text-fill-color: #000000 !important;
-                    }
-                `}
-            </style> */}
         </div>
     )
 }
