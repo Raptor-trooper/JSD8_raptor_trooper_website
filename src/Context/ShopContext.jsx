@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { createContext, useEffect, useState } from 'react'
 import { toast } from "react-toastify";
 export const ShopContext = createContext();
-import { Api } from '../App';
 
 const ShopContextProvider = ({ children }) => {
 
@@ -10,6 +9,7 @@ const ShopContextProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState({}); // ตัวอย่าง {6753df71ab254052ebe066f4: 3}
     const [token, setToken] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
+    const Api = import.meta.env.VITE_BACKEND_URL;
     const userInfo = {
         name: "",
         email: "",
@@ -215,6 +215,7 @@ const ShopContextProvider = ({ children }) => {
     }, [token])
 
     const value = {
+        Api,
         category,
         cartItems,
         addToCart,
