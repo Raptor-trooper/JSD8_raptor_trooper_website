@@ -11,11 +11,12 @@
 // export default List
 
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Api } from "../../App";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { ShopContext } from "../../Context/ShopContext";
 
 const List = ({ token }) => {
+  const { Api } = useContext(ShopContext)
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
@@ -41,7 +42,7 @@ const List = ({ token }) => {
         { id },
         // { headers: { token } }
       );
-    
+
       if (response.data.success) {
         toast.success(response.data.message);
         await fetchList();
@@ -49,7 +50,7 @@ const List = ({ token }) => {
         toast.error(response.data.message);
       }
     } catch (error) {
-      console.log( 'ok' )
+      console.log('ok')
       console.log(error);
       toast.error(error.message);
     }
