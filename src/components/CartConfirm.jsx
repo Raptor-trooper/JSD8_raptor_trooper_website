@@ -55,35 +55,65 @@ const CartConfirm = ({ isOpen, onClose }) => {
           const productData = category.find((cate) => cate._id === item._id);
 
           return (
-            <div
-              key={index}
-              className="flex justify-between items-center border-b py-4"
-            >
-              <div className=" flex items-start gap-6">
-                <img
-                  className="w-16 h-16 object-cover rounded"
-                  src={productData.image[0]}
-                  alt={productData.name}
-                />
-                <div className="flex-1 mx-4" >
-                  <h3 className="font-semibold" >{productData.name}</h3>
-                  <div>
-                    <p>
-                      <p className="font-medium">{productData.price}</p>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <p className="font-medium">{item.quantity}</p>
-              </div>
-              <button
-                onClick={() => updateQuantity(item._id, 0)}
-                className="text-red-500 hover:text-red-700 ml-4"
-              >
-                ❌
-              </button>
-            </div>
+            // <div
+            //   key={index}
+            //   className="flex justify-between items-center border-b py-4"
+            // >
+            //   <div className=" flex items-start gap-6">
+            //     <img
+            //       className="w-16 h-16 object-cover rounded"
+            //       src={productData.image[0]}
+            //       alt={productData.name}
+            //     />
+            //     <div className="flex-1 mx-4" >
+            //       <h3 className="font-semibold" >{productData.name}</h3>
+            //       <div>
+            //         <p>
+            //           <p className="font-medium">{productData.price}</p>
+            //         </p>
+            //       </div>
+            //     </div>
+            //   </div>
+            //   <div className="flex items-center">
+            //     <p className="font-medium">{item.quantity}</p>
+            //   </div>
+            //   <button
+            //     onClick={() => updateQuantity(item._id, 0)}
+            //     className="text-red-500 hover:text-red-700 ml-4"
+            //   >
+            //     ❌
+            //   </button>
+            // </div>
+
+<div
+  key={index}
+  className="flex justify-between items-center border-b py-4"
+>
+  <div className="flex items-start gap-6 w-full">
+    <img
+      className="w-16 h-16 object-cover rounded"
+      src={productData.image[0]}
+      alt={productData.name}
+    />
+    <div className="flex-1">
+      <h3 className="font-semibold truncate">{productData.name}</h3>
+      <p className="text-gray-500 text-sm mt-1">฿{productData.price}</p>
+    </div>
+    {/* ปรับโครงสร้าง Flex เพื่อจัด item.quantity ให้อยู่ตรงกลาง */}
+    <div className="flex items-center justify-center w-16">
+      <p className="text-center">{item.quantity}</p>
+    </div>
+  </div>
+  <button
+    onClick={() => updateQuantity(item._id, 0)}
+    className="text-red-500 hover:text-red-700 ml-4"
+  >
+    ❌
+  </button>
+</div>
+
+
+
           );
         })}
       </div>
