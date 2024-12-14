@@ -9,14 +9,15 @@ export default {
       fontFamily: {
         maitree: ['Maitree', 'serif'],
       },
-      colors: {
-        autofillBg: "#ffffff",
-        autofillText: "#000000",
-      },
     },
   },
   plugins: [
     require('daisyui'),
-    require("@tailwindcss/forms"),
+    
+    // require("@tailwindcss/forms"),
   ],
+  daisyui: {
+    themes: ["light", "dark"], // กำหนดธีมที่สามารถใช้ได้
+    darkTheme: "light",       // บังคับให้ "light" เป็นค่าของ Dark Mode
+  },
 }

@@ -53,7 +53,7 @@ const CartConfirm = ({ isOpen, onClose }) => {
 
         {cartData.map((item, index) => {
           const productData = category.find((cate) => cate._id === item._id);
-
+          console.log("product",productData)
           return (
             <div
               key={index}
@@ -64,6 +64,7 @@ const CartConfirm = ({ isOpen, onClose }) => {
                   className="object-cover w-16 h-16 rounded"
                   src={productData.image[0]}
                   alt={productData.name}
+                
                 />
                 <div className="flex-1 mx-4" >
                   <h3 className="font-semibold" >{productData.name}</h3>
