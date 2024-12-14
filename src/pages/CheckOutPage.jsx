@@ -145,18 +145,19 @@ const CheckoutPage = () => {
           className="grid max-w-screen-xl gap-8 p-4 mx-auto lg:grid-cols-3"
         >
           {/* ----------- Delivery Information ----------- */}
-          <div className="space-y-4 lg:col-span-2">
+          {/* <div className="space-y-4 lg:col-span-2">
             <h2 className="text-2xl font-bold">Delivery Information</h2>
             <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <h3 className="text-lg font-semibold">First Name</h3>
               <input
-                required
+                type="text"
                 name="firstName"
                 value={firstName}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded"
-                type="text"
-                placeholder="First Name"
-              />
+                className="w-full p-2 mt-2 border rounded"
+                />
+            </div>
               <input
                 required
                 name="lastName"
@@ -166,8 +167,8 @@ const CheckoutPage = () => {
                 type="text"
                 placeholder="Last Name"
               />
-            </div>
-            <input
+            </div> */}
+            {/* <input
               required
               name="email"
               value={email}
@@ -175,15 +176,15 @@ const CheckoutPage = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded"
               type="email"
               placeholder="Email Address"
-            />
-            <input
+            /> */}
+            {/* <input
               required
               name="address"
               value={address}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded"
               type="text"
-              placeholder="Street Address"
+              placeholder="Address"
             />
             <div className="grid gap-4 md:grid-cols-3">
               <input
@@ -194,20 +195,20 @@ const CheckoutPage = () => {
                 className="w-full px-3 py-2 border border-gray-300 rounded"
                 type="text"
                 placeholder="City"
-              />
-              <input
+              /> */}
+              {/* <input
                 name="state"
                 value={state}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded"
                 type="text"
                 placeholder="State"
-              />
-              <input
+              /> */}
+              {/* <input
                 required
-                name="zipcode"
-                value={formData.zipcode}
-                onChange={onChangeHandler}
+                name="zip"
+                value={zip}
+                onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded"
                 type="text"
                 placeholder="Zipcode"
@@ -216,8 +217,8 @@ const CheckoutPage = () => {
             <input
               required
               name="country"
-              value={formData.country}
-              onChange={onChangeHandler}
+              value={country}
+              onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded"
               type="text"
               placeholder="Country"
@@ -225,14 +226,100 @@ const CheckoutPage = () => {
             <input
               required
               name="phone"
-              value={formData.phone}
-              onChange={onChangeHandler}
+              value={phone}
+              onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded"
               type="text"
               placeholder="Phone Number"
             />
+          </div> */}
+          {/* Profile Section */}
+        <div className="space-y-4 lg:col-span-2">
+          <div className="grid grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold">First Name</h3>
+                <input
+                type="text"
+                name="firstName"
+                value={firstName}
+                onChange={handleChange}
+                className="w-full p-2 mt-2 border rounded"
+              />
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold">Last Name</h3>
+              <input
+                type="text"
+                name="lastName"
+                value={lastName}
+                onChange={handleChange}
+                className="w-full p-2 mt-2 border rounded"
+              />
+            </div>
           </div>
-    
+
+          {/* Address Section */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-lg font-semibold">Country/Region</h3>
+                <input
+                type="text"
+                name="country"
+                value={country}
+                onChange={handleChange}
+                className="w-full p-2 mt-2 border rounded"
+              />
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold">Address</h3>
+              <input
+                type="text"
+                name="address"
+                value={address}
+                onChange={handleChange}
+                className="w-full p-2 mt-2 border rounded"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <h3 className="text-lg font-semibold">City</h3>
+                <input
+                  type="text"
+                  name="city"
+                  value={city}
+                  onChange={handleChange}
+                  className="w-full p-2 mt-2 border rounded"
+                />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">ZIP Code</h3>
+                <input
+                  type="text"
+                  name="zip"
+                  value={zip}
+                  onChange={handleChange}
+                  className="w-full p-2 mt-2 border rounded"
+                />
+              </div>
+
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold">Phone</h3>
+              <input
+                type="text"
+                name="phone"
+                value={phone}
+                onChange={handleChange}
+                className="w-full p-2 mt-2 border rounded"
+              />
+            </div>
+          </div>
+        </div>
+
           {/* ----------- Order Summary ----------- */}
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Order Summary</h2>
@@ -275,7 +362,7 @@ const CheckoutPage = () => {
             </button>
           </div>
         </form>
-      );
+    );
 };
 
 export default CheckoutPage;
