@@ -1,9 +1,10 @@
-/* eslint-disable react/prop-types */
 import { useContext, useState } from "react";
 import { assets } from "../../assets/admin/assets";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { ShopContext } from "../../Context/ShopContext";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const Add = () => {
   const [image1, setImage1] = useState(false);
@@ -17,6 +18,8 @@ const Add = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("Home Decor");
+
+  const MySwal = withReactContent(Swal);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -34,16 +37,20 @@ const Add = () => {
       image3 && formData.append("image3", image3);
       image4 && formData.append("image4", image4);
 
-      console.log(formData)
+      console.log(formData);
 
-      const response = await axios.post(
-        `${Api}/product/add`,
-        formData,
-        // { headers: { token } }
-      );
+      const response = await axios.post(`${Api}/product/add`, formData);
 
       if (response.data.success) {
-        toast.success(response.data.message);
+        // SweetAlert2 แสดงผลเมื่อเพิ่มสินค้าสำเร็จ
+        MySwal.fire({
+          title: "Success!",
+          text: "Product added successfully.",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+
+        // Reset ฟอร์ม
         setName("");
         setDescription("");
         setImage1(false);
@@ -62,14 +69,18 @@ const Add = () => {
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Add Product</h1>
+      <h1 className="text-4xl font-bold mb-6">Add Product</h1>
       <form onSubmit={onSubmitHandler} className="space-y-6">
         {/* Upload Images */}
         <div>
           <p className="text-sm font-medium mb-2">Upload Images</p>
           <div className="flex gap-4 flex-wrap">
             {[image1, image2, image3, image4].map((image, index) => (
-              <label key={index} htmlFor={`image${index + 1}`} className="cursor-pointer">
+              <label
+                key={index}
+                htmlFor={`image${index + 1}`}
+                className="cursor-pointer"
+              >
                 <img
                   src={!image ? assets.upload_area : URL.createObjectURL(image)}
                   alt={`Image ${index + 1}`}
@@ -96,7 +107,9 @@ const Add = () => {
         {/* Product Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium mb-2">Product Name</label>
+            <label className="block text-sm font-medium mb-2">
+              Product Name
+            </label>
             <input
               type="text"
               value={name}
