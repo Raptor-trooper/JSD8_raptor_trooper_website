@@ -1,15 +1,17 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { assets } from "../../assets/admin/assets";
 import axios from "axios";
-import { Api } from "../../App";
 import { toast } from "react-toastify";
+import { ShopContext } from "../../Context/ShopContext";
 
 const Add = () => {
   const [image1, setImage1] = useState(false);
   const [image2, setImage2] = useState(false);
   const [image3, setImage3] = useState(false);
   const [image4, setImage4] = useState(false);
+
+  const { Api } = useContext(ShopContext);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");

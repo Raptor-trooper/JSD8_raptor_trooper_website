@@ -9,7 +9,9 @@ const ShopContextProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState({}); // ตัวอย่าง {6753df71ab254052ebe066f4: 3}
     const [token, setToken] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
+
     const Api = import.meta.env.VITE_BACKEND_URL;
+
     const userInfo = {
         name: "",
         email: "",
@@ -38,49 +40,49 @@ const ShopContextProvider = ({ children }) => {
     // get user profile from backend
     const getProfile = async () => {
         try {
-          const response = await axios.get(
-            `${Api}/user/userprofile`,
-            {
-              headers: { Authorization: `Bearer ${token}` }
+            const response = await axios.get(
+                `${Api}/user/userprofile`,
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
+            );
+            const data = response.data;
+            if (data.success) {
+                setUser(data.user)
+            } else {
+                toast.error("Failed to fetch user profile.");
             }
-          );
-          const data = response.data;
-          if (data.success) {
-            setUser(data.user)
-          } else {
-            toast.error("Failed to fetch user profile.");
-          }
         } catch (error) {
-          console.log(error);
-          toast.error(error.message);
+            console.log(error);
+            toast.error(error.message);
         }
-    
-      }
 
-      // update user profile to backend
-      const updateProfile = async () => {
+    }
+
+    // update user profile to backend
+    const updateProfile = async () => {
         if (token) {
             try {
                 const response = await axios.post(
-                `${Api}/user/userprofile`,
-                  { delivery: user.delivery },
-                  { headers: { Authorization: `Bearer ${token}` } }
+                    `${Api}/user/userprofile`,
+                    { delivery: user.delivery },
+                    { headers: { Authorization: `Bearer ${token}` } }
                 );
                 if (response.data.success) {
-                  toast.success("Profile updated successfully!");
-                  console.log(response.data);
+                    toast.success("Profile updated successfully!");
+                    console.log(response.data);
                     // setUser((prevUser) => ({
                     //   ...prevUser,
                     //   delivery: user.delivery,
                     // }));
                 }
             } catch (error) {
-              console.log(error);
-              console.log(user)
-              toast.error(error.message);
+                console.log(error);
+                console.log(user)
+                toast.error(error.message);
             }
         }
-      }
+    }
 
     // Function AddToCart to Backend
     const addToCart = async (itemId) => {
