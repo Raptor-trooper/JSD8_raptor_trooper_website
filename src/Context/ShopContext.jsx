@@ -10,6 +10,7 @@ const ShopContextProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState({}); // ตัวอย่าง {6753df71ab254052ebe066f4: 3}
     const [token, setToken] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
+    const [updateUserInfo, setUpdateUserInfo] = useState(false)
 
     const Api = import.meta.env.VITE_BACKEND_URL;
 
@@ -61,28 +62,27 @@ const ShopContextProvider = ({ children }) => {
     }
 
     // update user profile to backend
-    const updateProfile = async () => {
+    const updateProfile = async (userInfo) => {
         if (token) {
+            setUser((prevUser) => ({
+                ...prevUser,
+                delivery: { ...userInfo },
+            }));
             try {
                 const response = await axios.post(
                     `${Api}/user/userprofile`,
-                    { delivery: user.delivery },
+                    { delivery: userInfo },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 if (response.data.success) {
+                    setUpdateUserInfo(!updateUserInfo)
                     Swal.fire({
                         title: "Profile updated successfully!",
                         icon: "success"
                     });
-                    console.log(response.data);
-                    // setUser((prevUser) => ({
-                    //   ...prevUser,
-                    //   delivery: user.delivery,
-                    // }));
                 }
             } catch (error) {
                 console.log(error);
-                console.log(user)
                 toast.error(error.message);
             }
         }
@@ -223,7 +223,7 @@ const ShopContextProvider = ({ children }) => {
             getUserCart(token);
             getProfile()
         }
-    }, [token])
+    }, [updateUserInfo, token])
 
     const value = {
         Api,
