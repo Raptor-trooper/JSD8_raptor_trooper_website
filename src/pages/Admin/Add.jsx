@@ -161,7 +161,7 @@ const Add = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="bg-black text-white py-2 px-6 rounded-md hover:bg-gray-700 transition"
+          className="button"
         >
           Add Product
         </button>

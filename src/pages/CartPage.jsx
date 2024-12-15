@@ -1,112 +1,101 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { ShopContext } from '../Context/ShopContext';
-import { useNavigate } from 'react-router-dom';
-import CartTotal from '../components/CartTotal';
+import React, { useState, useEffect, useContext } from "react";
+import { ShopContext } from "../Context/ShopContext";
+import { useNavigate } from "react-router-dom";
+import CartTotal from "../components/CartTotal";
+import ButtonX from "../components/ButtonX";
+
 
 const CartPage = () => {
-    const { cartItems, removeFromCart, setCartItems, updateQuantity, category } = useContext(ShopContext);
-    const navigate = useNavigate();
+  const { cartItems, removeFromCart, setCartItems, updateQuantity, category } =
+    useContext(ShopContext);
+  const navigate = useNavigate();
 
-    const [cartData, setCartData] = useState([]);
+  const [cartData, setCartData] = useState([]);
 
-    useEffect(() => {
-        if (category.length > 0) {
-            const tempData = [];
-            for (const items in cartItems) {
-                if (cartItems[items] > 0) {
-                    tempData.push({
-                        _id: items,
-                        quantity: cartItems[items],
-                    });
-                }
-            }
-            setCartData(tempData);
+  useEffect(() => {
+    if (category.length > 0) {
+      const tempData = [];
+      for (const items in cartItems) {
+        if (cartItems[items] > 0) {
+          tempData.push({
+            _id: items,
+            quantity: cartItems[items],
+          });
         }
-    }, [cartItems, category]);
+      }
+      setCartData(tempData);
+    }
+  }, [cartItems, category]);
 
+  return (
+    <div className="max-w-screen-xl mx-auto p-8">
+      <div className=" text-2xl mb-3">
+        <h1>Cart</h1>
+      </div>
 
+      <div>
+        {cartData.map((item, index) => {
+          const productData = category.find((cate) => cate._id === item._id);
 
-
-    return (
-        <div className="max-w-screen-xl mx-auto p-8">
-            <div className=" text-2xl mb-3">
-                <h1>Cart</h1>
-            </div>
-
-            <div>
-                {cartData.map((item, index) => {
-                    const productData = category.find(
-                        (cate) => cate._id === item._id
-                    );
-
-                    return (
-                        <div
-                            key={index}
-                            className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
-                        >
-                            <div className=" flex items-start gap-6">
-                                <img
-                                    className="w-16 sm:w-20"
-                                    src={productData.image[0]}
-                                    alt=""
-                                />
-                                <div>
-                                    <p className="text-xs sm:text-lg font-medium">
-                                        {productData.name}
-                                    </p>
-                                    <div className="flex items-center gap-5 mt-2">
-                                        <p>
-                                            {productData.price}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <input
-                                onChange={(e) =>
-                                    e.target.value === "" || e.target.value === "0"
-                                        ? null
-                                        : updateQuantity(
-                                            item._id,
-                                            Number(e.target.value)
-                                        )
-                                }
-                                className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
-                                type="number"
-                                min={1}
-                                defaultValue={item.quantity}
-                            />
-                            <button
-                                onClick={() => updateQuantity(item._id, 0)}
-                                className="w-4 mr-4 sm:w-5 cursor-pointer"
-                            >❌</button>
-                        </div>
-                    );
-                })}
-            </div>
-
-            <div className="flex justify-end my-20">
-                <div className="w-full sm:w-[450px]">
-                    <CartTotal />
-                    <div className=" w-full text-end">
-                        <button
-                            onClick={() => navigate("/checkoutpage")}
-                            className="py-3 px-6  bg-black text-white font-bold rounded-md hover:bg-gray-800 transition"
-                        >
-                            PROCEED TO CHECKOUT
-                        </button>
-                    </div>
+          return (
+            <div
+              key={index}
+              className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
+            >
+              <div className=" flex items-start gap-6">
+                <img
+                  className="w-16 sm:w-20"
+                  src={productData.image[0]}
+                  alt=""
+                />
+                <div>
+                  <p className="text-xs sm:text-lg font-medium">
+                    {productData.name}
+                  </p>
+                  <div className="flex items-center gap-5 mt-2">
+                    <p>{productData.price}</p>
+                  </div>
                 </div>
+              </div>
+              <input
+                onChange={(e) =>
+                  e.target.value === "" || e.target.value === "0"
+                    ? null
+                    : updateQuantity(item._id, Number(e.target.value))
+                }
+                className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
+                type="number"
+                min={1}
+                defaultValue={item.quantity}
+              />
+
+              <ButtonX
+                onClick={() => updateQuantity(item._id, 0)}
+              >
+              </ButtonX>
             </div>
+          );
+        })}
+      </div>
+
+      <div className="flex justify-end my-20">
+        <div className="w-full sm:w-[450px]">
+          <CartTotal />
+          <div className=" w-full text-end">
+            <button
+              onClick={() => navigate("/checkoutpage")}
+              className="button mt-3"
+            >
+              PROCEED TO CHECKOUT
+            </button>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default CartPage;
-
-
-
-
-
 
 // import React, { useContext } from 'react';
 // import { CartContext } from '../Context/CartContext';
@@ -151,7 +140,8 @@ export default CartPage;
 
 //                                 ฝาก
 
-{/* <div className="bg-gray-100 p-4 rounded-md">
+{
+  /* <div className="bg-gray-100 p-4 rounded-md">
                         <h2 className="text-lg font-bold">Create a Account</h2>
                         <p>Sign up to track your order history and save your information for faster checkouts.</p>
                         <div className="mt-4">
@@ -162,7 +152,8 @@ export default CartPage;
                                 onClick={handleSignUp}
                             >Sign Up</button>
                         </div>
-                    </div> */}
+                    </div> */
+}
 //ฝาก
 
 //             <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
@@ -207,4 +198,3 @@ export default CartPage;
 // };
 
 // export default CartPage;
-

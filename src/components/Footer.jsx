@@ -3,18 +3,15 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#4a4947] text-white py-10">
+    <footer className="bg-black text-white py-5">
       <div className="container mx-auto text-center">
-        <Link to='/aboutus' className="text-[24px] underline">About us</Link>
-        <p className="mt-2 text-[24px]  ">
-          "Handy haven with love, bringing unique creations to your home."
-        </p>
-        <p className="mt-4 text-[24px]">
-          JSD 8
+        <Link to='/aboutus' className="text-lg underline">About us</Link>
+        <p className="mt-2 text-lg  ">
+          "Handy haven with love, bringing unique creations to your home. "
         </p>
       </div>
       <div className="container mx-auto text-right ">
-        <p className="text-[16px]">
+        <p className="text-sm">
           © 2024 Handy Haven. All rights reserved.
         </p>
       </div>
