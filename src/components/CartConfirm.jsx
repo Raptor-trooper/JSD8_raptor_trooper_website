@@ -49,12 +49,11 @@ const CartConfirm = ({ isOpen, onClose }) => {
         </button>
       </div>
       <div className="p-4 space-y-4 overflow-y-auto"
-      
-      style={{ maxHeight: "60vh" }}>
+
+        style={{ maxHeight: "60vh" }}>
 
         {cartData.map((item, index) => {
           const productData = category.find((cate) => cate._id === item._id);
-          console.log("product",productData)
           return (
             <div
               key={index}
@@ -65,7 +64,7 @@ const CartConfirm = ({ isOpen, onClose }) => {
                   className="object-cover w-16 h-16 rounded"
                   src={productData.image[0]}
                   alt={productData.name}
-                
+
                 />
                 <div className="flex-1 mx-2" >
                   <h3 className="font-semibold" >{productData.name}</h3>
@@ -77,7 +76,7 @@ const CartConfirm = ({ isOpen, onClose }) => {
               <div className="flex items-center justify-center flex-[2]  ">
                 <p className="font-medium">{item.quantity}</p>
               </div>
-              <ButtonX 
+              <ButtonX
                 onClick={() => updateQuantity(item._id, 0)}
               >
               </ButtonX>
