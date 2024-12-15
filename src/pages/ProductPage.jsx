@@ -84,7 +84,7 @@ const ProductPage = () => {
           <p className="text-xl mb-4">฿{productData.price}</p>
 
           <button
-            className="w-full py-4 bg-black text-white font-bold rounded-md hover:bg-gray-800 transition"
+            className="button"
             onClick={() => addToCart(productData._id)}
           >
             Add to Cart

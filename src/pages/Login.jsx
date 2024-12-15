@@ -103,7 +103,9 @@ const Login = () => {
         {/* Submit Button */}
           <button
             type="submit"
-            className="text-xl w-full p-3  text-white transition bg-black rounded-none shadow-lg hover:bg-gradient-to-tr hover:from-black hover:to-blue-700 mt-7"
+            // className="text-xl w-full p-3  text-white transition bg-gray-800 rounded-none shadow-lg hover:bg-gradient-to-tr hover:from-black hover:to-blue-700 mt-7"
+            className="button w-full mt-7"
+          
           >
             {currentState === "Login" ? "Log in" : "Sign Up"}
           </button>

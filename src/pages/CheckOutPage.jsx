@@ -241,7 +241,7 @@ const CheckoutPage = () => {
             </div>
             <button
               type="submit"
-              className="w-full py-3 bg-black text-white font-semibold rounded"
+              className="button w-full"
             >
               Confirm & Pay
             </button>
