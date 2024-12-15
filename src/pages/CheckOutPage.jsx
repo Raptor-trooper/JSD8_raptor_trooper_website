@@ -38,15 +38,15 @@ const CheckoutPage = () => {
     if (category.length > 0) {
       const tempData = [];
       for (const items in cartItems) {
-          if (cartItems[items] > 0) {
-              tempData.push({
-                  _id: items,
-                  quantity: cartItems[items],
-              });
-          }
+        if (cartItems[items] > 0) {
+          tempData.push({
+            _id: items,
+            quantity: cartItems[items],
+          });
+        }
       }
       setCartData(tempData);
-  }
+    }
   }, [user.delivery, cartItems, category]);
 
 
@@ -62,48 +62,48 @@ const CheckoutPage = () => {
       toast.error("Failed to update profile.");
     }
 
-      try {
-          let orderItems = [];
+    try {
+      let orderItems = [];
 
-          for (const items in cartItems) {
-              if (cartItems[items] > 0) {
-                  const itemInfo = structuredClone(
-                      category.find((product) => product._id === items)
-                  );
-                  if (itemInfo) {
-                      itemInfo.quantity = cartItems[items];
-                      orderItems.push(itemInfo);
-                  }
-              }
-          }
-
-          let orderData = {
-              delivery: user.delivery,
-              items: orderItems,
-              amount: getCartAmount() + 10,
-          };
-
-          const responseStripe = await axios.post(
-              `${Api}/order/stripe`,
-              orderData,
-              { headers: { authorization: `Bearer ${token}` } }
+      for (const items in cartItems) {
+        if (cartItems[items] > 0) {
+          const itemInfo = structuredClone(
+            category.find((product) => product._id === items)
           );
-          await axios.post(
-              `${Api}/user/userprofile`,
-              { delivery: user.delivery },
-              { headers: { Authorization: `Bearer ${token}` } }
-          );
-          if (responseStripe.data.success) {
-              const { session_url } = responseStripe.data;
-              window.location.replace(session_url);
-          } else {
-              console.log(error);
-              // toast.error(responseStripe.data.message);
+          if (itemInfo) {
+            itemInfo.quantity = cartItems[items];
+            orderItems.push(itemInfo);
           }
-      } catch (error) {
-          console.log(error);
-          // toast.error(error.message);
+        }
       }
+
+      let orderData = {
+        delivery: user.delivery,
+        items: orderItems,
+        amount: getCartAmount() + 10,
+      };
+
+      const responseStripe = await axios.post(
+        `${Api}/order/stripe`,
+        orderData,
+        { headers: { authorization: `Bearer ${token}` } }
+      );
+      await axios.post(
+        `${Api}/user/userprofile`,
+        { delivery: user.delivery },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (responseStripe.data.success) {
+        const { session_url } = responseStripe.data;
+        window.location.replace(session_url);
+      } else {
+        console.log(error);
+        // toast.error(responseStripe.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      // toast.error(error.message);
+    }
   };
 
   // ฟังก์ชันสำหรับอัปเดตข้อมูล
@@ -209,43 +209,32 @@ const CheckoutPage = () => {
       </div>
       {/* ----------- Order Summary ----------- */}
       <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Order Summary</h2>
-            {cartData.map((item, index) => {
-              const product = category.find((cate) => cate._id === item._id);
-              return (
-                <div key={index} className="flex items-center gap-4">
-                  <img
-                    src={product?.image[0]}
-                    alt={product?.name}
-                    className="w-16 h-16 object-cover rounded"
-                  />
-                  <div>
-                    <h3 className="font-semibold">{product?.name}</h3>
-                    <p>Quantity: {item.quantity}</p>
-                    <p>฿{product?.price * item.quantity}</p>
-                  </div>
-                </div>
-              );
-            })}
-            <div className="flex justify-between font-bold">
-              <span>Subtotal:</span>
-              <span>฿{getCartAmount()}</span>
+        <h2 className="text-2xl font-bold">Order Summary</h2>
+        {cartData.map((item, index) => {
+          const product = category.find((cate) => cate._id === item._id);
+          return (
+            <div key={index} className="flex items-center gap-4">
+              <img
+                src={product?.image[0]}
+                alt={product?.name}
+                className="w-16 h-16 object-cover rounded"
+              />
+              <div>
+                <h3 className="font-semibold">{product?.name}</h3>
+                <p>Quantity: {item.quantity}</p>
+                <p>฿{product?.price * item.quantity}</p>
+              </div>
             </div>
-            <div className="flex justify-between font-bold">
-              <span>Shipping:</span>
-              <span>฿10</span>
-            </div>
-            <div className="flex justify-between font-bold">
-              <span>Total:</span>
-              <span>฿{getCartAmount() + 10}</span>
-            </div>
-            <button
-              type="submit"
-              className="w-full py-3 bg-black text-white font-semibold rounded"
-            >
-              Confirm & Pay
-            </button>
-          </div>
+          );
+        })}
+        <CartTotal />
+        <button
+          type="submit"
+          className="w-full py-3 bg-black text-white font-semibold rounded"
+        >
+          Confirm & Pay
+        </button>
+      </div>
     </form>
   );
 };

@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { createContext, useEffect, useState } from 'react'
 import { toast } from "react-toastify";
 export const ShopContext = createContext();
+import Swal from 'sweetalert2'
 
 const ShopContextProvider = ({ children }) => {
 
@@ -69,7 +70,10 @@ const ShopContextProvider = ({ children }) => {
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 if (response.data.success) {
-                    toast.success("Profile updated successfully!");
+                    Swal.fire({
+                        title: "Profile updated successfully!",
+                        icon: "success"
+                    });
                     console.log(response.data);
                     // setUser((prevUser) => ({
                     //   ...prevUser,
@@ -86,6 +90,11 @@ const ShopContextProvider = ({ children }) => {
 
     // Function AddToCart to Backend
     const addToCart = async (itemId) => {
+
+        Swal.fire({
+            title: "Add Product Success",
+            icon: "success"
+        });
 
         let cartData = structuredClone(cartItems); // cartData คือร่างแยกของ cartItems
 
