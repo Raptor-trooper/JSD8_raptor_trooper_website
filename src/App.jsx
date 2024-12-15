@@ -7,8 +7,6 @@ import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
 import CheckOutPage from './pages/CheckOutPage'
 import Login from './pages/Login'
-import ChangePassword from './pages/ChangePassword'
-import ResetPassword from './pages/ResetPassword'
 import UserProfile from './pages/UserProfile'
 import Admin from './pages/Admin'
 import ShopContextProvider from './Context/ShopContext'
@@ -30,8 +28,6 @@ const router = createBrowserRouter([
       { path: '/cartpage', element: <CartPage /> },
       { path: '/checkoutpage', element: <CheckOutPage /> },
       { path: '/login', element: <Login /> },
-      { path: '/changepassword', element: <ChangePassword /> },
-      { path: '/resetpassword', element: <ResetPassword /> },
       { path: '/userprofile', element: <UserProfile /> },
       { path: '/admin/*', element: <Admin />, },
       { path: '/homedecor', element: <HomeDecor /> },

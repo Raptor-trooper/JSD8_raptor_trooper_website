@@ -27,27 +27,27 @@ const Products = ({ categoryName }) => {
 
                 {/* Header */}
                 <div className='px-[88px] mx-auto'>
-                    <h1 className='mt-16 text-5xl font-bold'> {categoryName} </h1>
+                    <h1 className='pt-16 text-5xl font-bold'> {categoryName} </h1>
                     <p className='my-8'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, unde.</p>
                     <hr />
 
                     {/* Link to Page */}
                     <div className='grid w-full grid-cols-1 grid-rows-5 gap-4 my-8 md:flex'>
-                        <Link to='/homeallproducts' className='p-2 text-center text-white bg-black rounded-full shadow-md'>All Product</Link>
-                        <Link to='/homedecor' className='p-2 text-center text-white bg-black rounded-full shadow-md'>Home Decor</Link>
-                        <Link to='/bathbody' className='p-2 text-center text-white bg-black rounded-full shadow-md'>Bath & Body</Link>
-                        <Link to='/apparel' className='p-2 text-center text-white bg-black rounded-full shadow-md'>Apparel</Link>
-                        <Link to='/accessories' className='p-2 text-center text-white bg-black rounded-full shadow-md'>Accessories</Link>
+                        <Link to='/homeallproducts' className='rounded-full button'>All Product</Link>
+                        <Link to='/homedecor' className='rounded-full button'>Home Decor</Link>
+                        <Link to='/bathbody' className='rounded-full button'>Bath & Body</Link>
+                        <Link to='/apparel' className='rounded-full button'>Apparel</Link>
+                        <Link to='/accessories' className='rounded-full button'>Accessories</Link>
                     </div>
                 </div>
 
                 {/* Grid For Products and map DataCategory */}
-                <div className='grid grid-cols-2 md:grid-cols-4 md:m-[88px] gap-4 gap-y-6'>
+                <div className='grid grid-cols-1 md:grid-cols-4 md:m-[88px] gap-4 gap-y-6'>
 
                     {products.map((product) => (
 
                         <Link className='cursor-pointer' to={`/productpage/${product._id}`} key={product._id}>
-                            <div className="overflow-hidden ease-in-out hover:scale-105 shadow-md m-4 transition">
+                            <div className="overflow-hidden ease-in-out hover:scale-105 shadow-md m-8 transition bg-white">
                                 <img src={product.image[0]} alt={product.name} className='w-full h-[412px] object-cover transition ease-in-out' />
                                 <p className='px-6 pt-4 text-lg font-bold'>{product.name}</p>
                                 <p className='text-gray-700 px-6 pb-4 text-md '>Starting at <b>฿{product.price}</b></p>

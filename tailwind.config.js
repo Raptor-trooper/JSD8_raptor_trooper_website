@@ -9,16 +9,13 @@ export default {
       fontFamily: {
         maitree: ['Maitree', 'serif'],
       },
-      colors: {
-        autofillBg: "#ffffff",
-        autofillText: "#000000",
-        primary: "#4A4947",
-        secondary: "ffffff",
-      },
     },
   },
   plugins: [
     require('daisyui'),
-    require("@tailwindcss/forms"),
+    // require("@tailwindcss/forms"),
   ],
+  daisyui: {
+    darkTheme: "light",
+  },
 }
