@@ -88,7 +88,7 @@ const UserProfile = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-40 p-3 text-white transition bg-blue-500 rounded-lg shadow-md hover:bg-blue-600"
+                  className="button"
                 >
                   {loading ? "Saving..." : "Save"}
                 </button>
@@ -96,14 +96,9 @@ const UserProfile = () => {
               {!isEditing && (
                 <button
                   onClick={toggleEdit}
-                  className="w-40 p-3 text-white transition bg-blue-500 rounded-lg shadow-md hover:bg-blue-600"
+                  className="button"
                 >
                   Edit
-                </button>
-              )}
-              {!isEditing && (
-                <button className="w-40 p-3 text-white transition bg-blue-500 rounded-lg shadow-md hover:bg-blue-600">
-                  Change Password
                 </button>
               )}
             </div>

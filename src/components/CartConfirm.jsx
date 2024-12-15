@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
+import ButtonX from "./ButtonX";
 
 const CartConfirm = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const CartConfirm = ({ isOpen, onClose }) => {
       <div className="flex items-center justify-between p-4 border-b">
         <button
           onClick={onClose}
-          className="text-xl font-semibold text-gray-600"
+          className="text-xl font-semibold text-black hover:text-red-700"
         >
           CLOSE
         </button>
@@ -53,34 +54,33 @@ const CartConfirm = ({ isOpen, onClose }) => {
 
         {cartData.map((item, index) => {
           const productData = category.find((cate) => cate._id === item._id);
-
+          console.log("product",productData)
           return (
             <div
               key={index}
               className="flex items-center justify-between py-4 border-b"
             >
-              <div className="flex items-start gap-6 ">
+              <div className="flex items-start gap-5 flex-[6]">
                 <img
                   className="object-cover w-16 h-16 rounded"
                   src={productData.image[0]}
                   alt={productData.name}
+                
                 />
-                <div className="flex-1 mx-4" >
+                <div className="flex-1 mx-2" >
                   <h3 className="font-semibold" >{productData.name}</h3>
                   <div>
-                    <p className="font-medium">{productData.price}</p>
+                    <p className="font-medium flex-[1]">{productData.price}</p>
                   </div>
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center justify-center flex-[2]  ">
                 <p className="font-medium">{item.quantity}</p>
               </div>
-              <button
+              <ButtonX 
                 onClick={() => updateQuantity(item._id, 0)}
-                className="ml-4 text-red-500 hover:text-red-700"
               >
-                ❌
-              </button>
+              </ButtonX>
             </div>
           );
         })}
@@ -95,13 +95,13 @@ const CartConfirm = ({ isOpen, onClose }) => {
       </div>
       <div className="flex p-4 space-x-4">
         <button
-          className="w-1/2 py-2 font-semibold text-black border border-black"
+          className="button w-1/2 "
           onClick={handleViewCart}
         >
           VIEW CART
         </button>
         <button
-          className="w-1/2 py-2 font-semibold text-white bg-black"
+          className="button w-1/2"
           onClick={handleCheckout}
         >
           CHECKOUT

@@ -33,11 +33,11 @@ const Products = ({ categoryName }) => {
 
                     {/* Link to Page */}
                     <div className='grid w-full grid-cols-1 grid-rows-5 gap-4 my-8 md:flex'>
-                        <Link to='/homeallproducts' className='p-2 text-center text-white bg-black rounded-full shadow-md'>All Product</Link>
-                        <Link to='/homedecor' className='p-2 text-center text-white bg-black rounded-full shadow-md'>Home Decor</Link>
-                        <Link to='/bathbody' className='p-2 text-center text-white bg-black rounded-full shadow-md'>Bath & Body</Link>
-                        <Link to='/apparel' className='p-2 text-center text-white bg-black rounded-full shadow-md'>Apparel</Link>
-                        <Link to='/accessories' className='p-2 text-center text-white bg-black rounded-full shadow-md'>Accessories</Link>
+                        <Link to='/homeallproducts' className='rounded-full button'>All Product</Link>
+                        <Link to='/homedecor' className='rounded-full button'>Home Decor</Link>
+                        <Link to='/bathbody' className='rounded-full button'>Bath & Body</Link>
+                        <Link to='/apparel' className='rounded-full button'>Apparel</Link>
+                        <Link to='/accessories' className='rounded-full button'>Accessories</Link>
                     </div>
                 </div>
 

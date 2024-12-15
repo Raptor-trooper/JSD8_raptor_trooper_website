@@ -9,10 +9,6 @@ export default {
       fontFamily: {
         maitree: ['Maitree', 'serif'],
       },
-      colors: {
-        autofillBg: "#ffffff",
-        autofillText: "#000000",
-      },
     },
   },
   plugins: [

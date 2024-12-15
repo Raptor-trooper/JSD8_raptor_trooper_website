@@ -132,8 +132,8 @@ const Home = () => {
             {/* ปุ่มเลื่อนรูป */}
             <div className='md:absolute p-4 bottom-0 md:left-1/2 lg:w-[400px] md:w-[40vw] w-full transform lg:-translate-x-[12%] md:translate-x-[70px]'>
               <div className='flex justify-between w-full'>
-                <button onClick={handlePrevClick} className='text-black border-black btn btn-outline btn-circle'> ❮ </button>
-                <button onClick={handleNextClick} className='text-black border-black btn btn-outline btn-circle'> ❯ </button>
+                <button onClick={handlePrevClick} className='button'> ❮ </button>
+                <button onClick={handleNextClick} className='button'> ❯ </button>
               </div>
             </div>
 
@@ -168,7 +168,7 @@ const Home = () => {
                   alt="item-image"
                 />
                 <p className='text-lg'>{item.name}</p>
-                <button className='w-full px-12 py-3 text-white bg-black'>Explore more</button>
+                <button className='button'>Explore more</button>
               </div>
             ))}
           </div>
@@ -194,7 +194,7 @@ const Home = () => {
               <div className='w-[300px] justify-between flex flex-col'>
                 <img className='h-[300px] w-[300px]' src={selectedItem?.img[0]} alt="selected-img" />
                 <p className='text-lg'>{selectedItem?.description}</p>
-                <button className='px-12 py-3 text-white bg-black'>Explore more</button>
+                <button className='button'>Explore more</button>
               </div>
             </div>
           </div>

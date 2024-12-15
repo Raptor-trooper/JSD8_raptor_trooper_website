@@ -31,11 +31,11 @@ const HomeAllProducts = () => {
 
                     {/* Link to Page */}
                     <div className='grid grid-cols-1 grid-rows-5 gap-4 w-full my-8 md:flex'>
-                        <Link to='/homeallproducts' className='bg-black text-white p-2 text-center rounded-full shadow-md'>All Product</Link>
-                        <Link to='/homedecor' className='bg-black text-white p-2 text-center rounded-full shadow-md'>Home Decor</Link>
-                        <Link to='/bathbody' className='bg-black text-white p-2 text-center rounded-full shadow-md'>Bath & Body</Link>
-                        <Link to='/apparel' className='bg-black text-white p-2 text-center rounded-full shadow-md'>Apparel</Link>
-                        <Link to='/accessories' className='bg-black text-white p-2 text-center rounded-full shadow-md'>Accessories</Link>
+                        <Link to='/homeallproducts' className='rounded-full button'>All Product</Link>
+                        <Link to='/homedecor' className='rounded-full button '>Home Decor</Link>
+                        <Link to='/bathbody' className='rounded-full button'>Bath & Body</Link>
+                        <Link to='/apparel' className='rounded-full button'>Apparel</Link>
+                        <Link to='/accessories' className='rounded-full button'>Accessories</Link>
                     </div>
                 </div>
 
