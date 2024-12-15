@@ -9,7 +9,18 @@ const CartConfirm = ({ isOpen, onClose }) => {
     useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
 
+  const filterInvalidCartItems = (cartItems, category) => {
+    const validCategoryIds = new Set(category.map((item) => item._id));
+    Object.keys(cartItems).forEach((cartItemId) => {
+      if (!validCategoryIds.has(cartItemId)) {
+        delete cartItems[cartItemId];
+      }
+    });
+    return cartItems;
+  };
+
   useEffect(() => {
+    filterInvalidCartItems(cartItems, category);
     if (category.length > 0) {
       const tempData = [];
       for (const items in cartItems) {
@@ -48,13 +59,13 @@ const CartConfirm = ({ isOpen, onClose }) => {
           CLOSE
         </button>
       </div>
-      <div className="p-4 space-y-4 overflow-y-auto"
-      
-      style={{ maxHeight: "60vh" }}>
-
+      <div
+        className="p-4 space-y-4 overflow-y-auto"
+        style={{ maxHeight: "60vh" }}
+      >
         {cartData.map((item, index) => {
           const productData = category.find((cate) => cate._id === item._id);
-          console.log("product",productData)
+          console.log("product", productData);
           return (
             <div
               key={index}
@@ -65,10 +76,9 @@ const CartConfirm = ({ isOpen, onClose }) => {
                   className="object-cover w-16 h-16 rounded"
                   src={productData.image[0]}
                   alt={productData.name}
-                
                 />
-                <div className="flex-1 mx-2" >
-                  <h3 className="font-semibold" >{productData.name}</h3>
+                <div className="flex-1 mx-2">
+                  <h3 className="font-semibold">{productData.name}</h3>
                   <div>
                     <p className="font-medium flex-[1]">{productData.price}</p>
                   </div>
@@ -77,10 +87,7 @@ const CartConfirm = ({ isOpen, onClose }) => {
               <div className="flex items-center justify-center flex-[2]  ">
                 <p className="font-medium">{item.quantity}</p>
               </div>
-              <ButtonX 
-                onClick={() => updateQuantity(item._id, 0)}
-              >
-              </ButtonX>
+              <ButtonX onClick={() => updateQuantity(item._id, 0)}></ButtonX>
             </div>
           );
         })}
@@ -94,16 +101,10 @@ const CartConfirm = ({ isOpen, onClose }) => {
         </p>
       </div>
       <div className="flex p-4 space-x-4">
-        <button
-          className="button w-1/2 "
-          onClick={handleViewCart}
-        >
+        <button className="button w-1/2 " onClick={handleViewCart}>
           VIEW CART
         </button>
-        <button
-          className="button w-1/2"
-          onClick={handleCheckout}
-        >
+        <button className="button w-1/2" onClick={handleCheckout}>
           CHECKOUT
         </button>
       </div>
