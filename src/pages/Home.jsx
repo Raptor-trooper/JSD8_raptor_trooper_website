@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { ShopContext } from '../Context/ShopContext';
 import backgroundImage from "../assets/home/Screenshot 2567-12-15 at 21.32.00.png";
 import backgroundHeroImage from "../assets/home/d3e0bfb3b74e47b44423484b2a204b6f.jpg";
 import newCollection from "../assets/home/8f373b630427ed0396c2423c40925614.jpg";
