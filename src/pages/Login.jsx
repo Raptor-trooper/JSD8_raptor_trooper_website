@@ -3,6 +3,7 @@ import { ShopContext } from "../Context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 
 const Login = () => {
@@ -26,9 +27,11 @@ const Login = () => {
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
-
         } else {
-          toast.error(response.data.message);
+          Swal.fire({
+            title: "Register Fail",
+            icon: "error"
+          })
         }
       } else {
         const response = await axios.post(`${Api}/user/login`, {
@@ -39,9 +42,11 @@ const Login = () => {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("role", response.data.role);
-
         } else {
-          toast.error(response.data.message);
+          Swal.fire({
+            title: "Login Fail",
+            icon: "error"
+          })
         }
       }
     } catch (error) {
@@ -52,7 +57,12 @@ const Login = () => {
 
   useEffect(() => {
     if (token) {
-      navigate("/");
+      Swal.fire({
+        title: "Login Success",
+        icon: "success"
+      }).then(() => {
+        navigate("/");
+      });
     }
   }, [token, navigate]);
 
