@@ -2,9 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../Context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'
-
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Login");
@@ -18,6 +17,53 @@ const Login = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     try {
+      // ตรวจสอบ Name
+      if (currentState === "Sign Up") {
+        if (!/^[A-Za-zก-๙\s]+$/.test(name)) {
+          Swal.fire({
+            title: "Invalid Name",
+            text: "Name can only contain English letters, Thai letters, and spaces.",
+            icon: "error",
+          });
+          return;
+        }
+        // Validate Name
+        if (name.length > 50) {
+          Swal.fire({
+            title: "Invalid Name",
+            text: "Name must not exceed 50 characters.",
+            icon: "error",
+          });
+          return;
+        }
+      }
+
+      // ตรวจสอบ Email
+      if (!/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+        Swal.fire({
+          title: "Invalid Email",
+          text: "Please enter a valid email address.",
+          icon: "error",
+        });
+        return;
+      }
+      if (email.length > 254) {
+        Swal.fire({
+          title: "Invalid Email",
+          text: "Email must not exceed 254 characters.",
+          icon: "error",
+        });
+        return;
+      }
+      // ตรวจสอบ Password
+      if (password.length < 8 || password.length > 72) {
+        Swal.fire({
+          title: "Invalid Password",
+          text: "Password must be between 8 and 72 characters.",
+          icon: "error",
+        });
+        return;
+      }
       if (currentState === "Sign Up") {
         const response = await axios.post(`${Api}/user/register`, {
           name,
@@ -30,8 +76,8 @@ const Login = () => {
         } else {
           Swal.fire({
             title: "Register Fail",
-            icon: "error"
-          })
+            icon: "error",
+          });
         }
       } else {
         const response = await axios.post(`${Api}/user/login`, {
@@ -45,8 +91,9 @@ const Login = () => {
         } else {
           Swal.fire({
             title: "Login Fail",
-            icon: "error"
-          })
+            text: "Email or password is incorrect.",
+            icon: "error",
+          });
         }
       }
     } catch (error) {
@@ -55,13 +102,11 @@ const Login = () => {
     }
   };
 
-  
-
   useEffect(() => {
     if (token) {
       Swal.fire({
         title: "Login Success",
-        icon: "success"
+        icon: "success",
       }).then(() => {
         navigate("/");
       });
@@ -77,7 +122,7 @@ const Login = () => {
         {/* Name (only for Sign Up) */}
         {currentState === "Sign Up" && (
           <div>
-            <label className="mb-1 text-sm font-medium">Name</label>
+            <label className="mb-1 text-xl font-medium">Name</label>
             <input
               type="text"
               name="name"
@@ -90,7 +135,7 @@ const Login = () => {
         )}
 
         {/* Email */}
-        <div>
+        <div className="mt-4">
           <label className="mb-1 text-xl font-medium">Email</label>
           <input
             type="email"
@@ -116,15 +161,13 @@ const Login = () => {
         </div>
 
         {/* Submit Button */}
-          <button
-            type="submit"
-            // className="text-xl w-full p-3  text-white transition bg-gray-800 rounded-none shadow-lg hover:bg-gradient-to-tr hover:from-black hover:to-blue-700 mt-7"
-            className="button w-full mt-7"
-          
-          >
-            {currentState === "Login" ? "Log in" : "Sign Up"}
-          </button>
-
+        <button
+          type="submit"
+          // className="text-xl w-full p-3  text-white transition bg-gray-800 rounded-none shadow-lg hover:bg-gradient-to-tr hover:from-black hover:to-blue-700 mt-7"
+          className="button w-full mt-7"
+        >
+          {currentState === "Login" ? "Log in" : "Sign Up"}
+        </button>
 
         {/* Toggle Login/Sign Up */}
         <div className="flex justify-center mt-4">
