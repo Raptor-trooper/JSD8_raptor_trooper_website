@@ -1,49 +1,47 @@
-import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import { ShopContext } from "../Context/ShopContext";
+import { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { ShopContext } from '../Context/ShopContext';
 import backgroundImage from "../assets/home/Screenshot 2567-12-15 at 21.32.00.png";
 import backgroundHeroImage from "../assets/home/d3e0bfb3b74e47b44423484b2a204b6f.jpg";
 import newCollection from "../assets/home/8f373b630427ed0396c2423c40925614.jpg";
 
-/* Mockup data */
-const items = [
-  {
-    id: 1,
-    name: "room1",
-    description:
-      "11111From shower curtains to bath towels to bath mats, we've got you covered",
-    img: "https://via.placeholder.com/300x300",
-  },
-  {
-    id: 2,
-    name: "room2",
-    description:
-      "222222From shower curtains to bath towels to bath mats, we've got you covered",
-    img: "https://via.placeholder.com/300x300",
-  },
-  {
-    id: 3,
-    name: "room3",
-    description:
-      "333333From shower curtains to bath towels to bath mats, we've got you covered",
-    img: "https://via.placeholder.com/300x300",
-  },
-  {
-    id: 4,
-    name: "room4",
-    description:
-      "4444444From shower curtains to bath towels to bath mats, we've got you covered",
-    img: "https://via.placeholder.com/300x300",
-  },
-];
-
 const Home = () => {
-  const [selectedItem, setSelectedItem] = useState(items[0]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { category } = useContext(ShopContext);
+  const [firstProductByCategory, setFirstProductByCategory] = useState([]);
+  
+  useEffect(() => {
+    // Step 1: Group products by category
+    const groupedByCategory = category.reduce((acc, product) => {
+      if (!acc[product.category]) {
+        acc[product.category] = [];
+      }
+      acc[product.category].push(product);
+      return acc;
+    }, {});
+    
+    // Step 2: Get the first product for each category
+    const firstProducts = Object.keys(groupedByCategory).map((category) => {
+      return groupedByCategory[category][0]; // Get the first product of each category
+    });
+    
+    setFirstProductByCategory(firstProducts); // Set the result to state
+    // console.log("Home Decor", category.filter(product => product.category === "Home Decor"));
+
+    const initialProduct = category.filter(
+      product => product.category === "Home Decor"
+    ).map(
+      product => product._id
+    );
+
+    setSelectedItem(firstProductByCategory.find(item => item._id === initialProduct[0]));
+
+  }, [category]);
+  
+  const [selectedItem, setSelectedItem] = useState();
 
   const handleSelected = (id) => {
-    setSelectedItem(items.find((item) => item.id === id));
+    setSelectedItem(firstProductByCategory.find(item => item._id === id));
   };
 
   const handlePrevClick = () => {
@@ -95,9 +93,7 @@ const Home = () => {
       <div className="flex justify-center w-full md:overflow-hidden">
         <div className="flex flex-col px-4 py-8 p-[84px] mx-auto max-w-[1280px] md:px-12">
           {/* ส่วนหัวข้อ */}
-          <h1 className="text-[96px] max-md:text-center font-bold mb-8">
-            Category
-          </h1>
+          <h1 className="text-[96px] max-md:text-center font-bold mb-8">Bestseller</h1>
 
           <div className="flex flex-col items-center gap-4 mx-auto md:flex-row md:gap-12 md:relative">
             {/* ข้อความโปรโมทสินค้า */}
@@ -177,7 +173,7 @@ const Home = () => {
           />
 
           <div
-            className="h-full w-full bg-cover bg-center relative flex flex-col items-center justify-center"
+            className="relative flex flex-col items-center justify-center w-full h-full bg-center bg-cover"
             style={{ backgroundImage: `url(${backgroundImage})` }}>    
           </div>
 
@@ -189,7 +185,7 @@ const Home = () => {
         </div>
 
         <div className="absolute flex flex-col items-center justify-center gap-6 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-          <h2 className="text-3xl text-white bg-black bg-opacity-70 text-center">
+          <h2 className="text-3xl text-center text-white bg-black bg-opacity-70">
             Inspiring self-expression by celebrating creativity
           </h2>
           <Link to="/aboutus" className="px-12 py-3 text-white bg-black">
@@ -199,22 +195,17 @@ const Home = () => {
       </div>
 
       {/* ส่วนเลือกสินค้า/รูป ตามปุ่ม */}
-      <div className="flex justify-center w-full">
-        <div className="md:p-[84px] p-[16px] h-fit flex flex-col items-center gap-4 md:max-w-[1280px] w-full mx-auto">
-          <h1 className="w-fit font-bold text-center text-[96px] md:text-left md:text-7xl">
-            Shop by room
-          </h1>
+      <div className='flex justify-center w-full'>
+        <div className='md:p-[84px] p-[16px] h-fit flex flex-col items-center gap-4 md:max-w-[1280px] w-full mx-auto'>
+          <h1 className='w-fit font-bold text-center text-[96px] md:text-left md:text-7xl'>Category</h1>
           {/* mobile */}
           <div className="w-5/6 p-6 space-x-2 md:hidden carousel carousel-center">
             {/* card */}
-            {items.map((item) => (
-              <div
-                key={item.id}
-                className="flex flex-col items-center gap-4 text-center w-fit h-fit carousel-item"
-              >
+            {firstProductByCategory.map((item) => (
+              <div key={item.id} className='flex flex-col items-center gap-4 text-center w-fit h-fit carousel-item'>
                 <img
-                  className="object-cover rounded-lg"
-                  src={item.img}
+                  className="object-cover size-[400px] rounded-lg"
+                  src={item.image}
                   alt="item-image"
                 />
                 <p className="text-lg">{item.name}</p>
@@ -224,35 +215,29 @@ const Home = () => {
           </div>
 
           {/* desktop */}
-          <div className="flex justify-between w-full gap-8 max-md:hidden">
-            <div className="flex flex-col gap-6">
-              <div className="flex">
-                {items.map((item, index) => (
+          <div className='flex justify-between w-full gap-8 max-md:hidden'>
+            <div className='flex flex-col gap-6'>
+              <div className='flex'>
+                {firstProductByCategory.map((item, index) => {
+                  console.log("Item in map:", item);
+                  return (
                   <button
-                    key={index}
-                    onClick={() => handleSelected(item.id)}
-                    className={`px-6 py-2 bg-white border border-black ${
-                      index === 0 && "rounded-s-full"
-                    } ${index === items.length - 1 && "rounded-e-full"}`}
+                    key={item._id}
+                    onClick={() => handleSelected(item._id)}
+                    className={`px-6 py-2 bg-white border border-black ${index === 0 && 'rounded-s-full'} ${index === firstProductByCategory.length - 1 && 'rounded-e-full'}`}
                   >
-                    {item.name}
+                    {item.category}
                   </button>
-                ))}
+                )})}
+
               </div>
-              <img
-                src="https://via.placeholder.com/756x430"
-                alt="img-container"
-              />
+              <img className='object-cover h-[200px] w-[500px]' src={selectedItem?.image} alt="img-container" />
             </div>
-            <div key={selectedItem?.id} className="h-[460px] w-[300px]">
-              <div className="w-[300px] justify-between flex flex-col">
-                <img
-                  className="h-[300px] w-[300px]"
-                  src={selectedItem?.img[0]}
-                  alt="selected-img"
-                />
-                <p className="text-lg">{selectedItem?.description}</p>
-                <button className="button">Explore more</button>
+            <div key={selectedItem?.id } className='h-[460px] w-[300px]'>
+              <div className='w-[300px] justify-between flex flex-col'>
+                <img className='h-[300px] w-[300px] object-cover' src={selectedItem?.image} alt="selected-img" />
+                <p className='text-lg'>{selectedItem?.description}</p>
+                <button className='button'><Link to="/homeallproducts">Explore more</Link></button>
               </div>
             </div>
           </div>
