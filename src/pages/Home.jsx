@@ -9,6 +9,7 @@ const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { category } = useContext(ShopContext);
   const [firstProductByCategory, setFirstProductByCategory] = useState([]);
+  const [bestSeller, setBestSeller] = useState([])
   
   useEffect(() => {
     // Step 1: Group products by category
@@ -36,6 +37,9 @@ const Home = () => {
 
     setSelectedItem(firstProductByCategory.find(item => item._id === initialProduct[0]));
 
+    const bestProduct = category.filter((item) => item.bestseller);
+    setBestSeller(bestProduct.slice(0, 5));
+
   }, [category]);
   
   const [selectedItem, setSelectedItem] = useState();
@@ -46,35 +50,31 @@ const Home = () => {
 
   const handlePrevClick = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? category.length - 1 : prevIndex - 1
+      prevIndex === 0 ? bestSeller.length - 1 : prevIndex - 1
     );
   };
 
   const handleNextClick = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === category.length - 1 ? 0 : prevIndex + 1
+      prevIndex === bestSeller.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const getWrappedIndex = (index) => {
-    return ((index % category.length) + category.length) % category.length;
+    return ((index % bestSeller.length) + bestSeller.length) % bestSeller.length;
   };
 
   return (
     <div className="pt-custom flex flex-col items-center text-black bg-[#FAF7F0]" >
 
-      {/* ส่วนลดสูงสุด 50% */} 
-      <div className="flex justify-center w-full md:h-screen h-fit" style={{ backgroundImage: `url(${backgroundHeroImage})` }}>    
+      {/* ส่วนลดสูงสุด 50% */}
+      <div className="flex justify-center w-full md:h-screen h-fit" style={{ backgroundImage: `url(${backgroundHeroImage})` }}>
         <div className="flex flex-col md:flex-row items-center p-[84px] mx-auto max-w-[1440px]">
-          <div className="mb-8 md:mr-8 md:mb-0">
-            <h1 className="text-5xl font-bold md:text-7xl">Up to 50% Off</h1>
-            <h1 className="text-5xl font-bold md:text-7xl">Sitewide</h1>
-            <p className="py-8 text-lg md:text-xl">
-              Start Your Holiday Decor & Gifting Now
-            </p>
+          <div className="flex flex-col items-center w-3/4 mb-8 max-md:pt-8 max-md:pb-4 md:w-1/2 md:mr-8 md:mb-0">
+            <h1 className="mb-8 text-5xl font-bold text-center md:text-7xl">Choose what&apos;s right for you.</h1>
             <Link
               to="/homeallproducts"
-              className="px-12 py-3 text-white bg-black"
+              className="px-12 py-3 text-white bg-black w-fit"
             >
               Shop now
             </Link>
@@ -93,7 +93,7 @@ const Home = () => {
       <div className="flex justify-center w-full md:overflow-hidden">
         <div className="flex flex-col px-4 py-8 p-[84px] mx-auto max-w-[1280px] md:px-12">
           {/* ส่วนหัวข้อ */}
-          <h1 className="text-[96px] max-md:text-center font-bold mb-8">Bestseller</h1>
+          <h1 className="md:text-[96px] text-7xl max-md:text-center font-bold mb-8">Bestseller</h1>
 
           <div className="flex flex-col items-center gap-4 mx-auto md:flex-row md:gap-12 md:relative">
             {/* ข้อความโปรโมทสินค้า */}
@@ -108,12 +108,12 @@ const Home = () => {
               <div className="relative lg:w-[700px] lg:h-[700px] w-[70vw] h-[70vw] flex-none">
                 <img
                   className="object-cover w-full h-full rounded-lg"
-                  src={category[currentIndex]?.image[0]}
+                  src={bestSeller[currentIndex]?.image[0]}
                   alt=""
                 />
                 <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
                   <h2 className="py-3 pl-4 pr-24 text-2xl">
-                    {category[getWrappedIndex(currentIndex)]?.category}
+                    {bestSeller[getWrappedIndex(currentIndex)]?.category}
                   </h2>
                 </div>
               </div>
@@ -122,12 +122,12 @@ const Home = () => {
               <div className="lg:w-[400px] lg:h-[400px] w-[40vw] h-[40vw] relative flex-none max-md:hidden">
                 <img
                   className="object-cover w-full h-full rounded-lg"
-                  src={category[getWrappedIndex(currentIndex + 1)]?.image[0]}
+                  src={bestSeller[getWrappedIndex(currentIndex + 1)]?.image[0]}
                   alt=""
                 />
                 <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
                   <h2 className="py-3 pl-4 pr-24 text-2xl">
-                    {category[getWrappedIndex(currentIndex + 1)]?.category}
+                    {bestSeller[getWrappedIndex(currentIndex + 1)]?.category}
                   </h2>
                 </div>
               </div>
@@ -135,12 +135,12 @@ const Home = () => {
               <div className="lg:w-[400px] lg:h-[400px] w-[40vw] h-[40vw] relative flex-none max-lg:hidden">
                 <img
                   className="object-cover w-full h-full rounded-lg"
-                  src={category[getWrappedIndex(currentIndex + 2)]?.image[0]}
+                  src={bestSeller[getWrappedIndex(currentIndex + 2)]?.image[0]}
                   alt=""
                 />
                 <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
                   <h2 className="py-3 pl-4 pr-24 text-2xl">
-                    {category[getWrappedIndex(currentIndex + 2)]?.category}
+                    {bestSeller[getWrappedIndex(currentIndex + 2)]?.category}
                   </h2>
                 </div>
               </div>
@@ -174,7 +174,7 @@ const Home = () => {
 
           <div
             className="relative flex flex-col items-center justify-center w-full h-full bg-center bg-cover"
-            style={{ backgroundImage: `url(${backgroundImage})` }}>    
+            style={{ backgroundImage: `url(${backgroundImage})` }}>
           </div>
 
           <img
@@ -197,7 +197,7 @@ const Home = () => {
       {/* ส่วนเลือกสินค้า/รูป ตามปุ่ม */}
       <div className='flex justify-center w-full'>
         <div className='md:p-[84px] p-[16px] h-fit flex flex-col items-center gap-4 md:max-w-[1280px] w-full mx-auto'>
-          <h1 className='w-fit font-bold text-center text-[96px] md:text-left md:text-7xl'>Category</h1>
+          <h1 className='w-fit font-bold text-center text-7xl md:text-[96px] md:text-left'>Category</h1>
           {/* mobile */}
           <div className="w-5/6 p-6 space-x-2 md:hidden carousel carousel-center">
             {/* card */}
@@ -215,7 +215,7 @@ const Home = () => {
           </div>
 
           {/* desktop */}
-          <div className='flex justify-between w-full gap-8 max-md:hidden'>
+          <div className='flex items-center justify-between gap-8 max-md:hidden'>
             <div className='flex flex-col gap-6'>
               <div className='flex'>
                 {firstProductByCategory.map((item, index) => {
@@ -229,9 +229,8 @@ const Home = () => {
                     {item.category}
                   </button>
                 )})}
-
               </div>
-              <img className='object-cover h-[200px] w-[500px]' src={selectedItem?.image} alt="img-container" />
+              <img className='object-cover h-[500px] w-[700px]' src={selectedItem?.image} alt="img-container" />
             </div>
             <div key={selectedItem?.id } className='h-[460px] w-[300px]'>
               <div className='w-[300px] justify-between flex flex-col'>

@@ -1,12 +1,10 @@
-import { NavLink } from "react-router-dom"; 
+import { NavLink } from "react-router-dom";
 import { FiPlusCircle, FiList, FiShoppingCart } from "react-icons/fi";
-import { assets } from "../assets/admin/assets";
-
 
 const Sidebar = () => {
   return (
-      <div className="bg-gray-800 text-white w-64 h-full">
-          <h2 className="text-2xl font-bold p-6 border-b border-gray-700">Admin Panel</h2>
+      <div className="w-64 h-auto text-white bg-gray-800">
+          <h2 className="p-6 text-2xl font-bold border-b border-gray-700">Admin Panel</h2>
           <ul className="mt-4">
               <li>
                   <NavLink

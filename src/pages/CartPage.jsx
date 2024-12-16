@@ -28,8 +28,8 @@ const CartPage = () => {
   }, [cartItems, category]);
 
   return (
-    <div className="max-w-screen-xl mx-auto p-8">
-      <div className=" text-2xl mb-3">
+    <div className="max-w-screen-xl p-8 mx-auto">
+      <div className="mb-3 text-2xl ">
         <h1>Cart</h1>
       </div>
 
@@ -42,14 +42,14 @@ const CartPage = () => {
               key={index}
               className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
             >
-              <div className=" flex items-start gap-6">
+              <div className="flex items-start gap-6 ">
                 <img
                   className="w-16 sm:w-20"
                   src={productData.image[0]}
                   alt=""
                 />
                 <div>
-                  <p className="text-xs sm:text-lg font-medium">
+                  <p className="text-xs font-medium sm:text-lg">
                     {productData.name}
                   </p>
                   <div className="flex items-center gap-5 mt-2">
@@ -63,7 +63,7 @@ const CartPage = () => {
                     ? null
                     : updateQuantity(item._id, Number(e.target.value))
                 }
-                className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
+                className="px-1 py-1 border max-w-10 sm:max-w-20 sm:px-2"
                 type="number"
                 min={1}
                 defaultValue={item.quantity}
@@ -81,10 +81,10 @@ const CartPage = () => {
       <div className="flex justify-end my-20">
         <div className="w-full sm:w-[450px]">
           <CartTotal />
-          <div className=" w-full text-end">
+          <div className="w-full  text-end">
             <button
               onClick={() => navigate("/checkoutpage")}
-              className="button mt-3"
+              className="mt-3 button"
             >
               PROCEED TO CHECKOUT
             </button>
@@ -136,19 +136,19 @@ export default CartPage;
 //     const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
 //     return (
-//         <div className="max-w-screen-xl mx-auto p-8">
+//         <div className="max-w-screen-xl p-8 mx-auto">
 
 //                                 ฝาก
 
 {
-  /* <div className="bg-gray-100 p-4 rounded-md">
+  /* <div className="p-4 bg-gray-100 rounded-md">
                         <h2 className="text-lg font-bold">Create a Account</h2>
                         <p>Sign up to track your order history and save your information for faster checkouts.</p>
                         <div className="mt-4">
-                            <button className="text-blue-500 font-semibold mr-4"
+                            <button className="mr-4 font-semibold text-blue-500"
                                 onClick={handleSignIn}
                             >Sign In</button>
-                            <button className="text-blue-500 font-semibold"
+                            <button className="font-semibold text-blue-500"
                                 onClick={handleSignUp}
                             >Sign Up</button>
                         </div>
@@ -156,14 +156,14 @@ export default CartPage;
 }
 //ฝาก
 
-//             <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
+//             <h1 className="mb-8 text-3xl font-bold">Your Cart</h1>
 //             {cartItems.length === 0 ? (
 //                 <p>Your cart is currently empty.</p>
 //             ) : (
 //                 <div className="space-y-4">
 //                     {cartItems.map((item, index) => (
-//                         <div key={index} className="flex justify-between items-center border-b py-4">
-//                             <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded" />
+//                         <div key={index} className="flex items-center justify-between py-4 border-b">
+//                             <img src={item.image} alt={item.name} className="object-cover w-16 h-16 rounded" />
 //                             <div className="flex-1 mx-4">
 //                                 <h3 className="font-semibold">{item.name}</h3>
 //                                 <p className="text-sm text-gray-500">Size: {item.size}</p>
@@ -174,20 +174,20 @@ export default CartPage;
 //                                 </div>
 //                             </div>
 //                             <p className="font-semibold">฿{item.price * item.quantity}</p>
-//                             <button onClick={() => removeFromCart(index)} className="text-red-500 hover:text-red-700 ml-4">
+//                             <button onClick={() => removeFromCart(index)} className="ml-4 text-red-500 hover:text-red-700">
 //                                 <i className="fas fa-trash">❌</i>
 //                             </button>
 //                         </div>
 //                     ))}
 //                     <div className="p-4 bg-gray-200">
-//                         <div className="flex justify-between items-center">
+//                         <div className="flex items-center justify-between">
 //                             <span className="font-semibold">SUBTOTAL</span>
 //                             <span className="font-semibold">฿{totalAmount}</span>
 //                         </div>
-//                         <p className="text-sm text-gray-500 mt-2">Shipping & taxes calculated at checkout</p>
+//                         <p className="mt-2 text-sm text-gray-500">Shipping & taxes calculated at checkout</p>
 //                     </div>
 //                     <div className="flex justify-end mt-4">
-//                         <button className="py-3 px-6 bg-black text-white font-semibold" onClick={handleCheckout}>
+//                         <button className="px-6 py-3 font-semibold text-white bg-black" onClick={handleCheckout}>
 //                             Proceed to Checkout
 //                         </button>
 //                     </div>
