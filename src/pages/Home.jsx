@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
 import backgroundHeroImage from "../../public/images/home/hero-bg-2.jpg";
-import backgroundImage from "/images/home/learnmore-6.png";
+import backgroundImage from "../../public/images/home/learnmore-6.png";
 import leftSide from "../../public/images/home/learnmore-4.png";
 import rightSide from "../../public/images/home/learnmore-2.png";
 import heroImage from "../../public/images/home/hero-bg-1.jpg";
