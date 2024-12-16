@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
 import backgroundHeroImage from "/images/home/hero-bg-2.jpg";
 import backgroundImage from "/images/home/learnmore-6.png";
+import leftSide from "/images/home/learnmore-4.png";
+import rightSide from "/images/home/learnmore-2.png";
+import heroImage from "/images/home/hero-bg-1.jpg";
 
-const heroImage = "images/home/hero-bg-1.jpg";
-const rightSide = "images/home/learnmore-2.png";
-const leftSide = "images/home/learnmore-4.png";
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -83,9 +83,8 @@ const Home = () => {
           </div>
           <div>
             <img
-              src={heroImage}
-              alt="hero-img"
               className="object-cover h-[500px] w-full md:w-[500px]"
+              src={heroImage}
             />
           </div>
         </div>
@@ -131,7 +130,6 @@ const Home = () => {
                 <img
                   className="object-cover w-full h-full overflow-hidden transition ease-in-out hover:scale-105"
                   src={bestSeller[getWrappedIndex(currentIndex + 1)]?.image[0]}
-                  alt=""
                 />
                 <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
                   <h2 className="py-3 pl-4 pr-24 text-2xl">
@@ -147,7 +145,6 @@ const Home = () => {
                 <img
                   className="object-cover w-full h-full overflow-hidden transition ease-in-out hover:scale-105"
                   src={bestSeller[getWrappedIndex(currentIndex + 2)]?.image[0]}
-                  alt=""
                 />
                 <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
                   <h2 className="py-3 pl-4 pr-24 text-2xl">
@@ -180,7 +177,6 @@ const Home = () => {
           <img
             className="object-cover w-1/4 md:w-fit"
             src={leftSide}
-            alt="left-side-img"
           />
 
           <div
@@ -191,7 +187,6 @@ const Home = () => {
           <img
             className="object-cover w-1/4 md:w-fit"
             src={rightSide}
-            alt="right-side-img"
           />
         </div>
 
