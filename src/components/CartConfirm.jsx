@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
 import ButtonX from "./ButtonX";
+import CartTotal from "./CartTotal";
 
 const CartConfirm = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
@@ -92,19 +93,20 @@ const CartConfirm = ({ isOpen, onClose }) => {
           );
         })}
       </div>
-      <div className="p-4 bg-gray-200">
+      {/* <div className="p-4 bg-gray-200">
         <div className="flex items-center justify-between">
           <span className="font-semibold">SUBTOTAL</span>
         </div>
         <p className="mt-2 text-sm text-gray-500">
           Shipping & taxes calculated at checkout
         </p>
-      </div>
+      </div> */}
+      <CartTotal className="p-8" />
       <div className="flex p-4 space-x-4">
-        <button className="button w-1/2 " onClick={handleViewCart}>
+        <button className="w-1/2 button " onClick={handleViewCart}>
           VIEW CART
         </button>
-        <button className="button w-1/2" onClick={handleCheckout}>
+        <button className="w-1/2 button" onClick={handleCheckout}>
           CHECKOUT
         </button>
       </div>
