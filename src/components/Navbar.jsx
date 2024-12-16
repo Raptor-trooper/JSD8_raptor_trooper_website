@@ -112,7 +112,6 @@ function Navbar() {
 
         {/* Icons */}
         <div className="flex space-x-4 max-md:absolute max-md:transform max-md:-translate-x-1/2 max-md:left-1/2">
-          {/* <Link to='/login'><img className="w-[24px] h-[24px]" src={login} alt="login-icon" /></Link> */}
 
           {/* Dropdown menu */}
           <div className="relative px-2 bg-black group dropdown">
