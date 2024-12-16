@@ -2,8 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
 import backgroundHeroImage from "../images/home/hero-bg-2.jpg";
-import backgroundImage from "../images/home/learnmore-6.png";
-import leftSide from "../images/home/learnmore-4.png";
+import leftSide from "../images/home/learnmore-2.png";
 import rightSide from "../images/home/learnmore-2.png";
 import heroImage from "../images/home/hero-bg-1.jpg";
 
@@ -179,10 +178,10 @@ const Home = () => {
             src={leftSide}
           />
 
-          <div
+          {/* <div
             className="relative flex flex-col items-center justify-center w-full h-full bg-center bg-cover"
             style={{ backgroundImage: `url(${backgroundImage})` }}
-          ></div>
+          ></div> */}
 
           <img
             className="object-cover w-1/4 md:w-fit"
@@ -191,7 +190,7 @@ const Home = () => {
         </div>
 
         <div className="absolute flex flex-col items-center justify-center gap-6 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-          <h2 className="text-3xl text-center text-white bg-black bg-opacity-70">
+          <h2 className="text-3xl text-center text-black">
             Inspiring self-expression by celebrating creativity
           </h2>
           <Link to="/aboutus" className="bg-black text-white px-5 py-2.5 text-base font-bold text-center">
@@ -202,7 +201,7 @@ const Home = () => {
 
       {/* ส่วนเลือกสินค้า/รูป ตามปุ่ม */}
       <div className='flex justify-center w-full'>
-        <div className='md:p-[84px] p-[16px] h-fit flex flex-col items-center gap-4 md:max-w-[1280px] w-full mx-auto'>
+        <div className='md:p-[84px] p-[16px] h-fit flex flex-col items-center gap-16 md:max-w-[1280px] w-full mx-auto'>
           <h1 className='w-fit max-sm:text-5xl font-bold text-center text-7xl md:text-[96px] md:text-left'>Category</h1>
           {/* mobile */}
           <div className="w-5/6 p-6 space-x-2 md:hidden carousel carousel-center">
