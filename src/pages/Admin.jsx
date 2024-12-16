@@ -7,12 +7,12 @@ import Orders from './Admin/Orders';
 
 const Admin = () => {
     return (
-        <div className="flex h-auto bg-gray-100">
+        <div className="flex h-full bg-gray-100">
             {/* Sidebar Section */}
             <Sidebar />
 
             {/* Main Admin Content Section */}
-            <div className="flex-1 p-8">
+            <div className="flex-1 p-8 mb-16">
                 <div className="p-6 bg-white rounded-lg shadow-md">
                     <Routes>
                         {/* Default Route to Add Page */}
