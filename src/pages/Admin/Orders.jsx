@@ -101,11 +101,13 @@ const Orders = () => {
                 <FaPhoneAlt className="inline mr-2 text-gray-500" />
                 {order?.delivery?.phone}
               </p>
+              <p className="text-sm font-medium">
+                {order?.delivery?.address} {order?.delivery?.country}{" "}
+                {order?.delivery?.city} {order?.delivery?.zip}
+              </p>
             </div>
             <div>
-              <p className="text-sm">
-                Items: {order.items.length}
-              </p>
+              <p className="text-sm">Items: {order.items.length}</p>
               <p>Method: {order.paymentMethod}</p>
               <p>Payment: {order.payment ? "Done" : "Pending"}</p>
               <p>Date: {new Date(order.date).toLocaleDateString()}</p>
