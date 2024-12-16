@@ -1,36 +1,53 @@
-import { NavLink } from "react-router-dom"; 
-import { assets } from "../assets/admin/assets";
+import { NavLink } from "react-router-dom";
+import { FiPlusCircle, FiList, FiShoppingCart } from "react-icons/fi";
 
-const Sidebar = () => { 
-  return ( 
-    <div className="w-[18%] min-h-screen border-r-2"> 
-      <div className="flex flex-col gap-4 pt-6 pl-[20%] text-[15px]"> 
-        <NavLink 
-          className="flex items-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l" 
-          to="add"  // เปลี่ยนเป็น add (ไม่ต้องใส่ /admin)
-        > 
-          <img className="w-5 h-5" src={assets.add_icon} alt="" /> 
-          <p className="hidden md:block">Add Items</p> 
-        </NavLink> 
-
-        <NavLink 
-          className="flex items-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l" 
-          to="list"  // เปลี่ยนเป็น list (ไม่ต้องใส่ /admin)
-        > 
-          <img className="w-5 h-5" src={assets.order_icon} alt="" /> 
-          <p className="hidden md:block">List Items</p> 
-        </NavLink> 
-
-        <NavLink 
-          className="flex items-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l" 
-          to="orders"  // เปลี่ยนเป็น orders (ไม่ต้องใส่ /admin)
-        > 
-          <img className="w-5 h-5" src={assets.order_icon} alt="" /> 
-          <p className="hidden md:block">Orders</p> 
-        </NavLink> 
-      </div> 
-    </div> 
-  ); 
-}; 
+const Sidebar = () => {
+  return (
+      <div className="w-64 h-auto text-white bg-gray-800">
+          <h2 className="p-6 text-2xl font-bold border-b border-gray-700">Admin Panel</h2>
+          <ul className="mt-4">
+              <li>
+                  <NavLink
+                      to="add"
+                      className={({ isActive }) =>
+                          `flex items-center gap-3 p-4 ${
+                              isActive ? "bg-gray-700" : "hover:bg-gray-700"
+                          }`
+                      }
+                  >
+                      <FiPlusCircle />
+                      Add Product
+                  </NavLink>
+              </li>
+              <li>
+                  <NavLink
+                      to="list"
+                      className={({ isActive }) =>
+                          `flex items-center gap-3 p-4 ${
+                              isActive ? "bg-gray-700" : "hover:bg-gray-700"
+                          }`
+                      }
+                  >
+                      <FiList />
+                      Product List
+                  </NavLink>
+              </li>
+              <li>
+                  <NavLink
+                      to="orders"
+                      className={({ isActive }) =>
+                          `flex items-center gap-3 p-4 ${
+                              isActive ? "bg-gray-700" : "hover:bg-gray-700"
+                          }`
+                      }
+                  >
+                      <FiShoppingCart />
+                      Orders
+                  </NavLink>
+              </li>
+          </ul>
+      </div>
+  );
+};
 
 export default Sidebar;

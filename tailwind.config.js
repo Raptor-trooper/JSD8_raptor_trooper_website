@@ -9,14 +9,14 @@ export default {
       fontFamily: {
         maitree: ['Maitree', 'serif'],
       },
-      colors: {
-        autofillBg: "#ffffff",
-        autofillText: "#000000",
-      },
     },
   },
   plugins: [
     require('daisyui'),
-    require("@tailwindcss/forms"),
+    require('@tailwindcss/line-clamp'),
+    // require("@tailwindcss/forms"),
   ],
+  daisyui: {
+    darkTheme: "light",
+  },
 }

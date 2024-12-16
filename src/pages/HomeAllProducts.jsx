@@ -25,33 +25,33 @@ const HomeAllProducts = () => {
                 {/* Header */}
                 <div className='px-[88px] mx-auto'>
 
-                    <h1 className='text-5xl mt-16 font-bold'> All Products </h1>
+                    <h1 className='pt-16 text-5xl font-bold'> All Products </h1>
                     <p className='my-8'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, unde.</p>
                     <hr />
 
                     {/* Link to Page */}
-                    <div className='grid grid-cols-1 grid-rows-5 gap-4 w-full my-8 md:flex'>
-                        <Link to='/homeallproducts' className='bg-black text-white p-2 text-center rounded-full shadow-md'>All Product</Link>
-                        <Link to='/homedecor' className='bg-black text-white p-2 text-center rounded-full shadow-md'>Home Decor</Link>
-                        <Link to='/bathbody' className='bg-black text-white p-2 text-center rounded-full shadow-md'>Bath & Body</Link>
-                        <Link to='/apparel' className='bg-black text-white p-2 text-center rounded-full shadow-md'>Apparel</Link>
-                        <Link to='/accessories' className='bg-black text-white p-2 text-center rounded-full shadow-md'>Accessories</Link>
+                    <div className='grid w-full grid-cols-1 grid-rows-5 gap-4 my-8 md:flex'>
+                        <Link to='/homeallproducts' className='rounded-full button'>All Product</Link>
+                        <Link to='/homedecor' className='rounded-full button '>Home Decor</Link>
+                        <Link to='/bathbody' className='rounded-full button'>Bath & Body</Link>
+                        <Link to='/apparel' className='rounded-full button'>Apparel</Link>
+                        <Link to='/accessories' className='rounded-full button'>Accessories</Link>
                     </div>
                 </div>
 
                 {/* Grid For Products and map DataCategory */}
-                <div className='grid grid-cols-2 md:grid-cols-4 md:m-[88px] gap-4 gap-y-6'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:m-[88px] gap-4 gap-y-6'>
 
                     {category.map((product) => (
-                        <Link className='cursor-pointer' to={`/productpage/${product.name}`} key={product.id}>
 
-                            <div className="overflow-hidden ease-in-out hover:scale-105 shadow-md m-4 transition">
+                        <Link className='cursor-pointer' to={`/productpage/${product._id}`} key={product._id}>
+                            <div className="m-8 overflow-hidden transition ease-in-out bg-white shadow-md hover:scale-105">
                                 <img src={product.image[0]} alt={product.name} className='w-full h-[412px] object-cover transition ease-in-out' />
                                 <p className='px-6 pt-4 text-lg font-bold'>{product.name}</p>
-                                <p className='text-gray-700 px-6 pb-4 text-md '>Starting at <b>฿{product.price}</b></p>
+                                <p className='px-6 pb-4 text-gray-700 text-md '>Starting at <b>฿{product.price}</b></p>
                             </div>
-
                         </Link>
+
                     ))}
 
                 </div>
@@ -61,30 +61,3 @@ const HomeAllProducts = () => {
 }
 
 export default HomeAllProducts
-
-// ===========================  Filter Function ===========================
-
-// State for filter show products
-// const [selectedCategory, setSelectedCategory] = useState("All Product")
-
-// Get category type and set state to show user
-// const handleFilter = (category) => {
-//     setLoading(true);
-//     setSelectedCategory(category);
-// }
-
-// Function Filter DataCategory to show
-// const filterFunction = selectedCategory === "All Product"
-//     ? dataCategory
-//     : dataCategory.filter(item => item.category === selectedCategory);
-
-/* {selectedCategory ? (<h1 className='text-5xl mt-16 font-bold'>{selectedCategory}</h1>) : (<h1>Error 404</h1>)} */
-
-/* <div className='grid grid-cols-1 grid-rows-5 gap-4 w-full my-8 md:flex'>
-        <button onClick={() => handleFilter("All Product")} className='bg-black text-white p-2 text-center rounded-full shadow-md'>ALL</button>
-        <button onClick={() => handleFilter("Home Decor")} className='bg-black text-white p-2 text-center rounded-full shadow-md'>Home Decor</button>
-        <button onClick={() => handleFilter("Bath & Body")} className='bg-black text-white p-2 text-center rounded-full shadow-md'>Bath & Body</button>
-        <button onClick={() => handleFilter("Apparel")} className='bg-black text-white p-2 text-center rounded-full shadow-md'>Apparel</button>
-        <button onClick={() => handleFilter("Accessories")} className='bg-black text-white p-2 text-center rounded-full shadow-md'>Accessories</button>
-    </div> */
-

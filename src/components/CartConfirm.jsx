@@ -1,179 +1,260 @@
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ShopContext } from '../Context/ShopContext';
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { ShopContext } from "../Context/ShopContext";
+import ButtonX from "./ButtonX";
+import CartTotal from "./CartTotal";
 
-const CartConfirm = ({ isOpen, onClose, totalAmount }) => {
-    const navigate = useNavigate();
-    const { cartItems, setCartItems } = useContext(ShopContext);
+const CartConfirm = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
+  const { cartItems, category, updateQuantity, getCartCount } =
+    useContext(ShopContext);
+  const [cartData, setCartData] = useState([]);
 
-    const handleViewCart = () => {
-        onClose(); // ปิดหน้า cart confirm
-        navigate('/cartpage'); // ย้ายไปที่หน้ารถเข็นสินค้า
-    };
+  const filterInvalidCartItems = (cartItems, category) => {
+    const validCategoryIds = new Set(category.map((item) => item._id));
+    Object.keys(cartItems).forEach((cartItemId) => {
+      if (!validCategoryIds.has(cartItemId)) {
+        delete cartItems[cartItemId];
+      }
+    });
+    return cartItems;
+  };
 
-    const handleCheckout = () => {
-        onClose(); // ปิดหน้า cart confirm
-        navigate('/checkoutpage'); // ย้ายไปที่หน้าcheckout
-    };
+  useEffect(() => {
+    filterInvalidCartItems(cartItems, category);
+    if (category.length > 0) {
+      const tempData = [];
+      for (const items in cartItems) {
+        if (cartItems[items] > 0) {
+          tempData.push({
+            _id: items,
+            quantity: cartItems[items],
+          });
+        }
+      }
+      setCartData(tempData);
+    }
+  }, [cartItems, category]);
 
-    // ฟังก์ชันสำหรับลบสินค้าออกจากตะกร้า
-    const handleDeleteItem = (index) => {
-        // ใช้ filter เพื่อลบสินค้าที่ตำแหน่งที่เลือกออกจากตะกร้า
-        const updatedCartItems = cartItems.filter((_, i) => i !== index);
-        // อัปเดท cartItem 
-        setCartItems(updatedCartItems);
-    };
+  const handleViewCart = () => {
+    onClose(); // ปิดหน้า cart confirm
+    navigate("/cartpage"); // ย้ายไปที่หน้ารถเข็นสินค้า
+  };
 
-    // ฟังก์ชันสำหรับเพิ่มจำนวนสินค้า
-    const handleIncrement = (index) => {
-        const updatedCartItems = cartItems.map((item, i) => {
-            if (i === index) {
-                return { ...item, quantity: item.quantity + 1 };
-            }
-            return item;
-        });
-        setCartItems(updatedCartItems);
-    };
+  const handleCheckout = () => {
+    onClose(); // ปิดหน้า cart confirm
+    navigate("/checkoutpage"); // ย้ายไปที่หน้าcheckout
+  };
 
-    // ฟังก์ชันสำหรับลดจำนวนสินค้า
-    const handleDecrement = (index) => {
-        const updatedCartItems = cartItems.map((item, i) => {
-            if (i === index && item.quantity > 1) {
-                return { ...item, quantity: item.quantity - 1 };
-            }
-            return item;
-        });
-        setCartItems(updatedCartItems);
-    };
-
-    return (
-        <div
-            className={`fixed top-0 right-0 h-full w-full md:w-[600px] bg-white shadow-lg transform ${isOpen ? 'translate-x-0' : 'translate-x-full'
-                } transition-transform duration-300 ease-in-out z-50`}
+  return (
+    <div
+      className={`fixed top-0 right-0 h-full w-full md:w-[600px] bg-white shadow-lg transform 
+                ${isOpen ? "translate-x-0" : "translate-x-full"} 
+                transition-transform duration-300 ease-in-out z-50`}
+    >
+      <div className="flex items-center justify-end p-4 border-b">
+        <button
+          onClick={onClose}
+          className="text-xl font-semibold text-black hover:text-red-700"
         >
-            <div className="p-4 flex justify-between items-center border-b">
-                <h2 className="text-xl font-bold">Cart({cartItems.length})</h2>
-                <button onClick={onClose} className="text-gray-600 text-xl font-semibold">CLOSE</button>
-            </div>
-            <div className="p-4 space-y-4">
-                {cartItems.map((item, index) => (
-                    <div key={index} className="flex justify-between items-center border-b py-4">
-                        <img src={item.image[0]} alt={item.name} className="w-16 h-16 object-cover rounded" />
-                        <div className="flex-1 mx-4">
-                            <h3 className="font-semibold">{item.name}</h3>
-                            <p className="text-sm text-gray-500">Size: {item.size}</p>
-                            <div className="flex items-center mt-2">
-                                <button onClick={() => handleDecrement(index)} className="px-2 border">-</button>
-                                <p className='px-2'>{item.quantity}</p>
-                                <button onClick={() => handleIncrement(index)} className="px-2 border">+</button>
-                            </div>
-                        </div>
-                        <p className="font-semibold">฿{item.price * item.quantity}</p>
-                        <button onClick={() => handleDeleteItem(index)} className="text-red-500 hover:text-red-700 ml-4">
-                            <i className="fas fa-trash">❌</i>
-                        </button>
-                    </div>
-                ))}
-            </div>
-            <div className="p-4 bg-gray-200">
-                <div className="flex justify-between items-center">
-                    <span className="font-semibold">SUBTOTAL</span>
-                    <span className="font-semibold">฿{totalAmount}</span>
+          CLOSE
+        </button>
+      </div>
+      <div
+        className="p-4 space-y-4 overflow-y-auto"
+        style={{ maxHeight: "60vh" }}
+      >
+        {cartData.map((item, index) => {
+          const productData = category.find((cate) => cate._id === item._id);
+          console.log("product", productData);
+          return (
+            <div
+              key={index}
+              className="flex items-center justify-between py-4 border-b"
+            >
+              <div className="flex items-start gap-5 flex-[6]">
+                <img
+                  className="object-cover w-16 h-16 rounded"
+                  src={productData.image[0]}
+                  alt={productData.name}
+                />
+                <div className="flex-1 mx-2">
+                  <h3 className="font-semibold">{productData.name}</h3>
+                  <div>
+                    <p className="font-medium flex-[1]">{productData.price}</p>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-500 mt-2">Shipping & taxes calculated at checkout</p>
+              </div>
+              <div className="flex items-center justify-center flex-[2]  ">
+                <p className="font-medium">{item.quantity}</p>
+              </div>
+              <ButtonX onClick={() => updateQuantity(item._id, 0)}></ButtonX>
             </div>
-            <div className="p-4 flex space-x-4">
-                <button className="w-1/2 py-2 border border-black text-black font-semibold"
-                    onClick={handleViewCart}
-                >VIEW CART</button>
-                <button className="w-1/2 py-2 bg-black text-white font-semibold"
-                    onClick={handleCheckout}
-                >CHECKOUT</button>
-            </div>
+          );
+        })}
+      </div>
+      {/* <div className="p-4 bg-gray-200">
+        <div className="flex items-center justify-between">
+          <span className="font-semibold">SUBTOTAL</span>
         </div>
-    );
+        <p className="mt-2 text-sm text-gray-500">
+          Shipping & taxes calculated at checkout
+        </p>
+      </div> */}
+      <CartTotal className="p-8" />
+      <div className="flex p-4 space-x-4">
+        <button className="w-1/2 button " onClick={handleViewCart}>
+          VIEW CART
+        </button>
+        <button className="w-1/2 button" onClick={handleCheckout}>
+          CHECKOUT
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default CartConfirm;
 
+// auto
 
+// import React, { useState, useEffect, useContext } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { ShopContext } from '../Context/ShopContext';
 
+// const CartConfirm = ({ isOpen, onClose }) => {
+//     const navigate = useNavigate();
+//     const { cartItems, setCartItems, category, updateQuantity } = useContext(ShopContext);
+//     const [cartData, setCartData] = useState([]);
 
+//     useEffect(() => {
+//         if (category.length > 0) {
+//             const tempData = [];
+//             for (const items in cartItems) {
+//                 if (cartItems[items] > 0) {
+//                     tempData.push({
+//                         _id: items,
+//                         quantity: cartItems[items],
+//                     });
+//                 }
+//             }
+//             setCartData(tempData);
+//         }
+//     }, [cartItems, category]);
 
+//     const handleViewCart = () => {
+//         onClose(); // ปิดหน้า cart confirm
+//         navigate('/cartpage'); // ย้ายไปที่หน้ารถเข็นสินค้า
+//     };
 
-// import React from 'react';
+//     const handleCheckout = () => {
+//         onClose(); // ปิดหน้า cart confirm
+//         navigate('/checkoutpage'); // ย้ายไปที่หน้าcheckout
+//     };
 
-// const CartConfirm = ({ isOpen, onClose, cartItems, totalAmount, setCartItems }) => {
 //     // ฟังก์ชันสำหรับลบสินค้าออกจากตะกร้า
 //     const handleDeleteItem = (index) => {
 //         // ใช้ filter เพื่อลบสินค้าที่ตำแหน่งที่เลือกออกจากตะกร้า
 //         const updatedCartItems = cartItems.filter((_, i) => i !== index);
-//         // อัปเดต cartItems ด้วยการตั้งค่าใหม่
+//         // อัปเดท cartItem
 //         setCartItems(updatedCartItems);
 //     };
 
-//     // ฟังก์ชันสำหรับเพิ่มจำนวนสินค้า
-//     const handleIncrement = (index) => {
-//         const updatedCartItems = cartItems.map((item, i) => {
-//             if (i === index) {
-//                 return { ...item, quantity: item.quantity + 1 };
-//             }
-//             return item;
-//         });
+//     const handleIncrement = (id) => {
+//         const updatedCartItems = { ...cartItems };
+//         if (updatedCartItems[id] !== undefined) {
+//             updatedCartItems[id] += 1;
+//         } else {
+//             updatedCartItems[id] = 1;
+//         }
 //         setCartItems(updatedCartItems);
 //     };
 
 //     // ฟังก์ชันสำหรับลดจำนวนสินค้า
-//     const handleDecrement = (index) => {
-//         const updatedCartItems = cartItems.map((item, i) => {
-//             if (i === index && item.quantity > 1) {
-//                 return { ...item, quantity: item.quantity - 1 };
+//     const handleDecrement = (id) => {
+//         const updatedCartItems = { ...cartItems };
+//         if (updatedCartItems[id] !== undefined) {
+//             if (updatedCartItems[id] === 1) {
+//                 delete updatedCartItems[id]
+//             } else {
+//                 updatedCartItems[id] -= 1;
 //             }
-//             return item;
-//         });
+//         }
 //         setCartItems(updatedCartItems);
 //     };
+//     // useEffect(() => {
+//     //     updateQuantity()
+//     // }, [cartItems])
 
 //     return (
 //         <div
-//             className={`fixed top-0 right-0 h-full w-full md:w-[600px] bg-white shadow-lg transform ${
-//                 isOpen ? 'translate-x-0' : 'translate-x-full'
-//             } transition-transform duration-300 ease-in-out z-50`}
+//             className={`fixed top-0 right-0 h-full w-full md:w-[600px] bg-white shadow-lg transform ${isOpen ? 'translate-x-0' : 'translate-x-full'
+//                 } transition-transform duration-300 ease-in-out z-50`}
 //         >
-//             <div className="p-4 flex justify-between items-center border-b">
-//                 <h2 className="text-xl font-bold">Cart({cartItems.length})</h2>
-//                 <button onClick={onClose} className="text-gray-600 text-xl font-semibold">CLOSE</button>
+//             <div className="flex items-center justify-between p-4 border-b">
+//                 {/* <h2 className="text-xl font-bold">Cart({cartItems.length})</h2> */}
+//                 <button onClick={onClose} className="text-xl font-semibold text-gray-600">CLOSE</button>
 //             </div>
 //             <div className="p-4 space-y-4">
-//                 {cartItems.map((item, index) => (
-//                     <div key={index} className="flex justify-between items-center border-b py-4">
-//                         <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded" />
-//                         <div className="flex-1 mx-4">
-//                             <h3 className="font-semibold">{item.name}</h3>
-//                             <p className="text-sm text-gray-500">Size: {item.size}</p>
-//                             <div className="flex items-center mt-2">
-//                                 <button onClick={() => handleDecrement(index)} className="px-2 border">-</button>
-//                                 <p className='px-2'>{item.quantity}</p>
-//                                 <button onClick={() => handleIncrement(index)} className="px-2 border">+</button>
+//                 {/* {cartData.map((item, index) => {
+//                     const productData = category.find(
+//                         (cate) => cate._id === item._id
+//                     )
+//                     return (
+//                         <div key={index} className="flex items-center justify-between py-4 border-b">
+//                             <img src={productData.image[0]} alt={productData.name} className="object-cover w-16 h-16 rounded" />
+//                             <div className="flex-1 mx-4">
+//                                 <h3 className="font-semibold">{productData.name}</h3>
+//                                 <div className="flex items-center mt-2">
+//                                     <button onClick={() => handleDecrement(item._id)} className="px-2 border">-</button>
+//                                     <p className='px-2'>{cartData.quantity}</p>
+//                                     <button onClick={() => handleIncrement(item._id)} className="px-2 border">+</button>
+//                                 </div>
 //                             </div>
+//                             <p className="font-semibold">฿{productData.price}</p>
+//                             <button onClick={() => handleDeleteItem(index)} className="ml-4 text-red-500 hover:text-red-700">
+//                                 <i className="fas fa-trash">❌</i>
+//                             </button>
 //                         </div>
-//                         <p className="font-semibold">฿{item.price * item.quantity}</p>
-//                         <button onClick={() => handleDeleteItem(index)} className="text-red-500 hover:text-red-700 ml-4">
-//                             <i className="fas fa-trash">❌</i>
-//                         </button>
-//                     </div>
-//                 ))}
+//                     )
+//                 })} */}
+//                 {Object.keys(cartItems).map((item, index) => {
+//                     const productData = category.find(
+//                         (cate) => cate._id === item
+//                     )
+//                     return (
+//                         <div key={index} className="flex items-center justify-between py-4 border-b">
+//                             <img src={productData?.image[0]} alt={productData?.name} className="object-cover w-16 h-16 rounded" />
+//                             <div className="flex-1 mx-4">
+//                                 <h3 className="font-semibold">{productData?.name}</h3>
+//                                 <div className="flex items-center mt-2">
+//                                     <button onClick={() => handleDecrement(item)} className="px-2 border">-</button>
+//                                     <p className='px-2'>{cartItems[item]}</p>
+//                                     <button onClick={() => handleIncrement(item)} className="px-2 border">+</button>
+//                                 </div>
+//                             </div>
+//                             <p className="font-semibold">฿{productData?.price}</p>
+//                             <button onClick={() => handleDeleteItem(index)} className="ml-4 text-red-500 hover:text-red-700">
+//                                 <i className="fas fa-trash">❌</i>
+//                             </button>
+//                         </div>
+//                     )
+//                 })}
 //             </div>
 //             <div className="p-4 bg-gray-200">
-//                 <div className="flex justify-between items-center">
+//                 <div className="flex items-center justify-between">
 //                     <span className="font-semibold">SUBTOTAL</span>
-//                     <span className="font-semibold">฿{totalAmount}</span>
+//                     {/* <span className="font-semibold">฿{totalAmount}</span> */}
 //                 </div>
-//                 <p className="text-sm text-gray-500 mt-2">Shipping & taxes calculated at checkout</p>
+//                 <p className="mt-2 text-sm text-gray-500">Shipping & taxes calculated at checkout</p>
 //             </div>
-//             <div className="p-4 flex space-x-4">
-//                 <button className="w-1/2 py-2 border border-black text-black font-semibold">ADD TO CART</button>
-//                 <button className="w-1/2 py-2 bg-black text-white font-semibold">CHECKOUT</button>
+//             <div className="flex p-4 space-x-4">
+//                 <button className="w-1/2 py-2 font-semibold text-black border border-black"
+//                     onClick={handleViewCart}
+//                 >VIEW CART</button>
+//                 <button className="w-1/2 py-2 font-semibold text-white bg-black"
+//                     onClick={handleCheckout}
+//                 >CHECKOUT</button>
 //             </div>
 //         </div>
 //     );

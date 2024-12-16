@@ -7,8 +7,6 @@ import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
 import CheckOutPage from './pages/CheckOutPage'
 import Login from './pages/Login'
-import ChangePassword from './pages/ChangePassword'
-import ResetPassword from './pages/ResetPassword'
 import UserProfile from './pages/UserProfile'
 import Admin from './pages/Admin'
 import ShopContextProvider from './Context/ShopContext'
@@ -17,74 +15,28 @@ import BathBody from './pages/BathBody'
 import Apparel from './pages/Apparel'
 import Accessories from './pages/Accessories'
 import AboutUs from './pages/AboutUs'
-
-export const backendUrl = import.meta.env.VITE_BACKEND_URL;
+import Verify from './pages/Verify'
+// import ScrollToTop from './components/ScrollToTop'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
     children: [
-      {
-        path: '/',
-        element: <Home />
-      },
-      {
-        path: '/homeallproducts',
-        element: <HomeAllProducts />
-      },
-      {
-        path: '/productpage/:name',
-        element: <ProductPage />
-      },
-      {
-        path: '/cartpage',
-        element: <CartPage />
-      },
-      {
-        path: '/checkoutpage',
-        element: <CheckOutPage />
-      },
-      {
-        path: '/login',
-        element: <Login />
-      },
-      {
-        path: '/changepassword',
-        element: <ChangePassword />
-      },
-      {
-        path: '/resetpassword',
-        element: <ResetPassword />
-      },
-      {
-        path: '/UserProfile',
-        element: <UserProfile />
-      },
-      {
-        path: '/admin/*',
-        element: <Admin />,
-      },
-      {
-        path: '/homedecor',
-        element: <HomeDecor />
-      },
-      {
-        path: '/bathbody',
-        element: <BathBody />
-      },
-      {
-        path: '/apparel',
-        element: <Apparel />
-      },
-      {
-        path: '/accessories',
-        element: <Accessories />
-      },
-      {
-        path: '/aboutus',
-        element: <AboutUs />
-      },
+      { path: '/', element: <Home /> },
+      { path: '/homeallproducts', element: <HomeAllProducts /> },
+      { path: '/productpage/:productId', element: <ProductPage /> },
+      { path: '/cartpage', element: <CartPage /> },
+      { path: '/checkoutpage', element: <CheckOutPage /> },
+      { path: '/login', element: <Login /> },
+      { path: '/userprofile', element: <UserProfile /> },
+      { path: '/admin/*', element: <Admin />, },
+      { path: '/homedecor', element: <HomeDecor /> },
+      { path: '/bathbody', element: <BathBody /> },
+      { path: '/apparel', element: <Apparel /> },
+      { path: '/accessories', element: <Accessories /> },
+      { path: '/aboutus', element: <AboutUs /> },
+      { path: '/verify', element: <Verify /> }
     ]
   }
 ])
@@ -94,6 +46,8 @@ function App() {
   return (
     <ShopContextProvider>
       <RouterProvider router={router} />
+        {/* <ScrollToTop /> */}
+      {/* </RouterProvider> */}
     </ShopContextProvider>
   )
 }
