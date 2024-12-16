@@ -52,7 +52,8 @@ function Navbar() {
   }, [lastScrollY]);
 
   return (
-    <div
+  <div>
+      <div
       className={`w-full h-auto bg-black fixed top-0 left-0 z-50 transition-transform duration-300 ${
         showNavbar ? "translate-y-0" : "-translate-y-full"
       }`}
@@ -72,35 +73,35 @@ function Navbar() {
         <nav className="absolute transform -translate-x-1/2 left-1/2 max-md:hidden">
           <ul className="flex items-center space-x-6 text-center">
             <Link
-              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+              className="relative font-medium text-white transition-colors duration-300 group hover:text-gray-300"
               to="/homeallproducts"
             >
               All Product
               <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
             </Link>
             <Link
-              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+              className="relative font-medium text-white transition-colors duration-300 group hover:text-gray-300"
               to="/homedecor"
             >
               Home Decor
               <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
             </Link>
             <Link
-              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+              className="relative font-medium text-white transition-colors duration-300 group hover:text-gray-300"
               to="/bathbody"
             >
               Bath & Body
               <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
             </Link>
             <Link
-              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+              className="relative font-medium text-white transition-colors duration-300 group hover:text-gray-300"
               to="/apparel"
             >
               Apparel
               <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
             </Link>
             <Link
-              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+              className="relative font-medium text-white transition-colors duration-300 group hover:text-gray-300"
               to="/accessories"
             >
               Accessories
@@ -114,7 +115,7 @@ function Navbar() {
           {/* <Link to='/login'><img className="w-[24px] h-[24px]" src={login} alt="login-icon" /></Link> */}
 
           {/* Dropdown menu */}
-          <div className="bg-black group relative dropdown px-2">
+          <div className="relative px-2 bg-black group dropdown">
             {token ? (
               <img
                 className="w-[24px] h-[24px] cursor-pointer"
@@ -128,15 +129,15 @@ function Navbar() {
             )}
 
             {token && (
-              <div className="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-1 transition-all duration-500 ease-in-out  right-1 ">
-                <ul className="bg-black rounded-lg  flex flex-col gap-2 w-32 top-0 p-4 shadow">
-                  <li className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out">
-                    <Link className=" block" to="/userprofile">
+              <div className="absolute invisible transition-all duration-500 ease-in-out opacity-0 group-hover:opacity-100 group-hover:visible group-hover:translate-y-1 right-1 ">
+                <ul className="top-0 flex flex-col w-32 gap-2 p-4 bg-black rounded-lg shadow">
+                  <li className="transition duration-300 ease-in-out rounded cursor-pointer hover:bg-gray-800">
+                    <Link className="block " to="/userprofile">
                       User Profile
                     </Link>
                   </li>
                   {isAdmin && (
-                    <li className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out">
+                    <li className="transition duration-300 ease-in-out rounded cursor-pointer hover:bg-gray-800">
                       <Link className="block" to="/admin">
                         Admin
                       </Link>
@@ -144,14 +145,14 @@ function Navbar() {
                   )}
                   {token && (
                     <>
-                      <li className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out">
+                      <li className="transition duration-300 ease-in-out rounded cursor-pointer hover:bg-gray-800">
                         <Link className="block" to="/cartpage">
                           Orders
                         </Link>
                       </li>
                       <li
                         onClick={logout}
-                        className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out"
+                        className="transition duration-300 ease-in-out rounded cursor-pointer hover:bg-gray-800"
                       >
                         <Link className="block" to="/login">
                           Logout
@@ -189,7 +190,7 @@ function Navbar() {
             CLOSE
           </button>
         </div>
-        <ul className=" h-screen w-full bg-black flex flex-col space-y-6 text-center items-left">
+        <ul className="flex flex-col w-full h-screen space-y-6 text-center bg-black items-left">
           <Link onClick={handleBurger} to="/homeallproducts">
             All Product
           </Link>
@@ -208,8 +209,9 @@ function Navbar() {
         </ul>
       </div>
 
-      <CartConfirm isOpen={isCartOpen} onClose={handleCloseCart} />
     </div>
+    <CartConfirm isOpen={isCartOpen} onClose={handleCloseCart} />
+  </div>
   );
 }
 

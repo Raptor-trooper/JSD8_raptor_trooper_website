@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { ShopContext } from "../Context/ShopContext";
 
-const CartTotal = () => {
+const CartTotal = ({className}) => {
     const { getCartAmount } = useContext(ShopContext);
 
     return (
-        <div className="space-y-4">
+        <div className={`${className} space-y-4`}>
             <div className="flex justify-between font-bold">
                 <span>Subtotal:</span>
                 <span>฿{getCartAmount()}</span>

@@ -126,12 +126,12 @@ const UserProfile = () => {
         onSubmit={onSubmitHandler}
         className="flex flex-col items-center justify-center min-h-screen bg-gray-100"
       >
-        <div className="my-10 w-3/4 p-8 space-y-8 bg-white rounded-lg shadow-lg lg:w-1/2">
+        <div className="w-3/4 p-8 my-10 space-y-8 bg-white rounded-lg shadow-lg lg:w-1/2">
           {/* Header Section */}
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center space-x-4">
               <img
-                src="https://via.placeholder.com/100"
+                src="/logo-icon.svg"
                 alt="Profile"
                 className="object-cover w-24 h-24 rounded-full"
               />
