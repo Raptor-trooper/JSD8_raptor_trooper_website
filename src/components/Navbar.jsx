@@ -5,7 +5,7 @@ import login from "../assets/login.svg";
 import cart from "../assets/cart.svg";
 import burger from "../assets/burger.svg";
 import { useState, useContext, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CartConfirm from "./CartConfirm";
 import { ShopContext } from "../Context/ShopContext";
 
@@ -15,7 +15,7 @@ function Navbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  const { cartItems, token, setToken, isAdmin, getCartCount } =
+  const { token, setToken, isAdmin, getCartCount } =
     useContext(ShopContext);
 
   const handleBurger = () => {
