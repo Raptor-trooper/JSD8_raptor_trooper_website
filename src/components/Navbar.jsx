@@ -4,15 +4,17 @@ import logoName from "../assets/Handy Haven.svg";
 import login from "../assets/login.svg";
 import cart from "../assets/cart.svg";
 import burger from "../assets/burger.svg";
-import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import CartConfirm from "./CartConfirm";
-import { ShopContext } from '../Context/ShopContext';
-
+import { ShopContext } from "../Context/ShopContext";
 
 function Navbar() {
   const [isBurgerOpen, setBurgerOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   const { cartItems, token, setToken, isAdmin, getCartCount } = useContext(ShopContext);
 
   // const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -20,10 +22,10 @@ function Navbar() {
 
   const handleBurger = () => {
     setBurgerOpen(!isBurgerOpen);
-  }
+  };
   const handleOpenCart = () => {
     setIsCartOpen(true);
-  }
+  };
   const handleCloseCart = () => {
     setIsCartOpen(false);
   };
@@ -31,15 +33,34 @@ function Navbar() {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     setToken("");
-  }
+  };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setShowNavbar(false); // ซ่อน Navbar เมื่อเลื่อนลง
+      } else {
+        setShowNavbar(true); // แสดง Navbar เมื่อเลื่อนขึ้น
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
 
   return (
-    <div className="w-full h-full bg-black">
+    <div
+      className={`w-full h-auto bg-black fixed top-0 left-0 z-50 transition-transform duration-300 ${
+        showNavbar ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       {/* bg-[#4A4947] */}
       <div className="flex items-center h-fit justify-between px-[32px] text-white py-[16px] relative max-lg:px-[12px]">
         {/* Logo */}
-        <Link className="flex items-center justify-center max-lg:hidden" to="/" >
+        <Link className="flex items-center justify-center max-lg:hidden" to="/">
           <img className="h-[48px]" src={logo} alt="logo" />
         </Link>
         <Link className="flex space-x-2 lg:hidden" to="/">
@@ -50,11 +71,41 @@ function Navbar() {
         {/* Desktop Navigation */}
         <nav className="absolute transform -translate-x-1/2 left-1/2 max-md:hidden">
           <ul className="flex items-center space-x-6 text-center">
-            <Link className="hover:underline hover:decoration-solid" to="/homeallproducts">All Product</Link>
-            <Link className="hover:underline hover:decoration-solid" to="/homedecor">Home Decor</Link>
-            <Link className="hover:underline hover:decoration-solid" to="/bathbody">Bath & Body</Link>
-            <Link className="hover:underline hover:decoration-solid" to="/apparel">Apparel</Link>
-            <Link className="hover:underline hover:decoration-solid" to="/accessories">Accessories</Link>
+            <Link
+              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+              to="/homeallproducts"
+            >
+              All Product
+              <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+            </Link>
+            <Link
+              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+              to="/homedecor"
+            >
+              Home Decor
+              <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+            </Link>
+            <Link
+              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+              to="/bathbody"
+            >
+              Bath & Body
+              <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+            </Link>
+            <Link
+              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+              to="/apparel"
+            >
+              Apparel
+              <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+            </Link>
+            <Link
+              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+              to="/accessories"
+            >
+              Accessories
+              <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+            </Link>
           </ul>
         </nav>
 
@@ -63,32 +114,58 @@ function Navbar() {
           {/* <Link to='/login'><img className="w-[24px] h-[24px]" src={login} alt="login-icon" /></Link> */}
 
           {/* Dropdown menu */}
-          <div className="bg-[#4A4947] group relative dropdown px-2">
+          <div className="bg-black group relative dropdown px-2">
+            {token ? (
+              <img
+                className="w-[24px] h-[24px] cursor-pointer"
+                src={login}
+                alt="login-icon"
+              />
+            ) : (
+              <Link className="block" to="/login">
+                <div className="cursor-pointer">Login</div>
+              </Link>
+            )}
 
-            {token ?
-              <img className="w-[24px] h-[24px] cursor-pointer" src={login} alt="login-icon" />
-            : <Link className="block" to='/login'><div className="cursor-pointer">Login</div></Link>
-            }
-
-            { token &&
-              <div className="absolute hidden h-auto p-4 group-hover:block dropdown-menu right-1">
-                <ul className="bg-[#4A4947] flex flex-col gap-2 w-32 top-0 p-4 shadow">
-                  <li className="cursor-pointer"><Link className="block" to='/userprofile'>User Profile</Link></li>
-                  {isAdmin && <li className="cursor-pointer"><Link className="block" to='/admin'>Admin</Link></li>}
-                  {token &&
+            {token && (
+              <div className="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-1 transition-all duration-500 ease-in-out  right-1 ">
+                <ul className="bg-black rounded-lg  flex flex-col gap-2 w-32 top-0 p-4 shadow">
+                  <li className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out">
+                    <Link className=" block" to="/userprofile">
+                      User Profile
+                    </Link>
+                  </li>
+                  {isAdmin && (
+                    <li className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out">
+                      <Link className="block" to="/admin">
+                        Admin
+                      </Link>
+                    </li>
+                  )}
+                  {token && (
                     <>
-                      <li className="cursor-pointer"><Link className="block" to='/cartpage'>Orders</Link></li>
-                      <li onClick={logout} className="cursor-pointer"><Link className="block" to='/login'>Logout</Link></li>
+                      <li className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out">
+                        <Link className="block" to="/cartpage">
+                          Orders
+                        </Link>
+                      </li>
+                      <li
+                        onClick={logout}
+                        className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out"
+                      >
+                        <Link className="block" to="/login">
+                          Logout
+                        </Link>
+                      </li>
                     </>
-                  }
+                  )}
                 </ul>
               </div>
-            }
-
+            )}
           </div>
-          <button onClick={() => handleOpenCart()}>
+          <button onClick={() => handleOpenCart()} className="relative">
             <img className="w-[24px] h-[24px]" src={cart} alt="cart-icon" />
-            <p className="absolute right-[23px] top-[20px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
+            <p className="absolute right-[-8px] top-[-8px]  w-4 text-center leading-4 bg-red-500  text-white  aspect-square rounded-full text-sm">
               {getCartCount()}
             </p>
           </button>
@@ -97,33 +174,43 @@ function Navbar() {
         <button className="md:hidden" onClick={handleBurger}>
           <img src={burger} alt="burger-icon" />
         </button>
-
       </div>
 
       {/* Burger Menu */}
-      {isBurgerOpen && (
-        <div className={`fixed top-0 right-0 h-full w-full md:w-[600px] z-50 bg-[#4A4947] text-white shadow-lg transform transition-transform duration-300 ease-in-out ${isBurgerOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
-          <div className="flex items-center justify-end p-4">
-            <button onClick={handleBurger} className="text-xl font-semibold">CLOSE</button>
-          </div>
-          <ul className="flex flex-col space-y-6 text-center items-left">
-            <Link onClick={handleBurger} to="/homeallproducts">All Product</Link>
-            <Link onClick={handleBurger} to="/homedecor">Home Decor</Link>
-            <Link onClick={handleBurger} to="/bathbody">Bath & Body</Link>
-            <Link onClick={handleBurger} to="/apparel">Apparel</Link>
-            <Link onClick={handleBurger} to="/accessories">Accessories</Link>
-          </ul>
+      <div
+        className={`fixed top-0 right-0 h-full w-full md:w-[600px] z-50 bg-black text-white shadow-lg transform transition-all duration-300 ease-in-out ${
+          isBurgerOpen
+            ? "translate-x-0 opacity-100 pointer-events-auto"
+            : "translate-x-full opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="flex items-center justify-end p-4">
+          <button onClick={handleBurger} className="text-xl font-semibold">
+            CLOSE
+          </button>
         </div>
-      )}
-      <CartConfirm
-        isOpen={isCartOpen}
-        onClose={handleCloseCart}
-      />
+        <ul className=" h-screen w-full bg-black flex flex-col space-y-6 text-center items-left">
+          <Link onClick={handleBurger} to="/homeallproducts">
+            All Product
+          </Link>
+          <Link onClick={handleBurger} to="/homedecor">
+            Home Decor
+          </Link>
+          <Link onClick={handleBurger} to="/bathbody">
+            Bath & Body
+          </Link>
+          <Link onClick={handleBurger} to="/apparel">
+            Apparel
+          </Link>
+          <Link onClick={handleBurger} to="/accessories">
+            Accessories
+          </Link>
+        </ul>
+      </div>
 
+      <CartConfirm isOpen={isCartOpen} onClose={handleCloseCart} />
     </div>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
