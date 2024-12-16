@@ -15,10 +15,8 @@ function Navbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  const { cartItems, token, setToken, isAdmin, getCartCount } = useContext(ShopContext);
-
-  // const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  // console.log("CARTITEM = ", cartItems);
+  const { cartItems, token, setToken, isAdmin, getCartCount } =
+    useContext(ShopContext);
 
   const handleBurger = () => {
     setBurgerOpen(!isBurgerOpen);
@@ -52,163 +50,171 @@ function Navbar() {
   }, [lastScrollY]);
 
   return (
-    <div
-      className={`w-full h-auto bg-black fixed top-0 left-0 z-50 transition-transform duration-300 ${
-        showNavbar ? "translate-y-0" : "-translate-y-full"
-      }`}
-    >
-      {/* bg-[#4A4947] */}
-      <div className="flex items-center h-fit justify-between px-[32px] text-white py-[16px] relative max-lg:px-[12px]">
-        {/* Logo */}
-        <Link className="flex items-center justify-center max-lg:hidden" to="/">
-          <img className="h-[48px]" src={logo} alt="logo" />
-        </Link>
-        <Link className="flex space-x-2 lg:hidden" to="/">
-          <img className="h-[48px]" src={logoIcon} alt="logo-icon" />
-          <img className="sm-hidden" src={logoName} alt="handy-heaven" />
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="absolute transform -translate-x-1/2 left-1/2 max-md:hidden">
-          <ul className="flex items-center space-x-6 text-center">
-            <Link
-              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
-              to="/homeallproducts"
-            >
-              All Product
-              <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
-            </Link>
-            <Link
-              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
-              to="/homedecor"
-            >
-              Home Decor
-              <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
-            </Link>
-            <Link
-              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
-              to="/bathbody"
-            >
-              Bath & Body
-              <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
-            </Link>
-            <Link
-              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
-              to="/apparel"
-            >
-              Apparel
-              <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
-            </Link>
-            <Link
-              className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
-              to="/accessories"
-            >
-              Accessories
-              <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
-            </Link>
-          </ul>
-        </nav>
-
-        {/* Icons */}
-        <div className="flex space-x-4 max-md:absolute max-md:transform max-md:-translate-x-1/2 max-md:left-1/2">
-          {/* <Link to='/login'><img className="w-[24px] h-[24px]" src={login} alt="login-icon" /></Link> */}
-
-          {/* Dropdown menu */}
-          <div className="bg-black group relative dropdown px-2">
-            {token ? (
-              <img
-                className="w-[24px] h-[24px] cursor-pointer"
-                src={login}
-                alt="login-icon"
-              />
-            ) : (
-              <Link className="block" to="/login">
-                <div className="cursor-pointer">Login</div>
-              </Link>
-            )}
-
-            {token && (
-              <div className="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-1 transition-all duration-500 ease-in-out  right-1 ">
-                <ul className="bg-black rounded-lg  flex flex-col gap-2 w-32 top-0 p-4 shadow">
-                  <li className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out">
-                    <Link className=" block" to="/userprofile">
-                      User Profile
-                    </Link>
-                  </li>
-                  {isAdmin && (
-                    <li className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out">
-                      <Link className="block" to="/admin">
-                        Admin
-                      </Link>
-                    </li>
-                  )}
-                  {token && (
-                    <>
-                      <li className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out">
-                        <Link className="block" to="/cartpage">
-                          Orders
-                        </Link>
-                      </li>
-                      <li
-                        onClick={logout}
-                        className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out"
-                      >
-                        <Link className="block" to="/login">
-                          Logout
-                        </Link>
-                      </li>
-                    </>
-                  )}
-                </ul>
-              </div>
-            )}
-          </div>
-          <button onClick={() => handleOpenCart()} className="relative">
-            <img className="w-[24px] h-[24px]" src={cart} alt="cart-icon" />
-            <p className="absolute right-[-8px] top-[-8px]  w-4 text-center leading-4 bg-red-500  text-white  aspect-square rounded-full text-sm">
-              {getCartCount()}
-            </p>
-          </button>
-        </div>
-
-        <button className="md:hidden" onClick={handleBurger}>
-          <img src={burger} alt="burger-icon" />
-        </button>
-      </div>
-
-      {/* Burger Menu */}
+    <div>
       <div
-        className={`fixed top-0 right-0 h-full w-full md:w-[600px] z-50 bg-black text-white shadow-lg transform transition-all duration-300 ease-in-out ${
-          isBurgerOpen
-            ? "translate-x-0 opacity-100 pointer-events-auto"
-            : "translate-x-full opacity-0 pointer-events-none"
+        // className="w-full h-full bg-black"
+
+        className={`w-full h-[80px] bg-black fixed top-0 left-0 z-50 transition-transform duration-300 ${
+          showNavbar ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="flex items-center justify-end p-4">
-          <button onClick={handleBurger} className="text-xl font-semibold">
-            CLOSE
+        {/* bg-[#4A4947] */}
+        <div className="flex items-center h-fit justify-between px-[32px] text-white py-[16px] relative max-lg:px-[12px]">
+          {/* Logo */}
+          <Link
+            className="flex items-center justify-center max-lg:hidden"
+            to="/"
+          >
+            <img className="h-[48px]" src={logo} alt="logo" />
+          </Link>
+          <Link className="flex space-x-2 lg:hidden" to="/">
+            <img className="h-[48px]" src={logoIcon} alt="logo-icon" />
+            <img className="sm-hidden" src={logoName} alt="handy-heaven" />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="absolute transform -translate-x-1/2 left-1/2 max-md:hidden">
+            <ul className="flex items-center space-x-6 text-center">
+              <Link
+                className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+                to="/homeallproducts"
+              >
+                All Product
+                <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+              </Link>
+              <Link
+                className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+                to="/homedecor"
+              >
+                Home Decor
+                <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+              </Link>
+              <Link
+                className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+                to="/bathbody"
+              >
+                Bath & Body
+                <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+              </Link>
+              <Link
+                className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+                to="/apparel"
+              >
+                Apparel
+                <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+              </Link>
+              <Link
+                className="relative group text-white font-medium transition-colors duration-300 hover:text-gray-300"
+                to="/accessories"
+              >
+                Accessories
+                <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-white transition-all duration-300 ease-in-out group-hover:w-full group-hover:left-0"></span>
+              </Link>
+            </ul>
+          </nav>
+
+          {/* Icons */}
+          <div className="flex space-x-4 max-md:absolute max-md:transform max-md:-translate-x-1/2 max-md:left-1/2">
+            {/* <Link to='/login'><img className="w-[24px] h-[24px]" src={login} alt="login-icon" /></Link> */}
+
+            {/* Dropdown menu */}
+            <div className="bg-black group relative dropdown px-2">
+              {token ? (
+                <img
+                  className="w-[24px] h-[24px] cursor-pointer"
+                  src={login}
+                  alt="login-icon"
+                />
+              ) : (
+                <Link className="block" to="/login">
+                  <div className="cursor-pointer">Login</div>
+                </Link>
+              )}
+
+              {token && (
+                <div className="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-1 transition-all duration-500 ease-in-out  right-1 ">
+                  <ul className="bg-black rounded-lg  flex flex-col gap-2 w-32 top-0 p-4 shadow">
+                    <li className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out">
+                      <Link className=" block" to="/userprofile">
+                        User Profile
+                      </Link>
+                    </li>
+                    {isAdmin && (
+                      <li className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out">
+                        <Link className="block" to="/admin">
+                          Admin
+                        </Link>
+                      </li>
+                    )}
+                    {token && (
+                      <>
+                        <li className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out">
+                          <Link className="block" to="/cartpage">
+                            Orders
+                          </Link>
+                        </li>
+                        <li
+                          onClick={logout}
+                          className="cursor-pointer hover:bg-gray-800 rounded transition duration-300 ease-in-out"
+                        >
+                          <Link className="block" to="/login">
+                            Logout
+                          </Link>
+                        </li>
+                      </>
+                    )}
+                  </ul>
+                </div>
+              )}
+            </div>
+            <button onClick={() => handleOpenCart()} className="relative">
+              <img className="w-[24px] h-[24px]" src={cart} alt="cart-icon" />
+              <p className="absolute right-[-8px] top-[-8px]  w-4 text-center leading-4 bg-red-500  text-white  aspect-square rounded-full text-sm">
+                {getCartCount()}
+              </p>
+            </button>
+          </div>
+
+          <button className="md:hidden" onClick={handleBurger}>
+            <img src={burger} alt="burger-icon" />
           </button>
         </div>
-        <ul className=" h-screen w-full bg-black flex flex-col space-y-6 text-center items-left">
-          <Link onClick={handleBurger} to="/homeallproducts">
-            All Product
-          </Link>
-          <Link onClick={handleBurger} to="/homedecor">
-            Home Decor
-          </Link>
-          <Link onClick={handleBurger} to="/bathbody">
-            Bath & Body
-          </Link>
-          <Link onClick={handleBurger} to="/apparel">
-            Apparel
-          </Link>
-          <Link onClick={handleBurger} to="/accessories">
-            Accessories
-          </Link>
-        </ul>
-      </div>
 
-      <CartConfirm isOpen={isCartOpen} onClose={handleCloseCart} />
+        {/* Burger Menu */}
+        <div
+          className={`fixed  top-0 right-0 h-full w-full md:w-[600px] z-50 bg-black text-white shadow-lg transform transition-all duration-300 ease-in-out ${
+            isBurgerOpen
+              ? "translate-x-0 opacity-100 pointer-events-auto"
+              : "translate-x-full opacity-0 pointer-events-none"
+          }`}
+        >
+          <div className="flex items-center justify-end p-4">
+            <button onClick={handleBurger} className="text-xl font-semibold">
+              CLOSE
+            </button>
+          </div>
+          <ul className=" h-screen w-full bg-black flex flex-col space-y-6 text-center items-left">
+            <Link onClick={handleBurger} to="/homeallproducts">
+              All Product
+            </Link>
+            <Link onClick={handleBurger} to="/homedecor">
+              Home Decor
+            </Link>
+            <Link onClick={handleBurger} to="/bathbody">
+              Bath & Body
+            </Link>
+            <Link onClick={handleBurger} to="/apparel">
+              Apparel
+            </Link>
+            <Link onClick={handleBurger} to="/accessories">
+              Accessories
+            </Link>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <CartConfirm isOpen={isCartOpen} onClose={handleCloseCart} />
+      </div>
     </div>
   );
 }

@@ -61,7 +61,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center text-black bg-[#FAF7F0]" >
+    <div className="pt-custom flex flex-col items-center text-black bg-[#FAF7F0]" >
 
       {/* ส่วนลดสูงสุด 50% */} 
       <div className="flex justify-center w-full md:h-screen h-fit" style={{ backgroundImage: `url(${backgroundHeroImage})` }}>    
