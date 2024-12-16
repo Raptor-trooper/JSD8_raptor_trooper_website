@@ -13,6 +13,7 @@ export default {
   },
   plugins: [
     require('daisyui'),
+    require('@tailwindcss/line-clamp'),
     // require("@tailwindcss/forms"),
   ],
   daisyui: {
