@@ -52,7 +52,7 @@ const CartConfirm = ({ isOpen, onClose }) => {
                 ${isOpen ? "translate-x-0" : "translate-x-full"} 
                 transition-transform duration-300 ease-in-out z-50`}
     >
-      <div className="flex items-center justify-between p-4 border-b">
+      <div className="flex items-center justify-end p-4 border-b">
         <button
           onClick={onClose}
           className="text-xl font-semibold text-black hover:text-red-700"

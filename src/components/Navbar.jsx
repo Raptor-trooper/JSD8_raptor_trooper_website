@@ -15,10 +15,8 @@ function Navbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  const { cartItems, token, setToken, isAdmin, getCartCount } = useContext(ShopContext);
-
-  // const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  // console.log("CARTITEM = ", cartItems);
+  const { cartItems, token, setToken, isAdmin, getCartCount } =
+    useContext(ShopContext);
 
   const handleBurger = () => {
     setBurgerOpen(!isBurgerOpen);
@@ -171,10 +169,10 @@ function Navbar() {
           </button>
         </div>
 
-        <button className="md:hidden" onClick={handleBurger}>
-          <img src={burger} alt="burger-icon" />
-        </button>
-      </div>
+          <button className="md:hidden" onClick={handleBurger}>
+            <img src={burger} alt="burger-icon" />
+          </button>
+        </div>
 
       {/* Burger Menu */}
       <div

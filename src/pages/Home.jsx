@@ -1,6 +1,6 @@
-import { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { ShopContext } from '../Context/ShopContext';
+import { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { ShopContext } from "../Context/ShopContext";
 import backgroundImage from "../assets/home/Screenshot 2567-12-15 at 21.32.00.png";
 import backgroundHeroImage from "../assets/home/d3e0bfb3b74e47b44423484b2a204b6f.jpg";
 import newCollection from "../assets/home/8f373b630427ed0396c2423c40925614.jpg";
@@ -35,13 +35,12 @@ const Home = () => {
     // Step 4: Filter best-selling products
     const bestProduct = category.filter((item) => item.bestseller);
     setBestSeller(bestProduct.slice(0, 5));
-
   }, [category]);
-  
+
   const [selectedItem, setSelectedItem] = useState();
 
   const handleSelected = (id) => {
-    setSelectedItem(firstProductByCategory.find(item => item._id === id));
+    setSelectedItem(firstProductByCategory.find((item) => item._id === id));
   };
 
   const handlePrevClick = () => {
@@ -57,7 +56,9 @@ const Home = () => {
   };
 
   const getWrappedIndex = (index) => {
-    return ((index % bestSeller.length) + bestSeller.length) % bestSeller.length;
+    return (
+      ((index % bestSeller.length) + bestSeller.length) % bestSeller.length
+    );
   };
 
   return (
@@ -67,7 +68,9 @@ const Home = () => {
       <div className="flex justify-center w-full md:h-screen h-fit" style={{ backgroundImage: `url(${backgroundHeroImage})` }}>
         <div className="flex flex-col md:flex-row items-center p-[84px] mx-auto max-w-[1440px]">
           <div className="flex flex-col items-center w-3/4 mb-8 max-md:pt-8 max-md:pb-4 md:w-1/2 md:mr-8 md:mb-0">
-            <h1 className="mb-8 text-5xl font-bold text-center md:text-7xl">Choose what&apos;s right for you.</h1>
+            <h1 className="mb-8 text-5xl font-bold text-center md:text-7xl">
+              Choose what&apos;s right for you.
+            </h1>
             <Link
               to="/homeallproducts"
               className="bg-black text-white px-5 py-2.5 text-base font-bold text-center"
@@ -99,7 +102,7 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="flex flex-row items-center gap-4 max-md:p-[16px]">
+            <div className="flex flex-row items-center gap-4 max-md:p-[16px] relative">
               {/* รูปแรก */}
               <Link
                 className="relative overflow-hidden lg:w-[700px] lg:h-[700px] w-[70vw] h-[70vw] flex-none"
@@ -179,8 +182,8 @@ const Home = () => {
 
           <div
             className="relative flex flex-col items-center justify-center w-full h-full bg-center bg-cover"
-            style={{ backgroundImage: `url(${backgroundImage})` }}>
-          </div>
+            style={{ backgroundImage: `url(${backgroundImage})` }}
+          ></div>
 
           <img
             className="object-cover w-1/4 md:w-fit"
@@ -207,7 +210,10 @@ const Home = () => {
           <div className="w-5/6 p-6 space-x-2 md:hidden carousel carousel-center">
             {/* card */}
             {firstProductByCategory.map((item) => (
-              <div key={item.id} className='flex flex-col items-center gap-4 text-center w-fit h-fit carousel-item'>
+              <div
+                key={item.id}
+                className="flex flex-col items-center gap-4 text-center w-fit h-fit carousel-item"
+              >
                 <img
                   className="object-cover size-[400px] rounded-lg"
                   src={item.image}
@@ -220,9 +226,9 @@ const Home = () => {
           </div>
 
           {/* desktop */}
-          <div className='flex items-center justify-between gap-8 max-md:hidden'>
-            <div className='flex flex-col gap-6'>
-              <div className='flex'>
+          <div className="flex items-center justify-between gap-8 max-md:hidden">
+            <div className="flex flex-col gap-6">
+              <div className="flex">
                 {firstProductByCategory.map((item, index) => {
                   console.log("Item in map:", item);
                   return (
