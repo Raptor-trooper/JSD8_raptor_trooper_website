@@ -16,7 +16,6 @@ import Apparel from './pages/Apparel'
 import Accessories from './pages/Accessories'
 import AboutUs from './pages/AboutUs'
 import Verify from './pages/Verify'
-// import ScrollToTop from './components/ScrollToTop'
 
 const router = createBrowserRouter([
   {
@@ -46,8 +45,6 @@ function App() {
   return (
     <ShopContextProvider>
       <RouterProvider router={router} />
-        {/* <ScrollToTop /> */}
-      {/* </RouterProvider> */}
     </ShopContextProvider>
   )
 }
