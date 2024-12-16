@@ -125,8 +125,8 @@ const Home = () => {
                     alt={`bestseller-${index}`}
                   />
                 ))}
-                <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60">
-                  <h2 className="py-3 pl-4 pr-24 text-2xl">
+                <div className="absolute bottom-0 flex items-center bg-[#FAF7F0] w-fit h-fit bg-opacity-60 z-20">
+                  <h2 className="py-3 pl-4 pr-24 text-2xl z-20">
                     {bestSeller[getWrappedIndex(currentIndex)]?.category}
                   </h2>
                 </div>
