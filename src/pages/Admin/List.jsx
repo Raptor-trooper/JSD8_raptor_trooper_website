@@ -6,13 +6,15 @@ import { AiOutlineDelete } from "react-icons/ai"; // ใช้ React Icon สำ
 import Swal from "sweetalert2";
 
 const List = () => {
-  const { Api } = useContext(ShopContext);
+  const { Api, token } = useContext(ShopContext);
   const [list, setList] = useState([]);
 
   // ฟังก์ชันดึงข้อมูลสินค้า
   const fetchList = async () => {
     try {
-      const response = await axios.get(`${Api}/product/list`);
+      const response = await axios.get(
+        `${Api}/product/list`
+      );
       if (response.data.success) {
         setList(response.data.products.reverse());
       } else {
@@ -41,15 +43,19 @@ const List = () => {
             const response = await axios.post(
                 `${Api}/product/remove`,
                 { id },
+                {
+                  headers: { Authorization: `Bearer ${token}` }
+                }
             );
 
             if (response.data.success) {
                 Swal.fire("Deleted!", response.data.message, "success");
                 await fetchList();
             } else {
+                Swal.fire("You can't delete it!");
                 toast.error(response.data.message);
             }
-        }
+        } 
     } catch (error) {
         console.log(error);
         toast.error(error.message);

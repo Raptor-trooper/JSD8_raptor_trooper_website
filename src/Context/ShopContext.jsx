@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, { createContext, useEffect, useState } from 'react'
-import { toast } from "react-toastify";
 export const ShopContext = createContext();
 import Swal from 'sweetalert2'
 
@@ -52,11 +51,10 @@ const ShopContextProvider = ({ children }) => {
             if (data.success) {
                 setUser(data.user)
             } else {
-                toast.error("Failed to fetch user profile.");
+                console.log("Failed to fetch user profile.");
             }
         } catch (error) {
-            console.log(error);
-            toast.error(error.message);
+            console.log(error.message);
         }
 
     }
@@ -76,14 +74,9 @@ const ShopContextProvider = ({ children }) => {
                 );
                 if (response.data.success) {
                     setUpdateUserInfo(!updateUserInfo)
-                    Swal.fire({
-                        title: "Profile updated successfully!",
-                        icon: "success"
-                    });
                 }
             } catch (error) {
-                console.log(error);
-                toast.error(error.message);
+                console.log(error.message);
             }
         }
     }
@@ -116,8 +109,7 @@ const ShopContextProvider = ({ children }) => {
                     { itemId }, { headers: { authorization: `Bearer ${token}` } }
                 );
             } catch (error) {
-                console.log(error);
-                toast.error(error.message);
+                console.log(error.message);
             }
         }
     };
@@ -133,7 +125,7 @@ const ShopContextProvider = ({ children }) => {
                     totalCount += cartItems[items];
                 }
             } catch (error) {
-                console.log(error);
+                console.log(error.message);
             }
         }
         return totalCount;
@@ -159,8 +151,7 @@ const ShopContextProvider = ({ children }) => {
                     { itemId, quantity }, { headers: { authorization: `Bearer ${token}` } }
                 );
             } catch (error) {
-                console.log(error);
-                toast.error(error.message);
+                console.log(error.message);
             }
         }
     };
@@ -175,7 +166,7 @@ const ShopContextProvider = ({ children }) => {
                     totalAmount += itemInfo.price * cartItems[items];
                 }
             } catch (error) {
-                console.log(error);
+                console.log(error.message);
             }
         }
         return totalAmount;
@@ -193,8 +184,7 @@ const ShopContextProvider = ({ children }) => {
                 setCartItems(response.data.cartData);
             }
         } catch (error) {
-            console.log(error);
-            toast.error(error.message);
+            console.log(error.message);
         }
     };
 

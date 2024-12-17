@@ -4,22 +4,46 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Add from './Admin/Add';
 import List from './Admin/List';
 import Orders from './Admin/Orders';
+import ProtectRoute from './ProtectRoute';
 
 const Admin = () => {
     return (
-        <div className="flex h-auto bg-gray-100">
+        <div className="flex h-full bg-gray-100">
             {/* Sidebar Section */}
             <Sidebar />
 
             {/* Main Admin Content Section */}
-            <div className="flex-1 p-8">
+            <div className="flex-1 p-8 mb-16">
                 <div className="p-6 bg-white rounded-lg shadow-md">
                     <Routes>
                         {/* Default Route to Add Page */}
                         <Route path="/" element={<Navigate to="add" replace />} />
-                        <Route path="add" element={<Add />} />
-                        <Route path="list" element={<List />} />
-                        <Route path="orders" element={<Orders />} />
+
+                        {/* Protected Routes */}
+                        <Route
+                            path="add"
+                            element={
+                                <ProtectRoute allowedRoles={["admin"]}>
+                                    <Add />
+                                </ProtectRoute>
+                            }
+                        />
+                        <Route
+                            path="list"
+                            element={
+                                <ProtectRoute allowedRoles={["admin"]}>
+                                    <List />
+                                </ProtectRoute>
+                            }
+                        />
+                        <Route
+                            path="orders"
+                            element={
+                                <ProtectRoute allowedRoles={["admin"]}>
+                                    <Orders />
+                                </ProtectRoute>
+                            }
+                        />
                     </Routes>
                 </div>
             </div>
