@@ -81,11 +81,7 @@ const router = createBrowserRouter([
       },
       { path: '/verify',
         element: <Verify />
-      },
-      {
-        path: '/403',
-        element: <Page403 />
-      },
+      }
     ]
   }
 ])
