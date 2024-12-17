@@ -59,7 +59,7 @@ const ProductPage = () => {
               alt={`Product Image ${index + 1}`}
               className={`w-full h-24 object-cover rounded-lg cursor-pointer ${
                 selectedImage && selectedImage === img
-                  ? "border-2 border-black"
+                  ? "border-1 border-black"
                   : ""
               }`}
               onClick={() => {

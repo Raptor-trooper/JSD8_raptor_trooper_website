@@ -60,7 +60,7 @@ const CartConfirm = ({ isOpen, onClose }) => {
         </button>
       </div>
       <div
-        className="p-4 space-y-4 overflow-y-auto"
+        className="p-4 space-y-4 overflow-y-auto bg-white"
         style={{ maxHeight: "60vh" }}
       >
         {cartData.map((item, index) => {
@@ -100,7 +100,7 @@ const CartConfirm = ({ isOpen, onClose }) => {
           Shipping & taxes calculated at checkout
         </p>
       </div>
-      <div className="flex p-4 space-x-4">
+      <div className="flex p-4 space-x-4 bg-white">
         <button className="button w-1/2 " onClick={handleViewCart}>
           VIEW CART
         </button>
