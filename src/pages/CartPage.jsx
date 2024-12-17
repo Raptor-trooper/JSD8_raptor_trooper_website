@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ShopContext } from "../Context/ShopContext";
 import { useNavigate } from "react-router-dom";
 import CartTotal from "../components/CartTotal";
@@ -46,7 +46,6 @@ const CartPage = () => {
                 <img
                   className="w-16 sm:w-20"
                   src={productData.image[0]}
-                  alt=""
                 />
                 <div>
                   <p className="text-xs font-medium sm:text-lg">
