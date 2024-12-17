@@ -52,7 +52,7 @@ function Navbar() {
   return (
   <div>
       <div
-      className={`w-full h-auto bg-black fixed top-0 left-0 z-50 transition-transform duration-300 ${
+      className={`w-full h-auto bg-black  fixed top-0 left-0 z-50 transition-transform duration-300 absolute${
         showNavbar ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -176,7 +176,7 @@ function Navbar() {
 
       {/* Burger Menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-full md:w-[600px] z-50 bg-black text-white shadow-lg transform transition-all duration-300 ease-in-out ${
+        className={` fixed top-0 right-0 h-full w-full md:w-[600px] z-50 bg-black text-white shadow-lg transform transition-all duration-300 ease-in-out ${
           isBurgerOpen
             ? "translate-x-0 opacity-100 pointer-events-auto"
             : "translate-x-full opacity-0 pointer-events-none"
