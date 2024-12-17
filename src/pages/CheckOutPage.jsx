@@ -97,12 +97,11 @@ const CheckoutPage = () => {
         const { session_url } = responseStripe.data;
         window.location.replace(session_url);
       } else {
-        console.log(error);
-        // toast.error(responseStripe.data.message);
+        toast.error(responseStripe.data.message);
       }
     } catch (error) {
       console.log(error);
-      // toast.error(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -217,7 +216,7 @@ const CheckoutPage = () => {
               <img
                 src={product?.image[0]}
                 alt={product?.name}
-                className="w-16 h-16 object-cover rounded"
+                className="object-cover w-16 h-16 rounded"
               />
               <div>
                 <h3 className="font-semibold">{product?.name}</h3>
@@ -230,7 +229,7 @@ const CheckoutPage = () => {
         <CartTotal />
         <button
           type="submit"
-          className="w-full py-3 bg-black text-white font-semibold rounded"
+          className="w-full py-3 font-semibold text-white bg-black rounded"
         >
           Confirm & Pay
         </button>
