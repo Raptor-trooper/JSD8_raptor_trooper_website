@@ -1,24 +1,15 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ShopContext } from "../Context/ShopContext";
 import Loading from "../components/Loading";
 
-const ProtectRoute = ({ children, requiedRoles = [] }) => {
-  const { Api } = useContext(ShopContext);
+const ProtectRoute = ({ children }) => {
+  const { Api, token } = useContext(ShopContext);
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
   const [loading, setLoading] = useState(false);
 
-  if (!token) {
-    return <Navigate to="/login" replace />
-  }
-
-  if (role !== "admin" && requiedRoles[0] !== "admin") {
-    return <Navigate to="/403" replace />;
-  }
 
   useEffect(() => {
     checkRole();

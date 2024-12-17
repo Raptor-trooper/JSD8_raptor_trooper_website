@@ -4,7 +4,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Add from './Admin/Add';
 import List from './Admin/List';
 import Orders from './Admin/Orders';
-import ProtectRoute from './ProtectRoute';
 
 const Admin = () => {
     return (
@@ -22,27 +21,15 @@ const Admin = () => {
                         {/* Protected Routes */}
                         <Route
                             path="add"
-                            element={
-                                <ProtectRoute allowedRoles={["admin"]}>
-                                    <Add />
-                                </ProtectRoute>
-                            }
+                            element={<Add />}
                         />
                         <Route
                             path="list"
-                            element={
-                                <ProtectRoute allowedRoles={["admin"]}>
-                                    <List />
-                                </ProtectRoute>
-                            }
+                            element={<List />}
                         />
                         <Route
                             path="orders"
-                            element={
-                                <ProtectRoute allowedRoles={["admin"]}>
-                                    <Orders />
-                                </ProtectRoute>
-                            }
+                            element={<Orders /> }
                         />
                     </Routes>
                 </div>
