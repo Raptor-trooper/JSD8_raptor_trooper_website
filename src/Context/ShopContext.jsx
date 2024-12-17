@@ -74,10 +74,6 @@ const ShopContextProvider = ({ children }) => {
                 );
                 if (response.data.success) {
                     setUpdateUserInfo(!updateUserInfo)
-                    Swal.fire({
-                        title: "Profile updated successfully!",
-                        icon: "success"
-                    });
                 }
             } catch (error) {
                 console.log(error.message);
