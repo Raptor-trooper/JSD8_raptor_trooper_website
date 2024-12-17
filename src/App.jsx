@@ -16,7 +16,6 @@ import Accessories from './pages/Accessories'
 import AboutUs from './pages/AboutUs'
 import Verify from './pages/Verify'
 import ProtectRoute from './pages/ProtectRoute'
-import Page403 from './pages/Page403'
 
 const router = createBrowserRouter([
   {
@@ -81,11 +80,7 @@ const router = createBrowserRouter([
       },
       { path: '/verify',
         element: <Verify />
-      },
-      {
-        path: '/403',
-        element: <Page403 />
-      },
+      }
     ]
   }
 ])
