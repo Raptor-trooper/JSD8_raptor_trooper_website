@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Add from './Admin/Add';
 import List from './Admin/List';
 import Orders from './Admin/Orders';
+import ProtectRoute from './ProtectRoute';
 
 const Admin = () => {
     return (
@@ -17,9 +18,32 @@ const Admin = () => {
                     <Routes>
                         {/* Default Route to Add Page */}
                         <Route path="/" element={<Navigate to="add" replace />} />
-                        <Route path="add" element={<Add />} />
-                        <Route path="list" element={<List />} />
-                        <Route path="orders" element={<Orders />} />
+
+                        {/* Protected Routes */}
+                        <Route
+                            path="add"
+                            element={
+                                <ProtectRoute allowedRoles={["admin"]}>
+                                    <Add />
+                                </ProtectRoute>
+                            }
+                        />
+                        <Route
+                            path="list"
+                            element={
+                                <ProtectRoute allowedRoles={["admin"]}>
+                                    <List />
+                                </ProtectRoute>
+                            }
+                        />
+                        <Route
+                            path="orders"
+                            element={
+                                <ProtectRoute allowedRoles={["admin"]}>
+                                    <Orders />
+                                </ProtectRoute>
+                            }
+                        />
                     </Routes>
                 </div>
             </div>
