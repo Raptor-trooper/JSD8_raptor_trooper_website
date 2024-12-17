@@ -1,9 +1,7 @@
-import React from 'react'
-
 const Loading = () => {
     return (
         <div className='flex justify-center w-full mx-auto text-center h-lvh' >
-            <span className="loading loading-spinner loading-lg bg-blue-500"></span>
+            <span className="bg-blue-500 loading loading-spinner loading-lg"></span>
         </div>
     )
 }

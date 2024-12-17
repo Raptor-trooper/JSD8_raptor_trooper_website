@@ -4,6 +4,7 @@ import { ShopContext } from "../Context/ShopContext";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 
+
 const ProductPage = () => {
   const { productId } = useParams();
   const { category, addToCart } = useContext(ShopContext);

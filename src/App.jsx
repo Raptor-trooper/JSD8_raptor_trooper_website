@@ -1,4 +1,3 @@
-import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './Layouts/Layout'
 import Home from './pages/Home'
@@ -86,7 +85,7 @@ const router = createBrowserRouter([
       {
         path: '/403',
         element: <Page403 />
-      }
+      },
     ]
   }
 ])
