@@ -15,7 +15,7 @@ const Home = () => {
   const [isClick, setIsClick] = useState(false);
 
   useEffect(() => {
-    // Step 1: Group products by category
+    //Group products by category
     const groupedByCategory = category.reduce((acc, product) => {
       if (!acc[product.category]) {
         acc[product.category] = [];
@@ -24,17 +24,17 @@ const Home = () => {
       return acc;
     }, {});
 
-    // Step 2: Get the first product for each category
+    //Get the first product for each category
     const firstProducts = Object.values(groupedByCategory).map(products => products[0]);
     setFirstProductByCategory(firstProducts);
 
-    // Step 3: Set the initial selected item
+    //Set the initial selected item
     const initialProduct = category.find(product => product.category === "Home Decor");
     if (initialProduct) {
       setSelectedItem(initialProduct);
     }
 
-    // Step 4: Filter best-selling products
+    //Filter best-selling products
     const bestProduct = category.filter((item) => item.bestseller);
     setBestSeller(bestProduct.slice(0, 5));
   }, [category]);

@@ -39,8 +39,6 @@ const Add = () => {
       image3 && formData.append("image3", image3);
       image4 && formData.append("image4", image4);
 
-      console.log(formData);
-
       const response = await axios.post(`${Api}/product/add`, formData);
 
       if (response.data.success) {

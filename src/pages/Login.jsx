@@ -73,6 +73,12 @@ const Login = () => {
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
+          Swal.fire({
+            title: "Sign Up Success",
+            icon: "success",
+          }).then(() => {
+            setCurrentState('Login')
+          });
         } else {
           Swal.fire({
             title: "Register Fail",
@@ -88,6 +94,12 @@ const Login = () => {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("role", response.data.role);
+          Swal.fire({
+            title: "Login Success",
+            icon: "success",
+          }).then(() => {
+            navigate("/");
+          });
         } else {
           Swal.fire({
             title: "Login Fail",
@@ -102,16 +114,16 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    if (token) {
-      Swal.fire({
-        title: "Login Success",
-        icon: "success",
-      }).then(() => {
-        navigate("/");
-      });
-    }
-  }, [token, navigate]);
+  // useEffect(() => {
+  //   if (token) {
+  //     Swal.fire({
+  //       title: "Login Success",
+  //       icon: "success",
+  //     }).then(() => {
+  //       navigate("/");
+  //     });
+  //   }
+  // }, [token, navigate]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">

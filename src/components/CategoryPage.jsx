@@ -3,7 +3,7 @@ import { ShopContext } from '../Context/ShopContext'
 import { Link } from 'react-router-dom'
 import Loading from './Loading'
 
-const Products = ({ categoryName }) => {
+const Products = ({ categoryName, description }) => {
 
     // Get Data Product from DataCategory fetch from floder Context
     const { category } = useContext(ShopContext);
@@ -28,7 +28,7 @@ const Products = ({ categoryName }) => {
                 {/* Header */}
                 <div className='px-[88px] mx-auto'>
                     <h1 className='pt-16 text-5xl font-bold'> {categoryName} </h1>
-                    <p className='my-8'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, unde.</p>
+                    <p className='my-8 indent-8'>{description}</p>
                     <hr />
 
                     {/* Link to Page */}

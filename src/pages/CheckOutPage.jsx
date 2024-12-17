@@ -56,10 +56,10 @@ const CheckoutPage = () => {
     try {
       await updateProfile();
       console.log("Profile updated successfully!");
-      toast.success("Profile updated successfully!");
+      // toast.success("Eiei");
     } catch (error) {
       console.log(error.message);
-      toast.error("Failed to update profile.");
+      // toast.error("Failed to update profile.");
     }
 
     try {
