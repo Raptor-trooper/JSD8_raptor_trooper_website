@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
 import backgroundHeroImage from "../images/home/hero-bg-2.jpg";
 import leftSide from "../images/home/learnmore-2.png";
@@ -13,6 +13,7 @@ const Home = () => {
   const [firstProductByCategory, setFirstProductByCategory] = useState([]);
   const [bestSeller, setBestSeller] = useState([]);
   const [isClick, setIsClick] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     //Group products by category
@@ -62,6 +63,15 @@ const Home = () => {
       ((index % bestSeller.length) + bestSeller.length) % bestSeller.length
     );
   };
+  // navigate category ที่เลือก
+  const navigateSelected = () => {
+    if (selectedItem?.category) {
+      const category = selectedItem?.category
+        .toLowerCase()
+        .replace(/[^a-zA-Z0-9]/g, '');
+      navigate(`/${category}`);
+    }
+  }
 
   return (
     <div className="flex flex-col items-center text-black bg-[#FAF7F0]" >
@@ -178,11 +188,6 @@ const Home = () => {
             src={leftSide}
           />
 
-          {/* <div
-            className="relative flex flex-col items-center justify-center w-full h-full bg-center bg-cover"
-            style={{ backgroundImage: `url(${backgroundImage})` }}
-          ></div> */}
-
           <img
             className="object-cover w-1/4 md:w-fit"
             src={rightSide}
@@ -254,7 +259,9 @@ const Home = () => {
               <div className='w-[300px] justify-between flex flex-col'>
                 <img className='h-[300px] w-[300px] object-cover' src={selectedItem?.image[1]} alt="selected-img" />
                 <p className='w-full p-2 text-lg line-clamp-3'>{selectedItem?.description}</p>
-                <button className='bg-black text-white px-5 py-2.5 text-base font-bold text-center'><Link to="/homeallproducts">Explore more</Link></button>
+                <button
+                onClick={() => navigateSelected()}
+                className='bg-black text-white px-5 py-2.5 text-base font-bold text-center'>Explore more</button>
               </div>
             </div>
           </div>
