@@ -16,26 +16,77 @@ import Apparel from './pages/Apparel'
 import Accessories from './pages/Accessories'
 import AboutUs from './pages/AboutUs'
 import Verify from './pages/Verify'
+import ProtectRoute from './pages/ProtectRoute'
+import Page403 from './pages/Page403'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
     children: [
-      { path: '/', element: <Home /> },
-      { path: '/homeallproducts', element: <HomeAllProducts /> },
-      { path: '/productpage/:productId', element: <ProductPage /> },
-      { path: '/cartpage', element: <CartPage /> },
-      { path: '/checkoutpage', element: <CheckOutPage /> },
-      { path: '/login', element: <Login /> },
-      { path: '/userprofile', element: <UserProfile /> },
-      { path: '/admin/*', element: <Admin />, },
-      { path: '/homedecor', element: <HomeDecor /> },
-      { path: '/bathbody', element: <BathBody /> },
-      { path: '/apparel', element: <Apparel /> },
-      { path: '/accessories', element: <Accessories /> },
-      { path: '/aboutus', element: <AboutUs /> },
-      { path: '/verify', element: <Verify /> }
+      {
+        path: '/',
+        element: <Home />
+      },
+      {
+        path: '/homeallproducts',
+        element: <HomeAllProducts />
+      },
+      {
+        path: '/productpage/:productId',
+        element: <ProductPage />
+
+      },
+      {
+        path: '/cartpage',
+        element: <CartPage />
+      },
+      {
+        path: '/checkoutpage',
+        element: <CheckOutPage />
+      },
+      {
+        path: '/login',
+        element: <Login />
+       },
+      { path: '/userprofile',
+        element: <UserProfile />
+
+      },
+      {
+        path: '/admin/*',
+        element:
+        <ProtectRoute requiedRoles={['admin']}>
+          <Admin />
+        </ProtectRoute>
+      },
+      { path: '/homedecor',
+        element: <HomeDecor />
+
+      },
+      { path: '/bathbody',
+        element: <BathBody />
+
+      },
+      { path: '/apparel',
+        element: <Apparel />
+
+      },
+      { path: '/accessories',
+        element: <Accessories />
+
+      },
+      { path: '/aboutus',
+        element: <AboutUs />
+
+      },
+      { path: '/verify',
+        element: <Verify />
+      },
+      {
+        path: '/403',
+        element: <Page403 />
+      }
     ]
   }
 ])

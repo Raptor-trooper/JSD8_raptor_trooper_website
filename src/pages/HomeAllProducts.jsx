@@ -26,7 +26,7 @@ const HomeAllProducts = () => {
                 <div className='px-[88px] mx-auto'>
 
                     <h1 className='pt-16 text-5xl font-bold'> All Products </h1>
-                    <p className='my-8'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, unde.</p>
+                    <p className='my-8 indent-8'>A curated selection of our finest products, ranging from handcrafted accessories to beautifully designed home decor. Each item reflects quality craftsmanship and unique style, perfect for adding a touch of elegance and charm to your life.</p>
                     <hr />
 
                     {/* Link to Page */}
