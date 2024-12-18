@@ -64,12 +64,10 @@ const Home = () => {
     );
   };
   // navigate category ที่เลือก
-  const navigateSelected = () => {
-    if (selectedItem?.category) {
-      const category = selectedItem?.category
-        .toLowerCase()
-        .replace(/[^a-zA-Z0-9]/g, '');
-      navigate(`/${category}`);
+  const navigateSelected = (category) => {
+    if (category) {
+      const selectedCategory = category.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+      navigate(`/${selectedCategory}`);
     }
   }
 
@@ -221,8 +219,10 @@ const Home = () => {
                   src={item?.image[0]}
                   alt="item-image"
                 />
-                <p className="text-lg">{item?.name}</p>
-                <button className='bg-black text-white px-5 py-2.5 text-base font-bold text-center'><Link to="/homeallproducts">Explore more</Link></button>
+                <p className="text-lg">{item?.category}</p>
+                <button
+                  onClick={() => navigateSelected(item?.category)}
+                className='bg-black text-white px-5 py-2.5 text-base font-bold text-center'>Explore more</button>
               </div>
             ))}
           </div>
@@ -260,7 +260,7 @@ const Home = () => {
                 <img className='h-[300px] w-[300px] object-cover' src={selectedItem?.image[1]} alt="selected-img" />
                 <p className='w-full p-2 text-lg line-clamp-3'>{selectedItem?.description}</p>
                 <button
-                onClick={() => navigateSelected()}
+                onClick={() => navigateSelected(selectedItem?.category)}
                 className='bg-black text-white px-5 py-2.5 text-base font-bold text-center'>Explore more</button>
               </div>
             </div>
